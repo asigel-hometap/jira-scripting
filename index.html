@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JIRA Assignee Randomizer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">JIRA Assignee Randomizer</h1>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold text-gray-700">Active Assignees</h2>
+                    <button id="refreshBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        Refresh List
+                    </button>
+                </div>
+                
+                <div id="loading" class="hidden">
+                    <div class="flex justify-center items-center py-8">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                    </div>
+                </div>
+                
+                <div id="error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"></div>
+                
+                <div id="results" class="space-y-2">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('results').classList.add('hidden');
+            document.getElementById('error').classList.add('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('results').classList.remove('hidden');
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+
+        function displayResults(assignees) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            
+            if (assignees.length === 0) {
+                resultsDiv.innerHTML = '<p class="text-gray-500 text-center py-4">No assignees found with multiple active issues.</p>';
+                return;
+            }
+
+            assignees.forEach(assignee => {
+                const div = document.createElement('div');
+                div.className = 'flex justify-between items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors';
+                div.innerHTML = `
+                    <span class="font-medium text-gray-700">${assignee.rank}. ${assignee.name}</span>
+                    <span class="text-sm text-gray-500">${assignee.issue_count} issues</span>
+                `;
+                resultsDiv.appendChild(div);
+            });
+        }
+
+        async function fetchAssignees() {
+            showLoading();
+            try {
+                // Replace with your actual API endpoint
+                const response = await fetch('https://your-api-endpoint.com/get_assignees');
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayResults(data.assignees);
+                } else {
+                    showError(data.error || 'Failed to fetch assignees');
+                }
+            } catch (error) {
+                showError('An error occurred while fetching assignees');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Initial load
+        fetchAssignees();
+
+        // Set up refresh button
+        document.getElementById('refreshBtn').addEventListener('click', fetchAssignees);
+    </script>
+</body>
+</html> 
