@@ -258,6 +258,21 @@ function updateTeamTable() {
 }
 
 function createSparklines(teamData) {
+    // Calculate the maximum value across all team members for consistent y-axis scaling
+    let maxValue = 0;
+    const allHistoricalData = [];
+    
+    teamData.forEach(member => {
+        if (historicalData && historicalData.team) {
+            const memberHistory = historicalData.team.filter(h => h.team_member === member.team_member);
+            if (memberHistory.length > 0) {
+                allHistoricalData.push(...memberHistory);
+                const memberMax = Math.max(...memberHistory.map(h => h.total_issues));
+                maxValue = Math.max(maxValue, memberMax);
+            }
+        }
+    });
+    
     teamData.forEach(member => {
         const canvasId = `sparkline-${member.team_member}`;
         const canvas = document.getElementById(canvasId);
@@ -319,7 +334,11 @@ function createSparklines(teamData) {
                         },
                         scales: {
                             x: { display: false },
-                            y: { display: false }
+                            y: { 
+                                display: false,
+                                min: 0,
+                                max: maxValue
+                            }
                         },
                         interaction: {
                             intersect: false
