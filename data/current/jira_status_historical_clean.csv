@@ -1,0 +1,152 @@
+date,project_status,count
+2025-01-01,05 Solution Discovery,2
+2025-01-01,06 Build,1
+2025-01-08,05 Solution Discovery,2
+2025-01-08,06 Build,1
+2025-01-15,07 Beta,3
+2025-01-15,06 Build,2
+2025-01-15,05 Solution Discovery,2
+2025-01-22,07 Beta,3
+2025-01-22,06 Build,2
+2025-01-22,05 Solution Discovery,2
+2025-01-29,07 Beta,3
+2025-01-29,06 Build,2
+2025-01-29,05 Solution Discovery,2
+2025-02-05,07 Beta,3
+2025-02-05,06 Build,2
+2025-02-05,05 Solution Discovery,2
+2025-02-12,07 Beta,3
+2025-02-12,06 Build,2
+2025-02-12,05 Solution Discovery,2
+2025-02-19,07 Beta,3
+2025-02-19,06 Build,2
+2025-02-19,05 Solution Discovery,2
+2025-02-26,07 Beta,3
+2025-02-26,06 Build,2
+2025-02-26,05 Solution Discovery,2
+2025-03-05,07 Beta,4
+2025-03-05,06 Build,2
+2025-03-05,05 Solution Discovery,2
+2025-03-12,07 Beta,5
+2025-03-12,06 Build,2
+2025-03-12,05 Solution Discovery,2
+2025-03-19,07 Beta,5
+2025-03-19,06 Build,2
+2025-03-19,05 Solution Discovery,2
+2025-03-26,07 Beta,5
+2025-03-26,06 Build,2
+2025-03-26,05 Solution Discovery,2
+2025-04-02,07 Beta,5
+2025-04-02,06 Build,2
+2025-04-02,05 Solution Discovery,2
+2025-04-09,02 Generative Discovery,2
+2025-04-09,07 Beta,5
+2025-04-09,06 Build,2
+2025-04-09,05 Solution Discovery,2
+2025-04-16,02 Generative Discovery,2
+2025-04-16,07 Beta,5
+2025-04-16,06 Build,2
+2025-04-16,05 Solution Discovery,2
+2025-04-23,06 Build,3
+2025-04-23,02 Generative Discovery,2
+2025-04-23,07 Beta,5
+2025-04-23,05 Solution Discovery,2
+2025-04-30,06 Build,3
+2025-04-30,02 Generative Discovery,2
+2025-04-30,07 Beta,5
+2025-04-30,05 Solution Discovery,2
+2025-05-07,06 Build,4
+2025-05-07,04 Problem Discovery,1
+2025-05-07,02 Generative Discovery,2
+2025-05-07,07 Beta,5
+2025-05-07,05 Solution Discovery,2
+2025-05-14,07 Beta,6
+2025-05-14,02 Generative Discovery,3
+2025-05-14,05 Solution Discovery,3
+2025-05-14,06 Build,4
+2025-05-14,04 Problem Discovery,1
+2025-05-21,07 Beta,6
+2025-05-21,02 Generative Discovery,3
+2025-05-21,05 Solution Discovery,3
+2025-05-21,06 Build,4
+2025-05-21,04 Problem Discovery,1
+2025-05-28,06 Build,7
+2025-05-28,07 Beta,7
+2025-05-28,02 Generative Discovery,3
+2025-05-28,05 Solution Discovery,3
+2025-05-28,04 Problem Discovery,1
+2025-06-04,05 Solution Discovery,4
+2025-06-04,06 Build,7
+2025-06-04,07 Beta,7
+2025-06-04,02 Generative Discovery,3
+2025-06-04,04 Problem Discovery,1
+2025-06-11,05 Solution Discovery,6
+2025-06-11,04 Problem Discovery,2
+2025-06-11,06 Build,8
+2025-06-11,07 Beta,8
+2025-06-11,02 Generative Discovery,3
+2025-06-18,05 Solution Discovery,6
+2025-06-18,04 Problem Discovery,2
+2025-06-18,06 Build,8
+2025-06-18,07 Beta,8
+2025-06-18,02 Generative Discovery,3
+2025-06-25,05 Solution Discovery,7
+2025-06-25,04 Problem Discovery,3
+2025-06-25,06 Build,9
+2025-06-25,07 Beta,8
+2025-06-25,02 Generative Discovery,3
+2025-07-02,05 Solution Discovery,8
+2025-07-02,02 Generative Discovery,5
+2025-07-02,04 Problem Discovery,4
+2025-07-02,06 Build,9
+2025-07-02,07 Beta,8
+2025-07-09,07 Beta,9
+2025-07-09,06 Build,11
+2025-07-09,05 Solution Discovery,8
+2025-07-09,02 Generative Discovery,5
+2025-07-09,04 Problem Discovery,4
+2025-07-16,07 Beta,11
+2025-07-16,06 Build,11
+2025-07-16,05 Solution Discovery,8
+2025-07-16,02 Generative Discovery,5
+2025-07-16,04 Problem Discovery,4
+2025-07-23,05 Solution Discovery,9
+2025-07-23,07 Beta,12
+2025-07-23,06 Build,11
+2025-07-23,02 Generative Discovery,5
+2025-07-23,04 Problem Discovery,4
+2025-07-30,06 Build,13
+2025-07-30,05 Solution Discovery,9
+2025-07-30,07 Beta,12
+2025-07-30,02 Generative Discovery,5
+2025-07-30,04 Problem Discovery,4
+2025-08-06,06 Build,14
+2025-08-06,05 Solution Discovery,11
+2025-08-06,02 Generative Discovery,6
+2025-08-06,07 Beta,13
+2025-08-06,04 Problem Discovery,5
+2025-08-13,06 Build,14
+2025-08-13,05 Solution Discovery,11
+2025-08-13,02 Generative Discovery,6
+2025-08-13,07 Beta,13
+2025-08-13,04 Problem Discovery,5
+2025-08-20,02 Generative Discovery,7
+2025-08-20,05 Solution Discovery,12
+2025-08-20,06 Build,15
+2025-08-20,07 Beta,14
+2025-08-20,04 Problem Discovery,5
+2025-08-27,06 Build,16
+2025-08-27,02 Generative Discovery,7
+2025-08-27,05 Solution Discovery,12
+2025-08-27,07 Beta,14
+2025-08-27,04 Problem Discovery,5
+2025-09-03,06 Build,17
+2025-09-03,05 Solution Discovery,13
+2025-09-03,02 Generative Discovery,7
+2025-09-03,07 Beta,14
+2025-09-03,04 Problem Discovery,5
+2025-09-08,05 Solution Discovery,15
+2025-09-08,02 Generative Discovery,8
+2025-09-08,06 Build,17
+2025-09-08,07 Beta,14
+2025-09-08,04 Problem Discovery,5

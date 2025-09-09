@@ -1,0 +1,260 @@
+date,health_status,count
+2025-01-01,On Track,0
+2025-01-01,Off Track,0
+2025-01-01,At Risk,0
+2025-01-01,Complete,0
+2025-01-01,On Hold,0
+2025-01-01,Mystery,0
+2025-01-01,Unknown,0
+2025-01-08,On Track,0
+2025-01-08,Off Track,0
+2025-01-08,At Risk,0
+2025-01-08,Complete,0
+2025-01-08,On Hold,0
+2025-01-08,Mystery,0
+2025-01-08,Unknown,0
+2025-01-15,On Track,0
+2025-01-15,Off Track,0
+2025-01-15,At Risk,0
+2025-01-15,Complete,0
+2025-01-15,On Hold,0
+2025-01-15,Mystery,0
+2025-01-15,Unknown,0
+2025-01-22,On Track,0
+2025-01-22,Off Track,0
+2025-01-22,At Risk,0
+2025-01-22,Complete,0
+2025-01-22,On Hold,0
+2025-01-22,Mystery,0
+2025-01-22,Unknown,0
+2025-01-29,On Track,0
+2025-01-29,Off Track,0
+2025-01-29,At Risk,0
+2025-01-29,Complete,0
+2025-01-29,On Hold,0
+2025-01-29,Mystery,0
+2025-01-29,Unknown,0
+2025-02-05,On Track,0
+2025-02-05,Off Track,0
+2025-02-05,At Risk,0
+2025-02-05,Complete,0
+2025-02-05,On Hold,0
+2025-02-05,Mystery,0
+2025-02-05,Unknown,0
+2025-02-12,On Track,0
+2025-02-12,Off Track,0
+2025-02-12,At Risk,0
+2025-02-12,Complete,0
+2025-02-12,On Hold,0
+2025-02-12,Mystery,0
+2025-02-12,Unknown,0
+2025-02-19,On Track,0
+2025-02-19,Off Track,0
+2025-02-19,At Risk,0
+2025-02-19,Complete,0
+2025-02-19,On Hold,0
+2025-02-19,Mystery,0
+2025-02-19,Unknown,0
+2025-02-26,On Track,0
+2025-02-26,Off Track,0
+2025-02-26,At Risk,0
+2025-02-26,Complete,0
+2025-02-26,On Hold,0
+2025-02-26,Mystery,0
+2025-02-26,Unknown,0
+2025-03-05,On Track,0
+2025-03-05,Off Track,0
+2025-03-05,At Risk,0
+2025-03-05,Complete,0
+2025-03-05,On Hold,0
+2025-03-05,Mystery,0
+2025-03-05,Unknown,0
+2025-03-12,On Track,0
+2025-03-12,Off Track,0
+2025-03-12,At Risk,0
+2025-03-12,Complete,0
+2025-03-12,On Hold,0
+2025-03-12,Mystery,0
+2025-03-12,Unknown,0
+2025-03-19,On Track,0
+2025-03-19,Off Track,0
+2025-03-19,At Risk,0
+2025-03-19,Complete,0
+2025-03-19,On Hold,0
+2025-03-19,Mystery,0
+2025-03-19,Unknown,0
+2025-03-26,On Track,0
+2025-03-26,Off Track,0
+2025-03-26,At Risk,0
+2025-03-26,Complete,0
+2025-03-26,On Hold,0
+2025-03-26,Mystery,0
+2025-03-26,Unknown,0
+2025-04-02,On Track,0
+2025-04-02,Off Track,0
+2025-04-02,At Risk,0
+2025-04-02,Complete,0
+2025-04-02,On Hold,0
+2025-04-02,Mystery,0
+2025-04-02,Unknown,0
+2025-04-09,On Track,0
+2025-04-09,Off Track,0
+2025-04-09,At Risk,0
+2025-04-09,Complete,0
+2025-04-09,On Hold,0
+2025-04-09,Mystery,0
+2025-04-09,Unknown,0
+2025-04-16,On Track,0
+2025-04-16,Off Track,0
+2025-04-16,At Risk,0
+2025-04-16,Complete,0
+2025-04-16,On Hold,0
+2025-04-16,Mystery,0
+2025-04-16,Unknown,0
+2025-04-23,On Track,0
+2025-04-23,Off Track,0
+2025-04-23,At Risk,0
+2025-04-23,Complete,0
+2025-04-23,On Hold,0
+2025-04-23,Mystery,0
+2025-04-23,Unknown,0
+2025-04-30,On Track,0
+2025-04-30,Off Track,0
+2025-04-30,At Risk,0
+2025-04-30,Complete,0
+2025-04-30,On Hold,0
+2025-04-30,Mystery,0
+2025-04-30,Unknown,0
+2025-05-07,On Track,0
+2025-05-07,Off Track,0
+2025-05-07,At Risk,0
+2025-05-07,Complete,0
+2025-05-07,On Hold,0
+2025-05-07,Mystery,0
+2025-05-07,Unknown,0
+2025-05-14,On Track,0
+2025-05-14,Off Track,0
+2025-05-14,At Risk,0
+2025-05-14,Complete,0
+2025-05-14,On Hold,0
+2025-05-14,Mystery,0
+2025-05-14,Unknown,0
+2025-05-21,On Track,0
+2025-05-21,Off Track,0
+2025-05-21,At Risk,0
+2025-05-21,Complete,0
+2025-05-21,On Hold,0
+2025-05-21,Mystery,0
+2025-05-21,Unknown,0
+2025-05-28,On Track,0
+2025-05-28,Off Track,0
+2025-05-28,At Risk,0
+2025-05-28,Complete,0
+2025-05-28,On Hold,0
+2025-05-28,Mystery,0
+2025-05-28,Unknown,0
+2025-06-04,On Track,0
+2025-06-04,Off Track,0
+2025-06-04,At Risk,0
+2025-06-04,Complete,0
+2025-06-04,On Hold,0
+2025-06-04,Mystery,0
+2025-06-04,Unknown,0
+2025-06-11,On Track,0
+2025-06-11,Off Track,0
+2025-06-11,At Risk,0
+2025-06-11,Complete,0
+2025-06-11,On Hold,0
+2025-06-11,Mystery,0
+2025-06-11,Unknown,0
+2025-06-18,On Track,0
+2025-06-18,Off Track,0
+2025-06-18,At Risk,0
+2025-06-18,Complete,0
+2025-06-18,On Hold,0
+2025-06-18,Mystery,0
+2025-06-18,Unknown,0
+2025-06-25,On Track,0
+2025-06-25,Off Track,0
+2025-06-25,At Risk,0
+2025-06-25,Complete,0
+2025-06-25,On Hold,0
+2025-06-25,Mystery,0
+2025-06-25,Unknown,0
+2025-07-02,On Track,0
+2025-07-02,Off Track,0
+2025-07-02,At Risk,0
+2025-07-02,Complete,0
+2025-07-02,On Hold,0
+2025-07-02,Mystery,0
+2025-07-02,Unknown,33
+2025-07-09,On Track,0
+2025-07-09,Off Track,0
+2025-07-09,At Risk,0
+2025-07-09,Complete,0
+2025-07-09,On Hold,0
+2025-07-09,Mystery,0
+2025-07-09,Unknown,38
+2025-07-16,On Track,0
+2025-07-16,Off Track,0
+2025-07-16,At Risk,0
+2025-07-16,Complete,0
+2025-07-16,On Hold,0
+2025-07-16,Mystery,0
+2025-07-16,Unknown,44
+2025-07-23,On Track,0
+2025-07-23,Off Track,0
+2025-07-23,At Risk,0
+2025-07-23,Complete,0
+2025-07-23,On Hold,0
+2025-07-23,Mystery,0
+2025-07-23,Unknown,48
+2025-07-30,On Track,0
+2025-07-30,Off Track,0
+2025-07-30,At Risk,0
+2025-07-30,Complete,0
+2025-07-30,On Hold,0
+2025-07-30,Mystery,0
+2025-07-30,Unknown,60
+2025-08-06,On Track,0
+2025-08-06,Off Track,0
+2025-08-06,At Risk,0
+2025-08-06,Complete,0
+2025-08-06,On Hold,0
+2025-08-06,Mystery,0
+2025-08-06,Unknown,64
+2025-08-13,On Track,0
+2025-08-13,Off Track,0
+2025-08-13,At Risk,0
+2025-08-13,Complete,0
+2025-08-13,On Hold,0
+2025-08-13,Mystery,0
+2025-08-13,Unknown,70
+2025-08-20,On Track,0
+2025-08-20,Off Track,0
+2025-08-20,At Risk,0
+2025-08-20,Complete,0
+2025-08-20,On Hold,0
+2025-08-20,Mystery,0
+2025-08-20,Unknown,79
+2025-08-27,On Track,0
+2025-08-27,Off Track,0
+2025-08-27,At Risk,0
+2025-08-27,Complete,0
+2025-08-27,On Hold,0
+2025-08-27,Mystery,0
+2025-08-27,Unknown,89
+2025-09-03,On Track,0
+2025-09-03,Off Track,0
+2025-09-03,At Risk,0
+2025-09-03,Complete,0
+2025-09-03,On Hold,0
+2025-09-03,Mystery,0
+2025-09-03,Unknown,98
+2025-09-08,On Track,0
+2025-09-08,Off Track,0
+2025-09-08,At Risk,0
+2025-09-08,Complete,0
+2025-09-08,On Hold,0
+2025-09-08,Mystery,0
+2025-09-08,Unknown,98

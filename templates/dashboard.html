@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jira Weekly Analysis Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800">Jira Weekly Analysis Dashboard</h1>
+                        <p class="text-gray-600 mt-2">Project health and team workload tracking</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-500">Last Updated</div>
+                        <div id="lastUpdated" class="text-lg font-semibold text-gray-800">Loading...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Total Projects</p>
+                            <p id="totalProjects" class="text-2xl font-semibold text-gray-900">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-green-100 text-green-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">On Track</p>
+                            <p id="onTrackCount" class="text-2xl font-semibold text-gray-900">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">At Risk</p>
+                            <p id="atRiskCount" class="text-2xl font-semibold text-gray-900">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-red-100 text-red-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Off Track</p>
+                            <p id="offTrackCount" class="text-2xl font-semibold text-gray-900">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Team Member Projects Chart -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Projects per Team Member</h3>
+                    <canvas id="teamChart" width="400" height="300"></canvas>
+                </div>
+
+                <!-- Health Status Chart -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Project Health Status</h3>
+                    <canvas id="healthChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+
+            <!-- Trends Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Health Trends -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Health Status Trends</h3>
+                    <canvas id="healthTrendsChart" width="400" height="300"></canvas>
+                </div>
+
+                <!-- Team Trends -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Team Workload Trends</h3>
+                    <canvas id="teamTrendsChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+
+            <!-- Team Member Details Table -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Team Member Details</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Team Member</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Projects</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">On Track</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">At Risk</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Off Track</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unknown</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teamTableBody" class="bg-white divide-y divide-gray-200">
+                            <!-- Data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables for charts
+        let teamChart, healthChart, healthTrendsChart, teamTrendsChart;
+
+        // Load summary data
+        async function loadSummary() {
+            try {
+                const response = await fetch('/api/summary');
+                const data = await response.json();
+                
+                document.getElementById('totalProjects').textContent = data.total_projects || 0;
+                document.getElementById('onTrackCount').textContent = data.health_breakdown['On Track'] || 0;
+                document.getElementById('atRiskCount').textContent = data.health_breakdown['At Risk'] || 0;
+                document.getElementById('offTrackCount').textContent = data.health_breakdown['Off Track'] || 0;
+                document.getElementById('lastUpdated').textContent = data.last_updated || 'Unknown';
+            } catch (error) {
+                console.error('Error loading summary:', error);
+            }
+        }
+
+        // Load team member data
+        async function loadTeamData() {
+            try {
+                const response = await fetch('/api/team-stats');
+                const data = await response.json();
+                
+                if (data.error) {
+                    console.error('Error loading team data:', data.error);
+                    return;
+                }
+
+                // Populate team table
+                const tbody = document.getElementById('teamTableBody');
+                tbody.innerHTML = '';
+                
+                data.team_members.forEach(member => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${member.name}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${member.total_projects}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">${member.on_track}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-600">${member.at_risk}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">${member.off_track}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${member.unknown_health}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                // Create team chart
+                createTeamChart(data.team_members);
+            } catch (error) {
+                console.error('Error loading team data:', error);
+            }
+        }
+
+        // Create team member projects chart
+        function createTeamChart(teamMembers) {
+            const ctx = document.getElementById('teamChart').getContext('2d');
+            
+            if (teamChart) {
+                teamChart.destroy();
+            }
+
+            teamChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: teamMembers.map(member => member.name),
+                    datasets: [{
+                        label: 'Total Projects',
+                        data: teamMembers.map(member => member.total_projects),
+                        backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Load and create health chart
+        async function loadHealthChart() {
+            try {
+                const response = await fetch('/api/health-trends');
+                const data = await response.json();
+                
+                if (data.error) {
+                    console.error('Error loading health data:', data.error);
+                    return;
+                }
+
+                const ctx = document.getElementById('healthChart').getContext('2d');
+                
+                if (healthChart) {
+                    healthChart.destroy();
+                }
+
+                const labels = Object.keys(data);
+                const values = Object.values(data).map(item => item.counts[item.counts.length - 1] || 0);
+
+                healthChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: values,
+                            backgroundColor: [
+                                'rgba(34, 197, 94, 0.5)',  // Green for On Track
+                                'rgba(234, 179, 8, 0.5)',  // Yellow for At Risk
+                                'rgba(239, 68, 68, 0.5)',  // Red for Off Track
+                                'rgba(107, 114, 128, 0.5)' // Gray for Unknown
+                            ],
+                            borderColor: [
+                                'rgba(34, 197, 94, 1)',
+                                'rgba(234, 179, 8, 1)',
+                                'rgba(239, 68, 68, 1)',
+                                'rgba(107, 114, 128, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading health chart:', error);
+            }
+        }
+
+        // Load and create trends charts
+        async function loadTrendsCharts() {
+            try {
+                // Health trends
+                const healthResponse = await fetch('/api/health-trends');
+                const healthData = await healthResponse.json();
+                
+                if (!healthData.error) {
+                    createHealthTrendsChart(healthData);
+                }
+
+                // Team trends
+                const teamResponse = await fetch('/api/team-trends');
+                const teamData = await teamResponse.json();
+                
+                if (!teamData.error) {
+                    createTeamTrendsChart(teamData);
+                }
+            } catch (error) {
+                console.error('Error loading trends charts:', error);
+            }
+        }
+
+        // Create health trends chart
+        function createHealthTrendsChart(data) {
+            const ctx = document.getElementById('healthTrendsChart').getContext('2d');
+            
+            if (healthTrendsChart) {
+                healthTrendsChart.destroy();
+            }
+
+            const datasets = Object.entries(data).map(([status, trendData], index) => {
+                const colors = [
+                    'rgba(34, 197, 94, 0.5)',   // Green
+                    'rgba(234, 179, 8, 0.5)',   // Yellow
+                    'rgba(239, 68, 68, 0.5)',   // Red
+                    'rgba(107, 114, 128, 0.5)'  // Gray
+                ];
+                
+                return {
+                    label: status,
+                    data: trendData.counts,
+                    borderColor: colors[index % colors.length],
+                    backgroundColor: colors[index % colors.length],
+                    fill: false,
+                    tension: 0.1
+                };
+            });
+
+            healthTrendsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data[Object.keys(data)[0]]?.dates || [],
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Create team trends chart
+        function createTeamTrendsChart(data) {
+            const ctx = document.getElementById('teamTrendsChart').getContext('2d');
+            
+            if (teamTrendsChart) {
+                teamTrendsChart.destroy();
+            }
+
+            const datasets = Object.entries(data).slice(0, 5).map(([member, trendData], index) => {
+                const colors = [
+                    'rgba(59, 130, 246, 0.5)',
+                    'rgba(16, 185, 129, 0.5)',
+                    'rgba(245, 158, 11, 0.5)',
+                    'rgba(239, 68, 68, 0.5)',
+                    'rgba(139, 92, 246, 0.5)'
+                ];
+                
+                return {
+                    label: member,
+                    data: trendData.total_projects,
+                    borderColor: colors[index % colors.length],
+                    backgroundColor: colors[index % colors.length],
+                    fill: false,
+                    tension: 0.1
+                };
+            });
+
+            teamTrendsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data[Object.keys(data)[0]]?.dates || [],
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize dashboard
+        async function initDashboard() {
+            await loadSummary();
+            await loadTeamData();
+            await loadHealthChart();
+            await loadTrendsCharts();
+        }
+
+        // Load dashboard on page load
+        document.addEventListener('DOMContentLoaded', initDashboard);
+
+        // Refresh data every 5 minutes
+        setInterval(initDashboard, 300000);
+    </script>
+</body>
+</html>

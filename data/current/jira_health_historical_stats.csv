@@ -1,0 +1,17 @@
+date,health_status,count
+2024-08-26,Complete,13
+2024-08-26,Unknown,1
+2024-09-02,Off Track,2
+2024-09-02,Complete,2
+2024-09-02,Unknown,2
+2024-09-09,Unknown,8
+2024-09-09,On Hold,1
+2024-09-09,Complete,9
+2024-09-09,On Track,7
+2024-09-16,Complete,2
+2024-09-16,On Hold,1
+2024-09-23,Unknown,1
+2024-09-23,Complete,1
+2024-09-23,On Hold,1
+2024-09-23,On Track,1
+2024-09-30,Unknown,2

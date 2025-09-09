@@ -1,0 +1,44 @@
+date,team_member,total_issues,on_track,off_track,at_risk,complete,on_hold,mystery,unknown_health,status_breakdown
+2025-07-02,Unassigned,33,0,0,0,0,0,0,33,{'Unknown': 33}
+2025-07-09,Unassigned,38,0,0,0,0,0,0,38,{'Unknown': 38}
+2025-07-16,Unassigned,43,0,0,0,0,0,0,43,{'Unknown': 43}
+2025-07-16,Jacqueline Gallagher,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-07-23,Unassigned,47,0,0,0,0,0,0,47,{'Unknown': 47}
+2025-07-23,Jacqueline Gallagher,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-07-30,Unassigned,59,0,0,0,0,0,0,59,{'Unknown': 59}
+2025-07-30,Jacqueline Gallagher,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-08-06,Unassigned,62,0,0,0,0,0,0,62,{'Unknown': 62}
+2025-08-06,Sanela Smaka,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-08-06,Jacqueline Gallagher,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-08-13,Unassigned,68,0,0,0,0,0,0,68,{'Unknown': 68}
+2025-08-13,Sanela Smaka,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-08-13,Jacqueline Gallagher,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-08-20,Unassigned,75,0,0,0,0,0,0,75,{'Unknown': 75}
+2025-08-20,Sanela Smaka,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-08-20,Mike Karolow,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-08-20,Jacqueline Gallagher,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-08-20,Jennie Goldenberg,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-08-27,Unassigned,83,0,0,0,0,0,0,83,{'Unknown': 83}
+2025-08-27,Sanela Smaka,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-08-27,Garima Giri,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-08-27,Jennie Goldenberg,2,0,0,0,0,0,0,2,{'02 Generative Discovery': 2}
+2025-08-27,Mike Karolow,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-08-27,Jacqueline Gallagher,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-09-03,Unassigned,86,0,0,0,0,0,0,86,{'Unknown': 86}
+2025-09-03,Sanela Smaka,3,0,0,0,0,0,0,3,{'02 Generative Discovery': 3}
+2025-09-03,Lizzy Magill,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-09-03,Garima Giri,2,0,0,0,0,0,0,2,{'02 Generative Discovery': 2}
+2025-09-03,Jennie Goldenberg,3,0,0,0,0,0,0,3,{'02 Generative Discovery': 3}
+2025-09-03,Mike Karolow,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-09-03,Jacqueline Gallagher,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-09-03,Adam Sigel,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-09-08,Unassigned,46,0,0,0,0,0,0,46,"{'Unknown': 45, '02 Generative Discovery': 1}"
+2025-09-08,Jennie Goldenberg,7,0,0,0,0,0,0,7,"{'02 Generative Discovery': 6, 'Unknown': 1}"
+2025-09-08,Sanela Smaka,19,0,0,0,0,0,0,19,"{'02 Generative Discovery': 10, 'Unknown': 9}"
+2025-09-08,Greg Mundy,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}
+2025-09-08,Adam Sigel,5,0,0,0,0,0,0,5,"{'02 Generative Discovery': 4, 'Unknown': 1}"
+2025-09-08,Lizzy Magill,5,0,0,0,0,0,0,5,"{'02 Generative Discovery': 3, 'Unknown': 2}"
+2025-09-08,Garima Giri,3,0,0,0,0,0,0,3,{'02 Generative Discovery': 3}
+2025-09-08,Jacqueline Gallagher,8,0,0,0,0,0,0,8,"{'02 Generative Discovery': 7, 'Unknown': 1}"
+2025-09-08,Robert J. Johnson,3,0,0,0,0,0,0,3,{'Unknown': 3}
+2025-09-08,Mike Karolow,1,0,0,0,0,0,0,1,{'02 Generative Discovery': 1}

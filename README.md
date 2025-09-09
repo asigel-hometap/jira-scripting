@@ -1,72 +1,48 @@
-# JIRA Assignee Randomizer
+# Jira Team Dashboard
 
-A web application that displays a randomized list of JIRA assignees who have multiple active issues in the Hometap project.
+A web-based dashboard for tracking team workload and project status trends from Jira Product Discovery.
 
-## Local Development
+## Features
 
-### Prerequisites
-- Python 3.x
-- pip (Python package manager)
-- JIRA API token
+- **Real-time Data**: Automatically pulls current project counts and status from Jira
+- **Historical Trends**: Shows project trends over time using your PM Capacity Tracking data
+- **Team Filtering**: Filter data by specific team members
+- **Health & Status Tracking**: Monitor project health (On Track, Off Track, At Risk, etc.) and status (Discovery, Build, Beta, etc.)
+- **Weighted Capacity**: Calculate team member capacity based on project status
+- **Visual Charts**: Interactive charts showing trends, breakdowns, and sparklines
 
-### Setup
-1. Clone the repository:
+## Quick Start
+
+### Local Development
 ```bash
-git clone https://github.com/yourusername/jira-assignee-randomizer.git
-cd jira-assignee-randomizer
-```
-
-2. Create and activate a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. Install dependencies:
-```bash
+# Install dependencies
 pip install -r requirements.txt
+
+# Run the application
+cd web && python app.py
+
+# Visit http://localhost:5001
 ```
 
-4. Set up your JIRA API token:
-```bash
-export JIRA_API_TOKEN='your-token'
-```
+### Deployment
+See [DEPLOYMENT.md](DEPLOYMENT.md) for hosting options.
 
-5. Run the Flask application:
-```bash
-python app.py
-```
+## Data Sources
 
-6. Open your browser and navigate to `http://localhost:5001`
+- **Current Data**: Pulled from Jira API using your API token
+- **Historical Data**: Backfilled from your PM Capacity Tracking spreadsheet
+- **Team Members**: Configurable list in `config/team_members.json`
 
-## Deployment
+## Configuration
 
-### GitHub Pages
-The static version of the site is hosted on GitHub Pages. To update the site:
+- **Team Members**: Edit `config/team_members.json`
+- **Settings**: Edit `config/settings.json` for capacity weights and thresholds
+- **API Token**: Set as environment variable `JIRA_API_TOKEN`
 
-1. Make changes to the `index.html` file
-2. Commit and push to the `main` branch
-3. GitHub Pages will automatically deploy the changes
+## Manual Data Refresh
 
-### API Backend
-The API backend needs to be hosted separately. You can use services like:
-- Heroku
-- PythonAnywhere
-- AWS Lambda
-- Google Cloud Functions
+The dashboard includes a "Refresh Data" button to manually pull the latest data from Jira. This is useful for weekly updates.
 
-Update the API endpoint in `index.html` to point to your hosted backend.
+## Support
 
-## Project Structure
-- `app.py` - Flask application for local development
-- `jira_assignees.py` - Core JIRA integration logic
-- `index.html` - Static web interface
-- `requirements.txt` - Python dependencies
-- `templates/` - Flask templates (for local development)
-
-## Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request 
+For questions or issues, contact the development team.

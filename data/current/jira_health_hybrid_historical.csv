@@ -1,0 +1,204 @@
+date,health_status,count
+2025-03-01,On Track,2
+2025-03-01,Off Track,0
+2025-03-01,At Risk,1
+2025-03-01,Complete,3
+2025-03-01,On Hold,1
+2025-03-01,Mystery,0
+2025-03-01,Unknown,0
+2025-03-08,On Track,2
+2025-03-08,Off Track,0
+2025-03-08,At Risk,1
+2025-03-08,Complete,5
+2025-03-08,On Hold,1
+2025-03-08,Mystery,0
+2025-03-08,Unknown,0
+2025-03-15,On Track,2
+2025-03-15,Off Track,0
+2025-03-15,At Risk,1
+2025-03-15,Complete,5
+2025-03-15,On Hold,1
+2025-03-15,Mystery,0
+2025-03-15,Unknown,0
+2025-03-22,On Track,2
+2025-03-22,Off Track,0
+2025-03-22,At Risk,1
+2025-03-22,Complete,5
+2025-03-22,On Hold,1
+2025-03-22,Mystery,0
+2025-03-22,Unknown,0
+2025-03-29,On Track,2
+2025-03-29,Off Track,0
+2025-03-29,At Risk,1
+2025-03-29,Complete,5
+2025-03-29,On Hold,1
+2025-03-29,Mystery,0
+2025-03-29,Unknown,0
+2025-04-05,On Track,2
+2025-04-05,Off Track,0
+2025-04-05,At Risk,1
+2025-04-05,Complete,5
+2025-04-05,On Hold,1
+2025-04-05,Mystery,0
+2025-04-05,Unknown,1
+2025-04-12,On Track,2
+2025-04-12,Off Track,0
+2025-04-12,At Risk,1
+2025-04-12,Complete,6
+2025-04-12,On Hold,1
+2025-04-12,Mystery,0
+2025-04-12,Unknown,1
+2025-04-19,On Track,2
+2025-04-19,Off Track,0
+2025-04-19,At Risk,1
+2025-04-19,Complete,6
+2025-04-19,On Hold,1
+2025-04-19,Mystery,0
+2025-04-19,Unknown,1
+2025-04-26,On Track,3
+2025-04-26,Off Track,0
+2025-04-26,At Risk,1
+2025-04-26,Complete,6
+2025-04-26,On Hold,1
+2025-04-26,Mystery,0
+2025-04-26,Unknown,1
+2025-05-03,On Track,3
+2025-05-03,Off Track,0
+2025-05-03,At Risk,1
+2025-05-03,Complete,6
+2025-05-03,On Hold,1
+2025-05-03,Mystery,0
+2025-05-03,Unknown,1
+2025-05-10,On Track,5
+2025-05-10,Off Track,0
+2025-05-10,At Risk,2
+2025-05-10,Complete,6
+2025-05-10,On Hold,1
+2025-05-10,Mystery,0
+2025-05-10,Unknown,2
+2025-05-17,On Track,6
+2025-05-17,Off Track,0
+2025-05-17,At Risk,2
+2025-05-17,Complete,6
+2025-05-17,On Hold,1
+2025-05-17,Mystery,0
+2025-05-17,Unknown,2
+2025-05-24,On Track,8
+2025-05-24,Off Track,0
+2025-05-24,At Risk,2
+2025-05-24,Complete,7
+2025-05-24,On Hold,1
+2025-05-24,Mystery,0
+2025-05-24,Unknown,2
+2025-05-31,On Track,9
+2025-05-31,Off Track,0
+2025-05-31,At Risk,3
+2025-05-31,Complete,7
+2025-05-31,On Hold,1
+2025-05-31,Mystery,0
+2025-05-31,Unknown,2
+2025-06-07,On Track,11
+2025-06-07,Off Track,0
+2025-06-07,At Risk,4
+2025-06-07,Complete,8
+2025-06-07,On Hold,2
+2025-06-07,Mystery,0
+2025-06-07,Unknown,2
+2025-06-14,On Track,11
+2025-06-14,Off Track,0
+2025-06-14,At Risk,4
+2025-06-14,Complete,8
+2025-06-14,On Hold,2
+2025-06-14,Mystery,0
+2025-06-14,Unknown,2
+2025-06-21,On Track,12
+2025-06-21,Off Track,0
+2025-06-21,At Risk,4
+2025-06-21,Complete,8
+2025-06-21,On Hold,2
+2025-06-21,Mystery,0
+2025-06-21,Unknown,2
+2025-06-28,On Track,15
+2025-06-28,Off Track,0
+2025-06-28,At Risk,4
+2025-06-28,Complete,8
+2025-06-28,On Hold,4
+2025-06-28,Mystery,0
+2025-06-28,Unknown,2
+2025-07-05,On Track,15
+2025-07-05,Off Track,0
+2025-07-05,At Risk,4
+2025-07-05,Complete,8
+2025-07-05,On Hold,5
+2025-07-05,Mystery,0
+2025-07-05,Unknown,2
+2025-07-12,On Track,17
+2025-07-12,Off Track,0
+2025-07-12,At Risk,4
+2025-07-12,Complete,9
+2025-07-12,On Hold,5
+2025-07-12,Mystery,0
+2025-07-12,Unknown,2
+2025-07-19,On Track,18
+2025-07-19,Off Track,0
+2025-07-19,At Risk,4
+2025-07-19,Complete,12
+2025-07-19,On Hold,5
+2025-07-19,Mystery,0
+2025-07-19,Unknown,2
+2025-07-26,On Track,18
+2025-07-26,Off Track,0
+2025-07-26,At Risk,4
+2025-07-26,Complete,12
+2025-07-26,On Hold,5
+2025-07-26,Mystery,0
+2025-07-26,Unknown,2
+2025-08-02,On Track,24
+2025-08-02,Off Track,0
+2025-08-02,At Risk,4
+2025-08-02,Complete,12
+2025-08-02,On Hold,6
+2025-08-02,Mystery,0
+2025-08-02,Unknown,2
+2025-08-09,On Track,24
+2025-08-09,Off Track,0
+2025-08-09,At Risk,5
+2025-08-09,Complete,12
+2025-08-09,On Hold,6
+2025-08-09,Mystery,0
+2025-08-09,Unknown,2
+2025-08-16,On Track,26
+2025-08-16,Off Track,0
+2025-08-16,At Risk,5
+2025-08-16,Complete,12
+2025-08-16,On Hold,7
+2025-08-16,Mystery,0
+2025-08-16,Unknown,2
+2025-08-23,On Track,26
+2025-08-23,Off Track,0
+2025-08-23,At Risk,5
+2025-08-23,Complete,12
+2025-08-23,On Hold,7
+2025-08-23,Mystery,0
+2025-08-23,Unknown,3
+2025-08-30,On Track,27
+2025-08-30,Off Track,0
+2025-08-30,At Risk,6
+2025-08-30,Complete,12
+2025-08-30,On Hold,7
+2025-08-30,Mystery,0
+2025-08-30,Unknown,3
+2025-09-06,On Track,30
+2025-09-06,Off Track,0
+2025-09-06,At Risk,6
+2025-09-06,Complete,12
+2025-09-06,On Hold,7
+2025-09-06,Mystery,0
+2025-09-06,Unknown,4
+2025-09-08,On Track,30
+2025-09-08,Off Track,0
+2025-09-08,At Risk,6
+2025-09-08,Complete,12
+2025-09-08,On Hold,7
+2025-09-08,Mystery,0
+2025-09-08,Unknown,4

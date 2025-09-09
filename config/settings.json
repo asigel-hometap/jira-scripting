@@ -1,0 +1,27 @@
+{
+  "jira": {
+    "url": "https://hometap.atlassian.net",
+    "project_key": "Hometap",
+    "health_field": "customfield_10238",
+    "archived_field": "customfield_10454"
+  },
+  "capacity": {
+    "weights": {
+      "02 Generative Discovery": 1.0,
+      "04 Problem Discovery": 1.0,
+      "05 Solution Discovery": 1.0,
+      "06 Build": 0.8,
+      "07 Beta": 0.5,
+      "On Hold": 1.0,
+      "Won't Do": 0.0,
+      "08 Live": 0.0,
+      "Archived": 0.0
+    },
+    "alert_threshold": 6,
+    "health_alert_weeks": 2
+  },
+  "data": {
+    "historical_start": "2025-01-01",
+    "refresh_timeout": 30
+  }
+}

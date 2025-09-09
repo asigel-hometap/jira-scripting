@@ -1,0 +1,68 @@
+date,team_member,total_issues,status_breakdown
+2025-06-28,Lizzy Magill,1,{'02 Generative Discovery': 1}
+2025-07-05,Adam Sigel,1,{'05 Solution Discovery': 1}
+2025-07-05,Lizzy Magill,1,{'02 Generative Discovery': 1}
+2025-07-12,Jennie Goldenberg,3,"{'05 Solution Discovery': 2, '04 Problem Discovery': 1}"
+2025-07-12,Adam Sigel,1,{'05 Solution Discovery': 1}
+2025-07-12,Lizzy Magill,1,{'02 Generative Discovery': 1}
+2025-07-19,Garima Giri,2,"{'05 Solution Discovery': 1, '06 Build': 1}"
+2025-07-19,Sanela Smaka,1,{'05 Solution Discovery': 1}
+2025-07-19,Jennie Goldenberg,5,"{'02 Generative Discovery': 2, '05 Solution Discovery': 2, '04 Problem Discovery': 1}"
+2025-07-19,Mike Karolow,1,{'06 Build': 1}
+2025-07-19,Adam Sigel,1,{'05 Solution Discovery': 1}
+2025-07-19,Lizzy Magill,1,{'02 Generative Discovery': 1}
+2025-07-26,Sanela Smaka,2,"{'07 Beta': 1, '05 Solution Discovery': 1}"
+2025-07-26,Garima Giri,2,"{'05 Solution Discovery': 1, '06 Build': 1}"
+2025-07-26,Jennie Goldenberg,5,"{'02 Generative Discovery': 2, '06 Build': 1, '05 Solution Discovery': 2}"
+2025-07-26,Mike Karolow,1,{'06 Build': 1}
+2025-07-26,Adam Sigel,1,{'05 Solution Discovery': 1}
+2025-07-26,Lizzy Magill,1,{'02 Generative Discovery': 1}
+2025-08-02,Lizzy Magill,3,{'02 Generative Discovery': 3}
+2025-08-02,Garima Giri,3,"{'04 Problem Discovery': 1, '05 Solution Discovery': 1, '06 Build': 1}"
+2025-08-02,Jacqueline Gallagher,4,{'02 Generative Discovery': 4}
+2025-08-02,Sanela Smaka,4,"{'05 Solution Discovery': 2, '07 Beta': 1, '06 Build': 1}"
+2025-08-02,Jennie Goldenberg,5,"{'05 Solution Discovery': 3, '06 Build': 2}"
+2025-08-02,Mike Karolow,1,{'06 Build': 1}
+2025-08-02,Adam Sigel,1,{'05 Solution Discovery': 1}
+2025-08-09,Adam Sigel,2,"{'06 Build': 1, '05 Solution Discovery': 1}"
+2025-08-09,Lizzy Magill,3,{'02 Generative Discovery': 3}
+2025-08-09,Garima Giri,3,"{'06 Build': 2, '02 Generative Discovery': 1}"
+2025-08-09,Jacqueline Gallagher,4,{'02 Generative Discovery': 4}
+2025-08-09,Sanela Smaka,3,"{'05 Solution Discovery': 2, '06 Build': 1}"
+2025-08-09,Jennie Goldenberg,5,"{'05 Solution Discovery': 2, '06 Build': 3}"
+2025-08-09,Mike Karolow,1,{'06 Build': 1}
+2025-08-16,Sanela Smaka,6,"{'05 Solution Discovery': 4, '07 Beta': 1, '06 Build': 1}"
+2025-08-16,Adam Sigel,2,"{'06 Build': 1, '05 Solution Discovery': 1}"
+2025-08-16,Lizzy Magill,3,{'02 Generative Discovery': 3}
+2025-08-16,Garima Giri,3,"{'06 Build': 2, '02 Generative Discovery': 1}"
+2025-08-16,Jacqueline Gallagher,3,"{'04 Problem Discovery': 1, '02 Generative Discovery': 2}"
+2025-08-16,Jennie Goldenberg,5,"{'05 Solution Discovery': 2, '06 Build': 3}"
+2025-08-16,Mike Karolow,1,{'06 Build': 1}
+2025-08-23,Sanela Smaka,7,"{'02 Generative Discovery': 1, '05 Solution Discovery': 3, '06 Build': 1, '07 Beta': 2}"
+2025-08-23,Adam Sigel,2,"{'06 Build': 1, '05 Solution Discovery': 1}"
+2025-08-23,Lizzy Magill,3,"{'04 Problem Discovery': 1, '02 Generative Discovery': 2}"
+2025-08-23,Garima Giri,3,"{'06 Build': 1, '02 Generative Discovery': 1, '07 Beta': 1}"
+2025-08-23,Jacqueline Gallagher,3,"{'04 Problem Discovery': 1, '02 Generative Discovery': 2}"
+2025-08-23,Jennie Goldenberg,5,"{'05 Solution Discovery': 2, '07 Beta': 1, '06 Build': 2}"
+2025-08-23,Mike Karolow,1,{'07 Beta': 1}
+2025-08-30,Sanela Smaka,8,"{'05 Solution Discovery': 3, '02 Generative Discovery': 1, '06 Build': 3, '07 Beta': 1}"
+2025-08-30,Jacqueline Gallagher,3,"{'06 Build': 1, '05 Solution Discovery': 1, '04 Problem Discovery': 1}"
+2025-08-30,Adam Sigel,2,"{'06 Build': 1, '05 Solution Discovery': 1}"
+2025-08-30,Lizzy Magill,3,"{'04 Problem Discovery': 1, '02 Generative Discovery': 2}"
+2025-08-30,Garima Giri,2,"{'06 Build': 1, '02 Generative Discovery': 1}"
+2025-08-30,Jennie Goldenberg,5,"{'07 Beta': 2, '05 Solution Discovery': 1, '06 Build': 2}"
+2025-08-30,Mike Karolow,1,{'07 Beta': 1}
+2025-09-06,Jennie Goldenberg,7,"{'05 Solution Discovery': 2, '07 Beta': 3, '06 Build': 2}"
+2025-09-06,Sanela Smaka,8,"{'02 Generative Discovery': 2, '05 Solution Discovery': 2, '06 Build': 3, '07 Beta': 1}"
+2025-09-06,Mike Karolow,2,"{'06 Build': 1, '07 Beta': 1}"
+2025-09-06,Jacqueline Gallagher,3,"{'06 Build': 1, '05 Solution Discovery': 1, '04 Problem Discovery': 1}"
+2025-09-06,Adam Sigel,2,"{'06 Build': 1, '05 Solution Discovery': 1}"
+2025-09-06,Lizzy Magill,3,"{'05 Solution Discovery': 1, '02 Generative Discovery': 2}"
+2025-09-06,Garima Giri,2,"{'07 Beta': 1, '05 Solution Discovery': 1}"
+2025-09-08,Jennie Goldenberg,7,"{'05 Solution Discovery': 2, '07 Beta': 3, '06 Build': 2}"
+2025-09-08,Sanela Smaka,8,"{'02 Generative Discovery': 2, '05 Solution Discovery': 2, '06 Build': 3, '07 Beta': 1}"
+2025-09-08,Mike Karolow,2,"{'06 Build': 1, '07 Beta': 1}"
+2025-09-08,Jacqueline Gallagher,3,"{'06 Build': 1, '05 Solution Discovery': 1, '04 Problem Discovery': 1}"
+2025-09-08,Adam Sigel,2,"{'06 Build': 1, '05 Solution Discovery': 1}"
+2025-09-08,Lizzy Magill,3,"{'05 Solution Discovery': 1, '02 Generative Discovery': 2}"
+2025-09-08,Garima Giri,2,"{'07 Beta': 1, '05 Solution Discovery': 1}"

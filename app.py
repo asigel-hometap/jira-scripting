@@ -1,8 +1,10 @@
 from flask import Flask, render_template, jsonify
+from flask_cors import CORS
 from jira_assignees import get_assignees
 import os
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 @app.route('/')
 def index():
