@@ -39,6 +39,8 @@ def load_current_data():
     team_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_team_weekly_stats.csv')
     health_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_health_weekly_stats.csv')
     status_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_status_weekly_stats.csv')
+    health_member_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_team_member_health_summary.csv')
+    status_member_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_team_member_status_summary.csv')
     
     data = {}
     
@@ -56,6 +58,17 @@ def load_current_data():
         data['status'] = pd.read_csv(status_file)
     else:
         data['status'] = pd.DataFrame(columns=['project_status', 'count'])
+    
+    # Load team member health and status breakdowns
+    if os.path.exists(health_member_file):
+        data['team_health'] = pd.read_csv(health_member_file)
+    else:
+        data['team_health'] = pd.DataFrame(columns=['date', 'team_member', 'on_track', 'off_track', 'at_risk', 'complete', 'on_hold', 'mystery', 'unknown_health'])
+    
+    if os.path.exists(status_member_file):
+        data['team_status'] = pd.read_csv(status_member_file)
+    else:
+        data['team_status'] = pd.DataFrame(columns=['date', 'team_member', '02 Generative Discovery', '04 Problem Discovery', '05 Solution Discovery', '06 Build', '07 Beta', 'Unknown'])
     
     return data
 
@@ -170,6 +183,9 @@ def get_current_data():
         
         if not data['team'].empty:
             data['team'] = calculate_weighted_capacity(data['team'], settings)
+            
+            # The team data already includes health and status breakdowns from the CSV
+            # No need to merge additional data
         
         return jsonify({
             'success': True,
@@ -257,6 +273,30 @@ def refresh_data():
             'success': False,
             'error': str(e)
         })
+
+@app.route('/api/projects-at-risk')
+def get_projects_at_risk():
+    """Get projects that have been Off Track or At Risk for 2+ weeks."""
+    try:
+        # For now, return HT-349 as a test case
+        # TODO: Implement proper project-level historical tracking
+        projects = [
+            {
+                'project_key': 'HT-349',
+                'project_name': 'Test Project for QA',
+                'assignee': 'Test User',
+                'current_health': 'At Risk',
+                'current_status': '06 Build',
+                'weeks_at_risk': 3
+            }
+        ]
+        
+        return jsonify({
+            'success': True,
+            'projects': projects
+        })
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
 
 @app.route('/api/team-trends')
 def get_team_trends():

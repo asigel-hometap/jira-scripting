@@ -6,6 +6,9 @@ let healthChart = null;
 let statusChart = null;
 let healthTrendsChart = null;
 let statusTrendsChart = null;
+
+// Register datalabels plugin
+Chart.register(ChartDataLabels);
 let trendData = null;
 let visibleMembers = new Set();
 
@@ -55,6 +58,9 @@ async function loadDashboard() {
                 trendData = trendResult;
             }
             
+            // Load projects at risk
+            await loadProjectsAtRisk();
+            
             // Update dashboard
             updateDashboard();
         } else {
@@ -65,6 +71,65 @@ async function loadDashboard() {
     } finally {
         hideLoading();
     }
+}
+
+async function loadProjectsAtRisk() {
+    try {
+        const response = await fetch('/api/projects-at-risk');
+        const result = await response.json();
+        
+        if (result.success) {
+            updateProjectsAtRiskTable(result.projects);
+        } else {
+            console.error('Failed to load projects at risk:', result.error);
+            updateProjectsAtRiskTable([]);
+        }
+    } catch (error) {
+        console.error('Error loading projects at risk:', error);
+        updateProjectsAtRiskTable([]);
+    }
+}
+
+function updateProjectsAtRiskTable(projects) {
+    const tbody = document.getElementById('projectsAtRiskTableBody');
+    tbody.innerHTML = '';
+    
+    if (projects.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                    No projects at risk found
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    projects.forEach(project => {
+        const row = document.createElement('tr');
+        const healthClass = project.current_health === 'Off Track' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800';
+        
+        row.innerHTML = `
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <a href="https://hometap.atlassian.net/browse/${project.project_key}" 
+                   target="_blank" 
+                   class="text-blue-600 hover:text-blue-800 hover:underline">
+                    ${project.project_key}
+                </a>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${project.project_name}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${project.assignee}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${healthClass}">
+                    ${project.current_health}
+                </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${project.current_status}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${project.weeks_at_risk}</td>
+        `;
+        
+        tbody.appendChild(row);
+    });
 }
 
 function setupTeamFilters() {
@@ -168,16 +233,14 @@ function updateTeamTable() {
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${member.total_issues}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${member.weighted_capacity || 'N/A'}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                <div class="flex space-x-2">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        ${member.on_track} On Track
-                    </span>
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                        ${member.at_risk} At Risk
-                    </span>
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        ${member.complete} Complete
-                    </span>
+                <div class="flex flex-wrap gap-1">
+                    ${member.on_track ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">${member.on_track} On Track</span>` : ''}
+                    ${member.off_track ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">${member.off_track} Off Track</span>` : ''}
+                    ${member.at_risk ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">${member.at_risk} At Risk</span>` : ''}
+                    ${member.complete ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">${member.complete} Complete</span>` : ''}
+                    ${member.on_hold ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">${member.on_hold} On Hold</span>` : ''}
+                    ${member.mystery ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">${member.mystery} Mystery</span>` : ''}
+                    ${member.unknown_health ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-200 text-gray-600">${member.unknown_health} Unknown</span>` : ''}
                 </div>
             </td>
             <td class="px-6 py-6 whitespace-nowrap text-sm text-gray-900">
@@ -228,6 +291,9 @@ function createSparklines(teamData) {
                         maintainAspectRatio: false,
                         plugins: {
                             legend: { display: false },
+                            datalabels: {
+                                display: false
+                            },
                             tooltip: {
                                 backgroundColor: 'rgba(0, 0, 0, 0.8)',
                                 titleColor: '#ffffff',
@@ -328,30 +394,7 @@ function updateHealthChart() {
         plugins: [{
             id: 'datalabels',
             afterDatasetsDraw: (chart) => {
-                const { ctx, data } = chart;
-                const centerX = chart.chartArea.left + (chart.chartArea.right - chart.chartArea.left) / 2;
-                const centerY = chart.chartArea.top + (chart.chartArea.bottom - chart.chartArea.top) / 2;
-                
-                ctx.save();
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.font = 'bold 12px Arial';
-                ctx.fillStyle = '#374151';
-                
-                data.datasets.forEach((dataset, datasetIndex) => {
-                    const meta = chart.getDatasetMeta(datasetIndex);
-                    meta.data.forEach((element, index) => {
-                        if (dataset.data[index] > 0) {
-                            const total = dataset.data.reduce((a, b) => a + b, 0);
-                            const percentage = ((dataset.data[index] / total) * 100).toFixed(0);
-                            const label = `${dataset.data[index]}\n(${percentage}%)`;
-                            
-                            const position = element.tooltipPosition();
-                            ctx.fillText(label, position.x, position.y);
-                        }
-                    });
-                });
-                ctx.restore();
+                // Disabled to prevent competing labels
             }
         }]
     });
@@ -393,36 +436,26 @@ function updateStatusChart() {
             plugins: {
                 legend: {
                     position: 'bottom'
+                },
+                datalabels: {
+                    display: true,
+                    color: '#ffffff',
+                    font: {
+                        weight: 'bold',
+                        size: 12
+                    },
+                    formatter: (value, context) => {
+                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                        const percentage = ((value / total) * 100).toFixed(0);
+                        return value > 0 ? `${value}\n(${percentage}%)` : '';
+                    }
                 }
             }
         },
         plugins: [{
             id: 'datalabels',
             afterDatasetsDraw: (chart) => {
-                const { ctx, data } = chart;
-                const centerX = chart.chartArea.left + (chart.chartArea.right - chart.chartArea.left) / 2;
-                const centerY = chart.chartArea.top + (chart.chartArea.bottom - chart.chartArea.top) / 2;
-                
-                ctx.save();
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.font = 'bold 12px Arial';
-                ctx.fillStyle = '#374151';
-                
-                data.datasets.forEach((dataset, datasetIndex) => {
-                    const meta = chart.getDatasetMeta(datasetIndex);
-                    meta.data.forEach((element, index) => {
-                        if (dataset.data[index] > 0) {
-                            const total = dataset.data.reduce((a, b) => a + b, 0);
-                            const percentage = ((dataset.data[index] / total) * 100).toFixed(0);
-                            const label = `${dataset.data[index]}\n(${percentage}%)`;
-                            
-                            const position = element.tooltipPosition();
-                            ctx.fillText(label, position.x, position.y);
-                        }
-                    });
-                });
-                ctx.restore();
+                // Disabled to prevent competing labels
             }
         }]
     });
@@ -493,6 +526,26 @@ function updateHealthTrendsChart() {
             plugins: {
                 legend: {
                     position: 'top'
+                },
+                datalabels: {
+                    display: function(context) {
+                        // Only show total on the top segment of each bar
+                        return context.datasetIndex === 0;
+                    },
+                    color: '#000',
+                    font: {
+                        weight: 'bold',
+                        size: 12
+                    },
+                    formatter: function(value, context) {
+                        // Calculate total for this bar
+                        const dataIndex = context.dataIndex;
+                        const total = context.chart.data.datasets.reduce((sum, dataset) => sum + (dataset.data[dataIndex] || 0), 0);
+                        return total > 0 ? total : '';
+                    },
+                    anchor: 'end',
+                    align: 'end',
+                    offset: 10
                 },
                 tooltip: {
                     mode: 'index',
@@ -594,6 +647,26 @@ function updateStatusTrendsChart() {
                 plugins: {
                     legend: {
                         position: 'top'
+                    },
+                    datalabels: {
+                        display: function(context) {
+                            // Only show total on the top segment of each bar
+                            return context.datasetIndex === 0;
+                        },
+                        color: '#000',
+                        font: {
+                            weight: 'bold',
+                            size: 12
+                        },
+                        formatter: function(value, context) {
+                            // Calculate total for this bar
+                            const dataIndex = context.dataIndex;
+                            const total = context.chart.data.datasets.reduce((sum, dataset) => sum + (dataset.data[dataIndex] || 0), 0);
+                            return total > 0 ? total : '';
+                        },
+                        anchor: 'end',
+                        align: 'end',
+                        offset: 10
                     },
                     tooltip: {
                         mode: 'index',
