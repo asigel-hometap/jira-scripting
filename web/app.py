@@ -10,46 +10,60 @@ import sys
 app = Flask(__name__)
 CORS(app)
 
+# Get the base directory (parent of web directory)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+def create_default_data():
+    """Create default data structure when files don't exist."""
+    return {
+        'team': pd.DataFrame(columns=['team_member', 'total_issues', 'weighted_capacity']),
+        'health': pd.DataFrame(columns=['health_status', 'count']),
+        'status': pd.DataFrame(columns=['project_status', 'count'])
+    }
+
 def load_config():
     """Load configuration files."""
-    with open('../config/settings.json', 'r') as f:
+    settings_path = os.path.join(BASE_DIR, 'config', 'settings.json')
+    team_path = os.path.join(BASE_DIR, 'config', 'team_members.json')
+    
+    with open(settings_path, 'r') as f:
         settings = json.load(f)
     
-    with open('../config/team_members.json', 'r') as f:
+    with open(team_path, 'r') as f:
         team_config = json.load(f)
     
     return settings, team_config
 
 def load_current_data():
     """Load current team data."""
-    team_file = '../data/current/jira_team_weekly_stats.csv'
-    health_file = '../data/current/jira_health_weekly_stats.csv'
-    status_file = '../data/current/jira_status_weekly_stats.csv'
+    team_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_team_weekly_stats.csv')
+    health_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_health_weekly_stats.csv')
+    status_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_status_weekly_stats.csv')
     
     data = {}
     
     if os.path.exists(team_file):
         data['team'] = pd.read_csv(team_file)
     else:
-        data['team'] = pd.DataFrame()
+        data['team'] = pd.DataFrame(columns=['team_member', 'total_issues', 'weighted_capacity'])
     
     if os.path.exists(health_file):
         data['health'] = pd.read_csv(health_file)
     else:
-        data['health'] = pd.DataFrame()
+        data['health'] = pd.DataFrame(columns=['health_status', 'count'])
     
     if os.path.exists(status_file):
         data['status'] = pd.read_csv(status_file)
     else:
-        data['status'] = pd.DataFrame()
+        data['status'] = pd.DataFrame(columns=['project_status', 'count'])
     
     return data
 
 def load_historical_data():
     """Load historical data."""
-    team_file = '../data/current/jira_team_combined_historical.csv'
-    health_file = '../data/current/jira_health_hybrid_historical.csv'
-    status_file = '../data/current/jira_status_hybrid_historical.csv'
+    team_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_team_combined_historical.csv')
+    health_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_health_hybrid_historical.csv')
+    status_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_status_hybrid_historical.csv')
     
     data = {}
     
@@ -57,28 +71,28 @@ def load_historical_data():
         data['team'] = pd.read_csv(team_file)
         data['team']['date'] = pd.to_datetime(data['team']['date'])
     else:
-        data['team'] = pd.DataFrame()
+        data['team'] = pd.DataFrame(columns=['date', 'team_member', 'total_issues', 'weighted_capacity'])
     
     if os.path.exists(health_file):
         data['health'] = pd.read_csv(health_file)
         data['health']['date'] = pd.to_datetime(data['health']['date'])
     else:
-        data['health'] = pd.DataFrame()
+        data['health'] = pd.DataFrame(columns=['date', 'health_status', 'count'])
     
     if os.path.exists(status_file):
         data['status'] = pd.read_csv(status_file)
         data['status']['date'] = pd.to_datetime(data['status']['date'])
     else:
-        data['status'] = pd.DataFrame()
+        data['status'] = pd.DataFrame(columns=['date', 'project_status', 'count'])
     
     return data
 
 def load_trend_data():
     """Load trend data for charts."""
-    health_trends_file = '../data/current/jira_weekly_health_summary.csv'
-    status_trends_file = '../data/current/jira_weekly_status_summary.csv'
-    health_member_file = '../data/current/jira_team_member_health_summary.csv'
-    status_member_file = '../data/current/jira_team_member_status_summary.csv'
+    health_trends_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_weekly_health_summary.csv')
+    status_trends_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_weekly_status_summary.csv')
+    health_member_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_team_member_health_summary.csv')
+    status_member_file = os.path.join(BASE_DIR, 'data', 'current', 'jira_team_member_status_summary.csv')
     
     data = {}
     
@@ -194,28 +208,45 @@ def get_historical_data():
 def refresh_data():
     """Refresh data from Jira."""
     try:
-        # Change to scripts directory and run data collection
-        os.chdir('../scripts')
-        
-        # Run data collection script
-        result = subprocess.run([sys.executable, 'data_collection.py'], 
-                              capture_output=True, text=True, timeout=60)
-        
-        if result.returncode == 0:
-            # Run weighted capacity calculation
-            subprocess.run([sys.executable, 'weighted_capacity.py'], 
-                          capture_output=True, text=True, timeout=30)
-            
-            return jsonify({
-                'success': True,
-                'message': 'Data refreshed successfully',
-                'output': result.stdout
-            })
-        else:
+        # Check if Jira API token is available
+        jira_token = os.getenv('JIRA_API_TOKEN')
+        if not jira_token:
             return jsonify({
                 'success': False,
-                'error': f'Data collection failed: {result.stderr}'
+                'error': 'Jira API token not configured. Please set JIRA_API_TOKEN environment variable.'
             })
+        
+        # Use absolute path to scripts directory
+        scripts_dir = os.path.join(BASE_DIR, 'scripts')
+        original_dir = os.getcwd()
+        
+        try:
+            # Change to scripts directory and run data collection
+            os.chdir(scripts_dir)
+            
+            # Run data collection script
+            result = subprocess.run([sys.executable, 'data_collection.py'], 
+                                  capture_output=True, text=True, timeout=60)
+            
+            if result.returncode == 0:
+                # Run weighted capacity calculation
+                subprocess.run([sys.executable, 'weighted_capacity.py'], 
+                              capture_output=True, text=True, timeout=30)
+                
+                return jsonify({
+                    'success': True,
+                    'message': 'Data refreshed successfully',
+                    'output': result.stdout
+                })
+            else:
+                return jsonify({
+                    'success': False,
+                    'error': f'Data collection failed: {result.stderr}'
+                })
+        finally:
+            # Change back to original directory
+            os.chdir(original_dir)
+            
     except subprocess.TimeoutExpired:
         return jsonify({
             'success': False,
@@ -226,9 +257,6 @@ def refresh_data():
             'success': False,
             'error': str(e)
         })
-    finally:
-        # Change back to web directory
-        os.chdir('../web')
 
 @app.route('/api/team-trends')
 def get_team_trends():
