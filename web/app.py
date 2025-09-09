@@ -6,6 +6,7 @@ import os
 from datetime import datetime, timedelta
 import subprocess
 import sys
+from jira import JIRA
 
 app = Flask(__name__)
 CORS(app)
@@ -33,6 +34,33 @@ def load_config():
         team_config = json.load(f)
     
     return settings, team_config
+
+def get_jira_connection():
+    """Get Jira connection using environment variables."""
+    try:
+        jira_server = os.environ.get('JIRA_SERVER', 'https://hometap.atlassian.net')
+        jira_token = os.environ.get('JIRA_API_TOKEN')
+        jira_email = os.environ.get('JIRA_EMAIL', 'adamsigel@hometap.com')
+        
+        if not jira_token:
+            print("JIRA_API_TOKEN not set")
+            return None
+            
+        # Try basic auth first (email + token)
+        try:
+            return JIRA(server=jira_server, basic_auth=(jira_email, jira_token))
+        except Exception as basic_auth_error:
+            print(f"Basic auth failed: {basic_auth_error}")
+            # Fallback to token auth
+            try:
+                return JIRA(server=jira_server, token_auth=jira_token)
+            except Exception as token_auth_error:
+                print(f"Token auth also failed: {token_auth_error}")
+                return None
+                
+    except Exception as e:
+        print(f"Error connecting to Jira: {e}")
+        return None
 
 def load_current_data():
     """Load current team data."""
@@ -278,16 +306,102 @@ def refresh_data():
 def get_projects_at_risk():
     """Get projects that have been Off Track or At Risk for 2+ weeks."""
     try:
-        # For now, return HT-349 as a test case
+        jira = get_jira_connection()
+        
+        # For now, return HT-512 as a test case (real At Risk project)
         # TODO: Implement proper project-level historical tracking
+        project_key = 'HT-512'
+        
+        if jira:
+            try:
+                issue = jira.issue(project_key, fields='summary,assignee,status,customfield_10238')
+                project_name = issue.fields.summary
+                assignee_name = issue.fields.assignee.displayName if issue.fields.assignee else 'Unassigned'
+                current_status = issue.fields.status.name
+                
+                # Handle health field properly
+                health_field = getattr(issue.fields, 'customfield_10238', None)
+                if health_field:
+                    current_health = health_field.value if hasattr(health_field, 'value') else str(health_field)
+                else:
+                    current_health = 'Unknown'
+            except Exception as e:
+                print(f"Jira query failed for {project_key}: {e}")
+                # Fallback to test data if Jira query fails
+                project_name = 'Test Project for QA'
+                assignee_name = 'Test User'
+                current_health = 'At Risk'
+                current_status = '06 Build'
+        else:
+            # Fallback to test data if Jira connection not available
+            project_name = 'Test Project for QA'
+            assignee_name = 'Test User'
+            current_health = 'At Risk'
+            current_status = '06 Build'
+        
         projects = [
             {
-                'project_key': 'HT-349',
-                'project_name': 'Test Project for QA',
-                'assignee': 'Test User',
-                'current_health': 'At Risk',
-                'current_status': '06 Build',
-                'weeks_at_risk': 3
+                'project_key': project_key,
+                'project_name': project_name,
+                'assignee': assignee_name,
+                'current_health': current_health,
+                'current_status': current_status,
+                'weeks_at_risk': 3  # TODO: Calculate from historical data
+            }
+        ]
+        
+        return jsonify({
+            'success': True,
+            'projects': projects
+        })
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+
+@app.route('/api/projects-on-hold')
+def get_projects_on_hold():
+    """Get projects that have been On Hold for 2+ weeks."""
+    try:
+        jira = get_jira_connection()
+        
+        # For now, return HT-503 as a test case (real On Hold project)
+        # TODO: Implement proper project-level historical tracking
+        project_key = 'HT-503'
+        
+        if jira:
+            try:
+                issue = jira.issue(project_key, fields='summary,assignee,status,customfield_10238')
+                project_name = issue.fields.summary
+                assignee_name = issue.fields.assignee.displayName if issue.fields.assignee else 'Unassigned'
+                current_status = issue.fields.status.name
+                
+                # Handle health field properly
+                health_field = getattr(issue.fields, 'customfield_10238', None)
+                if health_field:
+                    current_health = health_field.value if hasattr(health_field, 'value') else str(health_field)
+                else:
+                    current_health = 'Unknown'
+            except Exception as e:
+                print(f"Jira query failed for {project_key}: {e}")
+                # Fallback to test data if Jira query fails
+                project_name = 'Test Project On Hold'
+                assignee_name = 'Test User'
+                current_health = 'On Hold'
+                current_status = '06 Build'
+        else:
+            # Fallback to test data if Jira connection not available
+            project_name = 'Test Project On Hold'
+            assignee_name = 'Test User'
+            current_health = 'On Hold'
+            current_status = '06 Build'
+        
+        projects = [
+            {
+                'project_key': project_key,
+                'project_name': project_name,
+                'assignee': assignee_name,
+                'current_health': current_health,
+                'current_status': current_status,
+                'weeks_on_hold': 4  # TODO: Calculate from historical data
             }
         ]
         

@@ -6,6 +6,8 @@ let healthChart = null;
 let statusChart = null;
 let healthTrendsChart = null;
 let statusTrendsChart = null;
+let selectedStartDate = '2025-02-10'; // Default start date
+let sparklineCharts = {}; // Store sparkline chart instances
 
 // Register datalabels plugin
 Chart.register(ChartDataLabels);
@@ -16,11 +18,82 @@ let visibleMembers = new Set();
 document.addEventListener('DOMContentLoaded', function() {
     loadDashboard();
     setupEventListeners();
+    updateDateRangeDisplay(); // Initialize date range display
 });
 
 function setupEventListeners() {
     // Refresh button
     document.getElementById('refreshBtn').addEventListener('click', refreshData);
+    
+    // Date filter
+    document.getElementById('applyDateFilter').addEventListener('click', applyDateFilter);
+    
+    // Date input validation
+    document.getElementById('startDate').addEventListener('change', validateDate);
+}
+
+function validateDate() {
+    const startDateInput = document.getElementById('startDate');
+    const selectedDate = new Date(startDateInput.value);
+    const minDate = new Date('2025-02-10');
+    
+    if (selectedDate < minDate) {
+        alert('Error: Selected date cannot be earlier than February 10, 2025. Please select a valid date.');
+        startDateInput.value = '2025-02-10';
+        return false;
+    }
+    return true;
+}
+
+function applyDateFilter() {
+    const startDateInput = document.getElementById('startDate');
+    
+    if (!validateDate()) {
+        return;
+    }
+    
+    selectedStartDate = startDateInput.value;
+    
+    // Update the current date range display
+    updateDateRangeDisplay();
+    
+    // Update charts with new date range
+    if (currentData && historicalData) {
+        updateChartsWithDateFilter();
+    }
+}
+
+function updateDateRangeDisplay() {
+    const dateRangeElement = document.getElementById('currentDateRange');
+    if (dateRangeElement) {
+        const startDate = new Date(selectedStartDate);
+        const formattedDate = startDate.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        dateRangeElement.textContent = `Current range: ${formattedDate} - Present`;
+    }
+}
+
+function updateChartsWithDateFilter() {
+    // Update sparklines
+    if (currentData && currentData.team) {
+        createSparklines(currentData.team);
+    }
+    
+    // Update trend charts
+    updateHealthTrendsChart();
+    updateStatusTrendsChart();
+}
+
+function destroyAllSparklineCharts() {
+    Object.values(sparklineCharts).forEach(chart => {
+        if (chart) {
+            chart.destroy();
+        }
+    });
+    sparklineCharts = {};
 }
 
 async function loadDashboard() {
@@ -60,6 +133,9 @@ async function loadDashboard() {
             
             // Load projects at risk
             await loadProjectsAtRisk();
+            
+            // Load projects on hold
+            await loadProjectsOnHold();
             
             // Update dashboard
             updateDashboard();
@@ -107,7 +183,8 @@ function updateProjectsAtRiskTable(projects) {
     
     projects.forEach(project => {
         const row = document.createElement('tr');
-        const healthClass = project.current_health === 'Off Track' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800';
+        const healthClass = project.current_health === 'Off Track' ? 'text-gray-800' : 'text-gray-800';
+        const healthStyle = project.current_health === 'Off Track' ? 'background-color: #FFD2CC;' : 'background-color: #FFE785;';
         
         row.innerHTML = `
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -120,12 +197,72 @@ function updateProjectsAtRiskTable(projects) {
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${project.project_name}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${project.assignee}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${healthClass}">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${healthClass}" style="${healthStyle}">
                     ${project.current_health}
                 </span>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${project.current_status}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${project.weeks_at_risk}</td>
+        `;
+        
+        tbody.appendChild(row);
+    });
+}
+
+async function loadProjectsOnHold() {
+    try {
+        const response = await fetch('/api/projects-on-hold');
+        const result = await response.json();
+        
+        if (result.success) {
+            updateProjectsOnHoldTable(result.projects);
+        } else {
+            console.error('Failed to load projects on hold:', result.error);
+            updateProjectsOnHoldTable([]);
+        }
+    } catch (error) {
+        console.error('Error loading projects on hold:', error);
+        updateProjectsOnHoldTable([]);
+    }
+}
+
+function updateProjectsOnHoldTable(projects) {
+    const tbody = document.getElementById('projectsOnHoldTableBody');
+    tbody.innerHTML = '';
+    
+    if (projects.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                    No projects on hold found
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    projects.forEach(project => {
+        const row = document.createElement('tr');
+        const healthClass = 'text-gray-800';
+        const healthStyle = 'background-color: #F3F0FF;';
+        
+        row.innerHTML = `
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <a href="https://hometap.atlassian.net/browse/${project.project_key}" 
+                   target="_blank" 
+                   class="text-blue-600 hover:text-blue-800 hover:underline">
+                    ${project.project_key}
+                </a>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${project.project_name}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${project.assignee}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${healthClass}" style="${healthStyle}">
+                    ${project.current_health}
+                </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${project.current_status}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${project.weeks_on_hold}</td>
         `;
         
         tbody.appendChild(row);
@@ -234,12 +371,12 @@ function updateTeamTable() {
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${member.weighted_capacity || 'N/A'}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                 <div class="flex flex-wrap gap-1">
-                    ${member.on_track ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">${member.on_track} On Track</span>` : ''}
-                    ${member.off_track ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">${member.off_track} Off Track</span>` : ''}
-                    ${member.at_risk ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">${member.at_risk} At Risk</span>` : ''}
-                    ${member.complete ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">${member.complete} Complete</span>` : ''}
-                    ${member.on_hold ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">${member.on_hold} On Hold</span>` : ''}
-                    ${member.mystery ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">${member.mystery} Mystery</span>` : ''}
+                    ${member.on_track ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium text-gray-800" style="background-color: #AFF3D6;">${member.on_track} On Track</span>` : ''}
+                    ${member.off_track ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium text-gray-800" style="background-color: #FFD2CC;">${member.off_track} Off Track</span>` : ''}
+                    ${member.at_risk ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium text-gray-800" style="background-color: #FFE785;">${member.at_risk} At Risk</span>` : ''}
+                    ${member.complete ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium text-white" style="background-color: #0C66E4;">${member.complete} Complete</span>` : ''}
+                    ${member.on_hold ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium text-gray-800" style="background-color: #F3F0FF;">${member.on_hold} On Hold</span>` : ''}
+                    ${member.mystery ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium text-white" style="background-color: #6E5DC6;">${member.mystery} Mystery</span>` : ''}
                     ${member.unknown_health ? `<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-200 text-gray-600">${member.unknown_health} Unknown</span>` : ''}
                 </div>
             </td>
@@ -258,18 +395,61 @@ function updateTeamTable() {
 }
 
 function createSparklines(teamData) {
-    // Calculate the maximum value across all team members for consistent y-axis scaling
+    const startDate = new Date(selectedStartDate);
+    
+    // Create a complete weekly date range from start date to present
+    const completeDateRange = [];
+    const currentDate = new Date();
+    const tempDate = new Date(startDate);
+    
+    while (tempDate <= currentDate) {
+        completeDateRange.push(new Date(tempDate));
+        tempDate.setDate(tempDate.getDate() + 7); // Weekly intervals
+    }
+    
+    // Define when each team member actually started having projects
+    const teamMemberStartDates = {
+        'Adam Sigel': new Date('2025-02-10'),
+        'Jennie Goldenberg': new Date('2025-02-10'),
+        'Jacqueline Gallagher': new Date('2025-02-10'),
+        'Robert J. Johnson': new Date('2025-02-10'),
+        'Garima Giri': new Date('2025-02-24'),
+        'Lizzy Magill': new Date('2025-03-24'),
+        'Sanela Smaka': new Date('2025-04-28')
+    };
+    
+    // Calculate maxValue across all normalized data for consistent y-axis scaling
     let maxValue = 0;
-    const allHistoricalData = [];
     
     teamData.forEach(member => {
         if (historicalData && historicalData.team) {
-            const memberHistory = historicalData.team.filter(h => h.team_member === member.team_member);
-            if (memberHistory.length > 0) {
-                allHistoricalData.push(...memberHistory);
-                const memberMax = Math.max(...memberHistory.map(h => h.total_issues));
-                maxValue = Math.max(maxValue, memberMax);
-            }
+            const memberHistory = historicalData.team.filter(h => 
+                h.team_member === member.team_member && 
+                new Date(h.date) >= startDate
+            );
+            
+            // Create normalized data for this member
+            const memberStartDate = teamMemberStartDates[member.team_member] || startDate;
+            const normalizedData = completeDateRange.map(date => {
+                // If date is before team member started, return 0
+                if (date < memberStartDate) {
+                    return 0;
+                }
+                
+                // Find actual data for this specific date
+                const weekData = memberHistory.find(h => {
+                    const dataDate = new Date(h.date);
+                    // Compare dates by year, month, day only (ignore time)
+                    return dataDate.getFullYear() === date.getFullYear() &&
+                           dataDate.getMonth() === date.getMonth() &&
+                           dataDate.getDate() === date.getDate();
+                });
+                return weekData ? weekData.total_issues : 0;
+            });
+            
+            // Update maxValue
+            const memberMax = Math.max(...normalizedData);
+            maxValue = Math.max(maxValue, memberMax);
         }
     });
     
@@ -278,15 +458,43 @@ function createSparklines(teamData) {
         const canvas = document.getElementById(canvasId);
         
         if (canvas && historicalData && historicalData.team) {
-            // Get historical data for this member
-            const memberHistory = historicalData.team.filter(h => h.team_member === member.team_member);
+            // Destroy existing chart if it exists
+            if (sparklineCharts[member.team_member]) {
+                sparklineCharts[member.team_member].destroy();
+                delete sparklineCharts[member.team_member];
+            }
             
-            if (memberHistory.length > 0) {
-                const ctx = canvas.getContext('2d');
-                const data = memberHistory.map(h => h.total_issues);
-                const dates = memberHistory.map(h => new Date(h.date));
+            // Get historical data for this member, filtered by start date
+            const memberHistory = historicalData.team.filter(h => 
+                h.team_member === member.team_member && 
+                new Date(h.date) >= startDate
+            );
+            
+            // Create normalized data for this member
+            const memberStartDate = teamMemberStartDates[member.team_member] || startDate;
+            const normalizedData = completeDateRange.map(date => {
+                // If date is before team member started, return 0
+                if (date < memberStartDate) {
+                    return 0;
+                }
                 
-                new Chart(ctx, {
+                // Find actual data for this specific date
+                const weekData = memberHistory.find(h => {
+                    const dataDate = new Date(h.date);
+                    // Compare dates by year, month, day only (ignore time)
+                    return dataDate.getFullYear() === date.getFullYear() &&
+                           dataDate.getMonth() === date.getMonth() &&
+                           dataDate.getDate() === date.getDate();
+                });
+                return weekData ? weekData.total_issues : 0;
+            });
+            
+            if (normalizedData.some(value => value > 0)) {
+                const ctx = canvas.getContext('2d');
+                const data = normalizedData;
+                const dates = completeDateRange;
+                
+                sparklineCharts[member.team_member] = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: dates,
@@ -369,12 +577,12 @@ function updateHealthChart() {
     const counts = healthData.map(h => h.count);
     
     const colors = {
-        'On Track': 'rgba(34, 197, 94, 0.8)',
-        'Off Track': 'rgba(239, 68, 68, 0.8)',
-        'At Risk': 'rgba(234, 179, 8, 0.8)',
-        'Complete': 'rgba(59, 130, 246, 0.8)',
-        'On Hold': 'rgba(107, 114, 128, 0.8)',
-        'Mystery': 'rgba(168, 85, 247, 0.8)',
+        'On Track': '#AFF3D6',
+        'Off Track': '#FFD2CC',
+        'At Risk': '#FFE785',
+        'Complete': '#0C66E4',
+        'On Hold': '#F3F0FF',
+        'Mystery': '#6E5DC6',
         'Unknown': 'rgba(156, 163, 175, 0.8)'
     };
     
@@ -491,17 +699,18 @@ function updateHealthTrendsChart() {
         return;
     }
     
-    const healthTrends = trendData.health_trends;
+    const startDate = new Date(selectedStartDate);
+    const healthTrends = trendData.health_trends.filter(t => new Date(t.date) >= startDate);
     const dates = healthTrends.map(t => new Date(t.date));
     
     const healthStatuses = ['On Track', 'Off Track', 'At Risk', 'Complete', 'On Hold', 'Mystery', 'Unknown'];
     const colors = {
-        'On Track': 'rgba(34, 197, 94, 0.8)',
-        'Off Track': 'rgba(239, 68, 68, 0.8)',
-        'At Risk': 'rgba(234, 179, 8, 0.8)',
-        'Complete': 'rgba(59, 130, 246, 0.8)',
-        'On Hold': 'rgba(107, 114, 128, 0.8)',
-        'Mystery': 'rgba(168, 85, 247, 0.8)',
+        'On Track': '#AFF3D6',
+        'Off Track': '#FFD2CC',
+        'At Risk': '#FFE785',
+        'Complete': '#0C66E4',
+        'On Hold': '#F3F0FF',
+        'Mystery': '#6E5DC6',
         'Unknown': 'rgba(156, 163, 175, 0.8)'
     };
     
@@ -612,7 +821,8 @@ function updateStatusTrendsChart() {
         return;
     }
     
-    const statusTrends = trendData.status_trends;
+    const startDate = new Date(selectedStartDate);
+    const statusTrends = trendData.status_trends.filter(t => new Date(t.date) >= startDate);
     const dates = statusTrends.map(t => new Date(t.date));
     
     const projectStatuses = ['Generative Discovery', 'Problem Discovery', 'Solution Discovery', 'Build', 'Beta', 'Unknown'];
