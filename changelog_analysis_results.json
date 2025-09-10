@@ -1,0 +1,195 @@
+{
+  "HT-386": {
+    "changelog_entries": [
+      {
+        "date": "2025-06-04T14:11:20.153-0400",
+        "author": "Sanela Smaka",
+        "from_status": "01 Inbox",
+        "to_status": "02 Generative Discovery",
+        "field": "status"
+      },
+      {
+        "date": "2025-07-30T14:31:30.333-0400",
+        "author": "Sanela Smaka",
+        "from_status": "02 Generative Discovery",
+        "to_status": "03 Committed",
+        "field": "status"
+      },
+      {
+        "date": "2025-07-30T14:33:54.034-0400",
+        "author": "Sanela Smaka",
+        "from_status": "03 Committed",
+        "to_status": "04 Problem Discovery",
+        "field": "status"
+      },
+      {
+        "date": "2025-07-30T14:37:43.936-0400",
+        "author": "Sanela Smaka",
+        "from_status": "04 Problem Discovery",
+        "to_status": "05 Solution Discovery",
+        "field": "status"
+      }
+    ],
+    "cycle_times": {
+      "first_discovery": "2025-06-04T14:11:20.153-0400",
+      "first_build": null,
+      "first_completion": null
+    }
+  },
+  "HT-503": {
+    "changelog_entries": [
+      {
+        "date": "2025-08-14T15:56:40.316-0400",
+        "author": "Sanela Smaka",
+        "from_status": "01 Inbox",
+        "to_status": "02 Generative Discovery",
+        "field": "status"
+      },
+      {
+        "date": "2025-08-14T15:57:25.611-0400",
+        "author": "Sanela Smaka",
+        "from_status": "02 Generative Discovery",
+        "to_status": "03 Committed",
+        "field": "status"
+      },
+      {
+        "date": "2025-08-14T15:57:28.972-0400",
+        "author": "Sanela Smaka",
+        "from_status": "03 Committed",
+        "to_status": "04 Problem Discovery",
+        "field": "status"
+      },
+      {
+        "date": "2025-08-14T15:57:51.631-0400",
+        "author": "Sanela Smaka",
+        "from_status": "04 Problem Discovery",
+        "to_status": "05 Solution Discovery",
+        "field": "status"
+      }
+    ],
+    "cycle_times": {
+      "first_discovery": "2025-08-14T15:56:40.316-0400",
+      "first_build": null,
+      "first_completion": null
+    }
+  },
+  "HT-375": {
+    "changelog_entries": [
+      {
+        "date": "2025-05-29T14:26:48.528-0400",
+        "author": "Adam Sigel",
+        "from_status": "01 Inbox",
+        "to_status": "02 Generative Discovery",
+        "field": "status"
+      },
+      {
+        "date": "2025-06-02T09:20:07.383-0400",
+        "author": "Adam Sigel",
+        "from_status": "02 Generative Discovery",
+        "to_status": "03 Committed",
+        "field": "status"
+      },
+      {
+        "date": "2025-06-02T09:34:17.348-0400",
+        "author": "Adam Sigel",
+        "from_status": "03 Committed",
+        "to_status": "04 Problem Discovery",
+        "field": "status"
+      },
+      {
+        "date": "2025-06-12T09:22:54.502-0400",
+        "author": "Adam Sigel",
+        "from_status": "04 Problem Discovery",
+        "to_status": "05 Solution Discovery",
+        "field": "status"
+      }
+    ],
+    "cycle_times": {
+      "first_discovery": "2025-05-29T14:26:48.528-0400",
+      "first_build": null,
+      "first_completion": null
+    }
+  },
+  "HT-491": {
+    "changelog_entries": [
+      {
+        "date": "2025-07-31T17:13:51.787-0400",
+        "author": "Lizzy Magill",
+        "from_status": "01 Inbox",
+        "to_status": "02 Generative Discovery",
+        "field": "status"
+      },
+      {
+        "date": "2025-08-22T15:20:41.759-0400",
+        "author": "Lizzy Magill",
+        "from_status": "02 Generative Discovery",
+        "to_status": "03 Committed",
+        "field": "status"
+      },
+      {
+        "date": "2025-08-22T15:20:48.938-0400",
+        "author": "Lizzy Magill",
+        "from_status": "03 Committed",
+        "to_status": "04 Problem Discovery",
+        "field": "status"
+      },
+      {
+        "date": "2025-09-03T14:43:57.234-0400",
+        "author": "Mike Karolow",
+        "from_status": "04 Problem Discovery",
+        "to_status": "05 Solution Discovery",
+        "field": "status"
+      }
+    ],
+    "cycle_times": {
+      "first_discovery": "2025-07-31T17:13:51.787-0400",
+      "first_build": null,
+      "first_completion": null
+    }
+  },
+  "HT-492": {
+    "changelog_entries": [
+      {
+        "date": "2025-08-27T14:16:03.968-0400",
+        "author": "Adam Sigel",
+        "from_status": "01 Inbox",
+        "to_status": "02 Generative Discovery",
+        "field": "status"
+      },
+      {
+        "date": "2025-08-27T14:17:43.868-0400",
+        "author": "Adam Sigel",
+        "from_status": "02 Generative Discovery",
+        "to_status": "03 Committed",
+        "field": "status"
+      },
+      {
+        "date": "2025-08-27T14:19:35.547-0400",
+        "author": "Adam Sigel",
+        "from_status": "03 Committed",
+        "to_status": "04 Problem Discovery",
+        "field": "status"
+      },
+      {
+        "date": "2025-08-27T14:20:25.109-0400",
+        "author": "Adam Sigel",
+        "from_status": "04 Problem Discovery",
+        "to_status": "05 Solution Discovery",
+        "field": "status"
+      },
+      {
+        "date": "2025-08-27T14:23:43.924-0400",
+        "author": "Adam Sigel",
+        "from_status": "05 Solution Discovery",
+        "to_status": "06 Build",
+        "field": "status"
+      }
+    ],
+    "cycle_times": {
+      "first_discovery": "2025-08-27T14:16:03.968-0400",
+      "first_build": "2025-08-27T14:23:43.924-0400",
+      "first_completion": null,
+      "discovery_cycle_weeks": 0.0
+    }
+  }
+}

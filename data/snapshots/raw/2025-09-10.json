@@ -1,0 +1,3122 @@
+{
+  "snapshot_date": "2025-09-10",
+  "projects": [
+    {
+      "project_key": "HT-527",
+      "summary": "Setpoint | SFTP Push for Analytics",
+      "assignee": "Robert J. Johnson",
+      "status": "02 Generative Discovery",
+      "health": "Unknown",
+      "created": "2025-09-03T15:09:11.909-0400",
+      "updated": "2025-09-10T10:41:29.922-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "1.0",
+      "build_complete_date": null,
+      "teams": "Data",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-09-10T10:41:22.455-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": -0.14,
+          "active_discovery_cycle_weeks": 0,
+          "weeks_excluded_from_active_discovery": -0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-534",
+      "summary": "Marketing | Lead Value Score Model - FICO Version",
+      "assignee": "Robert J. Johnson",
+      "status": "05 Solution Discovery",
+      "health": "On Track",
+      "created": "2025-09-09T14:51:31.885-0400",
+      "updated": "2025-09-10T10:30:39.210-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Data",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-09-10T10:26:52.792-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": -0.14,
+          "active_discovery_cycle_weeks": 0,
+          "weeks_excluded_from_active_discovery": -0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-399",
+      "summary": "AI | Homechat for Capital ",
+      "assignee": "Robert J. Johnson",
+      "status": "07 Beta",
+      "health": "On Track",
+      "created": "2025-06-18T12:56:24.221-0400",
+      "updated": "2025-09-10T10:30:21.771-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2025-08-20",
+      "teams": "Data",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-29T13:43:41.213-0400",
+          "first_build_date": "2025-08-06T13:56:17.120-0400",
+          "calendar_discovery_cycle_weeks": 1.14,
+          "active_discovery_cycle_weeks": 1.0,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-08-06T13:56:17.120-0400",
+          "first_beta_or_live_date": "2025-09-10T10:30:21.771-0400",
+          "calendar_build_cycle_weeks": 4.86,
+          "active_build_cycle_weeks": 4.86,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-491",
+      "summary": "Title Insurance (Hub)",
+      "assignee": "Lizzy Magill",
+      "status": "05 Solution Discovery",
+      "health": "On Track",
+      "created": "2025-07-31T17:13:21.100-0400",
+      "updated": "2025-09-10T09:32:44.843-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "4.0",
+      "build_complete_date": null,
+      "teams": "MK2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-31T17:13:51.787-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 5.71,
+          "active_discovery_cycle_weeks": 5.57,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-490",
+      "summary": "DigiFi Slice 10 | Title",
+      "assignee": "Lizzy Magill",
+      "status": "02 Generative Discovery",
+      "health": "On Track",
+      "created": "2025-07-31T17:06:23.924-0400",
+      "updated": "2025-09-10T09:25:07.336-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": null,
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-31T17:07:38.273-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 5.71,
+          "active_discovery_cycle_weeks": 5.71,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-475",
+      "summary": "LOS S17 | Offer & Signing Date",
+      "assignee": "Garima Giri",
+      "status": "06 Build",
+      "health": "On Track",
+      "created": "2025-07-17T17:11:06.878-0400",
+      "updated": "2025-09-10T09:23:30.604-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": "2025-10-02",
+      "teams": "GM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-08-06T14:17:53.006-0400",
+          "first_build_date": "2025-09-10T09:15:39.152-0400",
+          "calendar_discovery_cycle_weeks": 4.86,
+          "active_discovery_cycle_weeks": 4.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-09-10T09:15:39.152-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": -0.14,
+          "active_build_cycle_weeks": 0,
+          "weeks_excluded_from_active_build": -0.14
+        }
+      }
+    },
+    {
+      "project_key": "HT-492",
+      "summary": "Update Default HPA",
+      "assignee": "asigel@hometap.com",
+      "status": "06 Build",
+      "health": "At Risk",
+      "created": "2025-08-05T12:53:46.085-0400",
+      "updated": "2025-09-10T09:22:22.472-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "1.0",
+      "build_complete_date": "2025-10-01",
+      "teams": "Tiger",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-08-27T14:16:03.968-0400",
+          "first_build_date": "2025-08-27T14:23:43.924-0400",
+          "calendar_discovery_cycle_weeks": 0.0,
+          "active_discovery_cycle_weeks": 0,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": "2025-08-27T14:23:43.924-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 1.86,
+          "active_build_cycle_weeks": 1.86,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-390",
+      "summary": "LOS S9 | Webhook Handler for Reggora Events",
+      "assignee": "Greg Mundy",
+      "status": "06 Build",
+      "health": "Off Track",
+      "created": "2025-06-06T14:43:34.508-0400",
+      "updated": "2025-09-10T08:50:19.881-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": "2025-09-18",
+      "teams": "GM1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-06T14:54:22.473-0400",
+          "first_build_date": "2025-08-06T12:51:44.331-0400",
+          "calendar_discovery_cycle_weeks": 8.57,
+          "active_discovery_cycle_weeks": 8.43,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-08-06T12:51:44.331-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 4.86,
+          "active_build_cycle_weeks": 4.86,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-391",
+      "summary": "LOS S9 | Service to Handle FraudGuard Documents",
+      "assignee": "Greg Mundy",
+      "status": "04 Problem Discovery",
+      "health": "On Track",
+      "created": "2025-06-06T14:44:25.669-0400",
+      "updated": "2025-09-10T08:49:54.732-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": "GM1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-06T14:49:03.870-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 13.57,
+          "active_discovery_cycle_weeks": 13.43,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-45",
+      "summary": "Test 2",
+      "assignee": "asigel@hometap.com",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2024-09-09T11:01:43.344-0400",
+      "updated": "2025-09-10T06:31:09.465-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2025-05-02",
+      "teams": "Canada",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-37",
+      "summary": "Inquiry Conversion for users with no up-to amount ",
+      "assignee": "Jennie Goldenberg",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2024-08-30T06:31:22.698-0400",
+      "updated": "2025-09-10T06:31:09.442-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": null,
+      "teams": "State Farm",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-47",
+      "summary": "Snowflake IP Address Whitelisting",
+      "assignee": "Robert J. Johnson",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2024-09-09T14:16:10.758-0400",
+      "updated": "2025-09-10T06:31:09.152-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "1.0",
+      "build_complete_date": null,
+      "teams": "Data",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-50",
+      "summary": "Experian Ascend API Migration",
+      "assignee": "Robert J. Johnson",
+      "status": "03 Committed",
+      "health": "On Hold",
+      "created": "2024-09-10T09:26:03.034-0400",
+      "updated": "2025-09-10T06:31:08.912-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": "Data",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-48",
+      "summary": "Marital States | Enhance Application",
+      "assignee": "Garima Giri",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2024-09-10T09:12:26.186-0400",
+      "updated": "2025-09-10T06:31:08.810-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": "State Farm",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-49",
+      "summary": "LTV/CLTV Source of Truth",
+      "assignee": "Robert J. Johnson",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2024-09-10T09:24:54.451-0400",
+      "updated": "2025-09-10T06:31:08.707-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": null,
+      "teams": "Canada, Data",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-59",
+      "summary": "Enhanced Risk Evaluation",
+      "assignee": "Robert J. Johnson",
+      "status": "03 Committed",
+      "health": "On Track",
+      "created": "2024-09-11T11:12:45.375-0400",
+      "updated": "2025-09-10T06:31:08.159-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": "Data",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-91",
+      "summary": "HED | Featured Offers Page Revamp",
+      "assignee": "asigel@hometap.com",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2024-09-23T11:47:21.266-0400",
+      "updated": "2025-09-10T06:31:06.820-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": "Star",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-100",
+      "summary": "PDF | Underwriting Calculator",
+      "assignee": null,
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2024-09-30T09:56:48.407-0400",
+      "updated": "2025-09-10T06:31:06.130-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": "Canada",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-142",
+      "summary": "Quarterly Account Statements: Co-app Backfill",
+      "assignee": "Robert J. Johnson",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2024-10-16T09:43:35.251-0400",
+      "updated": "2025-09-10T06:31:04.447-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": null,
+      "teams": "Data",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-145",
+      "summary": "Self-Serve Appraisal Type",
+      "assignee": "Jacqueline Gallagher",
+      "status": "03 Committed",
+      "health": "On Hold",
+      "created": "2024-10-18T08:41:06.042-0400",
+      "updated": "2025-09-10T06:31:04.416-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": null,
+      "teams": "GM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-203",
+      "summary": "Clear Capital Integration",
+      "assignee": "Robert J. Johnson",
+      "status": "03 Committed",
+      "health": "On Hold",
+      "created": "2024-12-04T14:30:08.746-0500",
+      "updated": "2025-09-10T06:31:01.327-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": "Data",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-04T14:36:01.840-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 13.86,
+          "active_discovery_cycle_weeks": 13.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-205",
+      "summary": "Marketplace Integrations | Re-Enable Acorn",
+      "assignee": "asigel@hometap.com",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2024-12-09T11:30:56.680-0500",
+      "updated": "2025-09-10T06:31:01.224-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": "State Farm",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-238",
+      "summary": "LOS | IDP for Homeowner User Management",
+      "assignee": "Jennie Goldenberg",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2025-01-08T16:06:54.643-0500",
+      "updated": "2025-09-10T06:31:00.721-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Canada",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-248",
+      "summary": "LOS | Re-factor Risk Data",
+      "assignee": "Robert J. Johnson",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2025-01-13T15:38:31.086-0500",
+      "updated": "2025-09-10T06:30:59.570-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Architecture",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-275",
+      "summary": "Debit card MVP",
+      "assignee": "asigel@hometap.com",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2025-02-06T08:06:02.113-0500",
+      "updated": "2025-09-10T06:30:58.622-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "5.0",
+      "build_complete_date": null,
+      "teams": null,
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-339",
+      "summary": "Test Marketing Idea 2",
+      "assignee": "asigel@hometap.com",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2025-04-29T13:29:36.345-0400",
+      "updated": "2025-09-10T06:30:56.530-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "1.0",
+      "build_complete_date": "2025-04-29",
+      "teams": "DEPT",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-332",
+      "summary": "LHEI MD | Disclosures",
+      "assignee": "Jacqueline Gallagher",
+      "status": "03 Committed",
+      "health": "On Hold",
+      "created": "2025-04-18T09:58:47.506-0400",
+      "updated": "2025-09-10T06:30:56.462-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Totoro",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-04-21T14:30:10.694-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 20.14,
+          "active_discovery_cycle_weeks": 19.86,
+          "weeks_excluded_from_active_discovery": 0.29
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-367",
+      "summary": "DQ Flow Definition",
+      "assignee": "Jennie Goldenberg",
+      "status": "03 Committed",
+      "health": "On Track",
+      "created": "2025-05-21T16:59:47.299-0400",
+      "updated": "2025-09-10T06:30:55.326-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Architecture",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-421",
+      "summary": "LHEI Reg | Commercial Loan Purpose Documentation",
+      "assignee": "Jennie Goldenberg",
+      "status": "03 Committed",
+      "health": "On Hold",
+      "created": "2025-06-27T16:15:55.081-0400",
+      "updated": "2025-09-10T06:30:51.984-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Tiger",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-01T10:37:06.047-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 10.0,
+          "active_discovery_cycle_weeks": 9.71,
+          "weeks_excluded_from_active_discovery": 0.29
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-465",
+      "summary": "Digifi S2 | UAT & Feedback",
+      "assignee": "Jacqueline Gallagher",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2025-07-08T16:56:43.728-0400",
+      "updated": "2025-09-10T06:30:49.402-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Totoro",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-08-12T15:26:08.000-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 4.0,
+          "active_discovery_cycle_weeks": 3.86,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-476",
+      "summary": "Funding & Buybox | Project Bacchus/Fund 6",
+      "assignee": "Jacqueline Gallagher",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2025-07-23T12:41:47.792-0400",
+      "updated": "2025-09-10T06:30:48.472-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "MK2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-30T12:55:06.073-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 5.86,
+          "active_discovery_cycle_weeks": 5.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-485",
+      "summary": "Funding & Buybox | Centerbridge",
+      "assignee": "Jacqueline Gallagher",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2025-07-30T12:41:23.756-0400",
+      "updated": "2025-09-10T06:30:47.586-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "MK2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-30T12:57:30.535-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 5.86,
+          "active_discovery_cycle_weeks": 5.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-486",
+      "summary": "Funding & Buybox | Oaktree",
+      "assignee": "Jacqueline Gallagher",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2025-07-30T12:41:32.706-0400",
+      "updated": "2025-09-10T06:30:47.529-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Totoro",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-08-18T16:47:29.671-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 3.14,
+          "active_discovery_cycle_weeks": 3.0,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-506",
+      "summary": "State Launch: Tennessee",
+      "assignee": "asigel@hometap.com",
+      "status": "03 Committed",
+      "health": "Unknown",
+      "created": "2025-08-18T16:46:11.166-0400",
+      "updated": "2025-09-10T06:30:47.006-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Data",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-08-21T09:25:46.607-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 2.71,
+          "active_discovery_cycle_weeks": 2.57,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-442",
+      "summary": "Homeowner Knowledge Check",
+      "assignee": "asigel@hometap.com",
+      "status": "05 Solution Discovery",
+      "health": "Mystery",
+      "created": "2025-06-30T14:26:54.899-0400",
+      "updated": "2025-09-10T05:35:21.918-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "SFDC",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-30T14:31:40.026-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 10.14,
+          "active_discovery_cycle_weeks": 10.0,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-438",
+      "summary": "Non-MD LHEI Req | Co-Applicant Access to Documents",
+      "assignee": "Lizzy Magill",
+      "status": "02 Generative Discovery",
+      "health": "On Track",
+      "created": "2025-06-27T16:16:02.448-0400",
+      "updated": "2025-09-09T14:59:20.482-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": null,
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-02T09:36:13.347-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 9.86,
+          "active_discovery_cycle_weeks": 9.86,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-415",
+      "summary": "DigiFi S5 M5| Co-applicant Addition and Removal Functionality",
+      "assignee": "Lizzy Magill",
+      "status": "05 Solution Discovery",
+      "health": "On Track",
+      "created": "2025-06-24T12:41:38.260-0400",
+      "updated": "2025-09-09T14:57:35.630-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": "KM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-24T12:43:59.494-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 11.0,
+          "active_discovery_cycle_weeks": 10.86,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-333",
+      "summary": "DigiFi S5 M2| Co-Applicant addition --> verification",
+      "assignee": "Lizzy Magill",
+      "status": "06 Build",
+      "health": "On Track",
+      "created": "2025-04-21T11:57:09.945-0400",
+      "updated": "2025-09-09T14:41:04.104-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "5.0",
+      "build_complete_date": "2025-08-29",
+      "teams": "KM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-245",
+      "summary": "DigiFi S6-7 | Non-Applicant Closing Participants (NTS, POA, Trustee)",
+      "assignee": "Lizzy Magill",
+      "status": "06 Build",
+      "health": "On Hold",
+      "created": "2025-01-10T09:37:05.130-0500",
+      "updated": "2025-09-09T14:38:12.064-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "4.0",
+      "build_complete_date": "2025-12-19",
+      "teams": "KM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-04-16T15:18:55.023-0400",
+          "first_build_date": "2025-07-29T15:48:23.712-0400",
+          "calendar_discovery_cycle_weeks": 14.86,
+          "active_discovery_cycle_weeks": 14.86,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": "2025-07-29T15:48:23.712-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 6.0,
+          "active_build_cycle_weeks": 6.0,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-505",
+      "summary": "HTDC | Update HEI Copy",
+      "assignee": "Sanela Smaka",
+      "status": "02 Generative Discovery",
+      "health": "On Track",
+      "created": "2025-08-18T14:54:22.152-0400",
+      "updated": "2025-09-09T14:14:37.314-0400",
+      "labels": [
+        "ToFu-Review"
+      ],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "1.0",
+      "build_complete_date": null,
+      "teams": "DEPT",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-09-04T14:43:00.771-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 0.71,
+          "active_discovery_cycle_weeks": 0.71,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-501",
+      "summary": "HTDC | Landing Pages Social Proof Test",
+      "assignee": "Sanela Smaka",
+      "status": "07 Beta",
+      "health": "On Track",
+      "created": "2025-08-14T10:46:32.234-0400",
+      "updated": "2025-09-09T13:55:46.874-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "1.0",
+      "build_complete_date": "2025-08-27",
+      "teams": "DEPT",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-08-27T07:56:33.653-0400",
+          "first_build_date": "2025-08-27T07:57:53.937-0400",
+          "calendar_discovery_cycle_weeks": 0.0,
+          "active_discovery_cycle_weeks": 0,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": "2025-08-27T07:57:53.937-0400",
+          "first_beta_or_live_date": "2025-09-02T11:07:28.102-0400",
+          "calendar_build_cycle_weeks": 0.86,
+          "active_build_cycle_weeks": 0.86,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-366",
+      "summary": "S2 | Completion of To-Dos Generated by Application",
+      "assignee": "Chad Gallemore",
+      "status": "06 Build",
+      "health": "On Track",
+      "created": "2025-05-21T15:32:08.072-0400",
+      "updated": "2025-09-09T13:48:48.529-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": "2025-10-16",
+      "teams": "CG2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-05-21T15:34:31.559-0400",
+          "first_build_date": "2025-08-19T09:10:00.171-0400",
+          "calendar_discovery_cycle_weeks": 12.71,
+          "active_discovery_cycle_weeks": 12.57,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-08-19T09:10:00.171-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 3.0,
+          "active_build_cycle_weeks": 3.0,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-530",
+      "summary": "DigiFi Task Assignment Logic & Behavior",
+      "assignee": "Jennie Goldenberg",
+      "status": "02 Generative Discovery",
+      "health": "On Track",
+      "created": "2025-09-08T13:06:17.831-0400",
+      "updated": "2025-09-09T13:47:31.836-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Architecture, SFDC",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-09-08T13:06:45.850-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 0.14,
+          "active_discovery_cycle_weeks": 0.14,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-531",
+      "summary": "Hub Operations on Invested Tracks",
+      "assignee": "Jennie Goldenberg",
+      "status": "02 Generative Discovery",
+      "health": "On Hold",
+      "created": "2025-09-08T14:10:10.467-0400",
+      "updated": "2025-09-09T13:47:24.132-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Architecture",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-09-08T14:10:34.750-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 0.14,
+          "active_discovery_cycle_weeks": 0.14,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-481",
+      "summary": "HTDC | Rebrand",
+      "assignee": "Sanela Smaka",
+      "status": "06 Build",
+      "health": "On Track",
+      "created": "2025-07-28T13:16:44.760-0400",
+      "updated": "2025-09-09T13:07:56.619-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "1.0",
+      "build_complete_date": "2025-09-05",
+      "teams": "DEPT",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-29T14:49:55.088-0400",
+          "first_build_date": "2025-08-28T15:34:54.456-0400",
+          "calendar_discovery_cycle_weeks": 4.29,
+          "active_discovery_cycle_weeks": 4.14,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-08-28T15:34:54.456-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 1.71,
+          "active_build_cycle_weeks": 1.71,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-156",
+      "summary": "HTDC | Investor Microsite",
+      "assignee": "Sanela Smaka",
+      "status": "06 Build",
+      "health": "Off Track",
+      "created": "2024-10-29T10:13:47.941-0400",
+      "updated": "2025-09-09T13:06:50.166-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": null,
+      "teams": "DEPT",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": "2025-07-01T10:06:02.390-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 10.0,
+          "active_build_cycle_weeks": 10.0,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-386",
+      "summary": "HTDC | Macroeconomy Growth Tool & Landing Page",
+      "assignee": "Sanela Smaka",
+      "status": "05 Solution Discovery",
+      "health": "On Track",
+      "created": "2025-06-04T14:10:55.617-0400",
+      "updated": "2025-09-09T13:05:45.533-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "DEPT",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-04T14:11:20.153-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 13.86,
+          "active_discovery_cycle_weeks": 13.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-526",
+      "summary": "HTDC | Cost of Homeownership Calculator Landing Page",
+      "assignee": "Sanela Smaka",
+      "status": "02 Generative Discovery",
+      "health": "On Track",
+      "created": "2025-09-03T14:02:35.026-0400",
+      "updated": "2025-09-09T13:00:16.104-0400",
+      "labels": [
+        "ToFu-Review"
+      ],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "1.0",
+      "build_complete_date": null,
+      "teams": "DEPT",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-09-04T14:44:24.110-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 0.71,
+          "active_discovery_cycle_weeks": 0.71,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-218",
+      "summary": "HTDC | Ambassador Program Landing Page",
+      "assignee": "Sanela Smaka",
+      "status": "05 Solution Discovery",
+      "health": "On Track",
+      "created": "2024-12-23T08:52:55.384-0500",
+      "updated": "2025-09-09T12:52:23.438-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": "DEPT",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-11T13:49:13.395-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 12.86,
+          "active_discovery_cycle_weeks": 12.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-515",
+      "summary": "Homeowner Hub Phase 2 - Color Update",
+      "assignee": "Sanela Smaka",
+      "status": "05 Solution Discovery",
+      "health": "On Track",
+      "created": "2025-08-27T07:48:44.994-0400",
+      "updated": "2025-09-09T12:47:45.449-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "CG1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-08-27T07:51:15.039-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 1.86,
+          "active_discovery_cycle_weeks": 1.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-482",
+      "summary": "Homeowner Hub Phase 1 - Logo Update",
+      "assignee": "Sanela Smaka",
+      "status": "06 Build",
+      "health": "On Track",
+      "created": "2025-07-29T14:15:11.961-0400",
+      "updated": "2025-09-09T12:46:52.472-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2025-09-18",
+      "teams": "CG1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-29T14:57:28.225-0400",
+          "first_build_date": "2025-09-04T13:27:05.710-0400",
+          "calendar_discovery_cycle_weeks": 5.14,
+          "active_discovery_cycle_weeks": 5.0,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-09-04T13:27:05.710-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 0.71,
+          "active_build_cycle_weeks": 0.71,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-502",
+      "summary": "Inquiry | Login CTA \"Quick Win\"",
+      "assignee": "Sanela Smaka",
+      "status": "06 Build",
+      "health": "Off Track",
+      "created": "2025-08-14T13:08:24.599-0400",
+      "updated": "2025-09-09T11:18:02.798-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2025-09-01",
+      "teams": "KM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-08-14T13:23:16.689-0400",
+          "first_build_date": "2025-08-19T11:55:37.094-0400",
+          "calendar_discovery_cycle_weeks": 0.57,
+          "active_discovery_cycle_weeks": 0.43,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-08-19T11:55:37.094-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 3.0,
+          "active_build_cycle_weeks": 3.0,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-528",
+      "summary": "S3 | AVM Repulls and .pdf Generation (DigiFi Support)",
+      "assignee": "Jennie Goldenberg",
+      "status": "06 Build",
+      "health": "On Track",
+      "created": "2025-09-03T15:23:31.713-0400",
+      "updated": "2025-09-09T11:17:39.517-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2025-10-01",
+      "teams": "MK1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-09-03T15:24:11.224-0400",
+          "first_build_date": "2025-09-09T11:17:39.517-0400",
+          "calendar_discovery_cycle_weeks": 0.71,
+          "active_discovery_cycle_weeks": 0.57,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-09-09T11:17:39.517-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 0.0,
+          "active_build_cycle_weeks": 0,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-462",
+      "summary": "S3 | AVM .pdf (Application Webhooks)",
+      "assignee": "Jennie Goldenberg",
+      "status": "07 Beta",
+      "health": "Complete",
+      "created": "2025-07-08T10:05:18.067-0400",
+      "updated": "2025-09-09T11:16:59.977-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": "2025-08-01",
+      "teams": "MK1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-08T10:07:08.783-0400",
+          "first_build_date": "2025-08-06T14:16:16.053-0400",
+          "calendar_discovery_cycle_weeks": 4.14,
+          "active_discovery_cycle_weeks": 4.0,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-08-06T14:16:16.053-0400",
+          "first_beta_or_live_date": "2025-09-09T10:52:10.703-0400",
+          "calendar_build_cycle_weeks": 4.71,
+          "active_build_cycle_weeks": 4.71,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-464",
+      "summary": "S3 | Define RHV & BHV Behavior",
+      "assignee": "Jennie Goldenberg",
+      "status": "07 Beta",
+      "health": "Complete",
+      "created": "2025-07-08T10:12:41.013-0400",
+      "updated": "2025-09-09T11:16:58.268-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2025-08-01",
+      "teams": "MK1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-08T10:16:47.795-0400",
+          "first_build_date": "2025-07-22T10:44:57.849-0400",
+          "calendar_discovery_cycle_weeks": 2.0,
+          "active_discovery_cycle_weeks": 1.86,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-07-22T10:44:57.849-0400",
+          "first_beta_or_live_date": "2025-08-19T10:45:54.943-0400",
+          "calendar_build_cycle_weeks": 4.0,
+          "active_build_cycle_weeks": 4.0,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-364",
+      "summary": "S1 | UAT and Feedback",
+      "assignee": "Jennie Goldenberg",
+      "status": "06 Build",
+      "health": "On Track",
+      "created": "2025-05-21T15:14:52.572-0400",
+      "updated": "2025-09-09T11:16:56.287-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2025-09-01",
+      "teams": "CG1, CG2, KM1, KM2, GM1, GM2, MK1, MK2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-05-21T15:20:21.455-0400",
+          "first_build_date": "2025-09-03T16:26:47.989-0400",
+          "calendar_discovery_cycle_weeks": 15.0,
+          "active_discovery_cycle_weeks": 14.86,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-09-03T16:26:47.989-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 0.86,
+          "active_build_cycle_weeks": 0.86,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-463",
+      "summary": "S3 | Expand Self-Disclosed Value Experience",
+      "assignee": "Jennie Goldenberg",
+      "status": "06 Build",
+      "health": "At Risk",
+      "created": "2025-07-08T10:07:49.077-0400",
+      "updated": "2025-09-09T11:16:49.958-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": "2025-08-01",
+      "teams": "MK2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-08T12:59:40.727-0400",
+          "first_build_date": "2025-07-29T10:40:45.563-0400",
+          "calendar_discovery_cycle_weeks": 2.86,
+          "active_discovery_cycle_weeks": 2.86,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": "2025-07-29T10:40:45.563-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 6.0,
+          "active_build_cycle_weeks": 6.0,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-322",
+      "summary": "DigiFi | Qualia Integration",
+      "assignee": "Lizzy Magill",
+      "status": "05 Solution Discovery",
+      "health": "On Track",
+      "created": "2025-04-04T15:05:08.585-0400",
+      "updated": "2025-09-09T10:58:13.880-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": null,
+      "teams": "MK1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-09-03T15:00:01.604-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 0.86,
+          "active_discovery_cycle_weeks": 0.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-75",
+      "summary": "Homeowner Action Items MVP",
+      "assignee": "asigel@hometap.com",
+      "status": "05 Solution Discovery",
+      "health": "Off Track",
+      "created": "2024-09-12T13:09:24.334-0400",
+      "updated": "2025-09-09T10:50:06.421-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "4.0",
+      "build_complete_date": null,
+      "teams": "CG1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-06T14:37:59.889-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 13.57,
+          "active_discovery_cycle_weeks": 13.43,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-525",
+      "summary": "S3 | Unified Home Val API - Surface Home Val in all Key Places",
+      "assignee": "Jennie Goldenberg",
+      "status": "05 Solution Discovery",
+      "health": "On Track",
+      "created": "2025-09-03T09:53:01.334-0400",
+      "updated": "2025-09-09T10:46:29.431-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": "MK1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-09-03T10:02:34.980-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 0.86,
+          "active_discovery_cycle_weeks": 0.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-503",
+      "summary": "Inquiry | Start a New Investment \"Quick Win\"",
+      "assignee": "Sanela Smaka",
+      "status": "05 Solution Discovery",
+      "health": "On Hold",
+      "created": "2025-08-14T15:54:24.844-0400",
+      "updated": "2025-09-09T10:12:53.795-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "KM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-08-14T15:56:40.316-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 3.71,
+          "active_discovery_cycle_weeks": 3.57,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-147",
+      "summary": "LOS S4 | Auto-Generate Estimate, IM approval",
+      "assignee": "Garima Giri",
+      "status": "02 Generative Discovery",
+      "health": "On Track",
+      "created": "2024-10-18T09:26:51.842-0400",
+      "updated": "2025-09-04T00:00:51.659-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": null,
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-04-01T14:39:28.442-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 23.0,
+          "active_discovery_cycle_weeks": 23.0,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-343",
+      "summary": "LOS S2 | Appraisal Type Selection",
+      "assignee": "Jacqueline Gallagher",
+      "status": "04 Problem Discovery",
+      "health": "On Track",
+      "created": "2025-05-02T14:29:38.598-0400",
+      "updated": "2025-09-04T00:00:51.256-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": null,
+      "teams": "GM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-05-07T14:35:03.211-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 17.86,
+          "active_discovery_cycle_weeks": 17.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-175",
+      "summary": "Copy of Quick win: Prevent Account Enumeration",
+      "assignee": "Jonathan Vasquez",
+      "status": "06 Build",
+      "health": "On Track",
+      "created": "2024-11-13T12:50:55.149-0500",
+      "updated": "2025-09-04T00:00:50.803-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2024-11-21",
+      "teams": "State Farm",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-204",
+      "summary": "Hybrid CX: Early Stage Planning",
+      "assignee": "Martha Carl",
+      "status": "05 Solution Discovery",
+      "health": "On Track",
+      "created": "2024-12-06T13:47:07.254-0500",
+      "updated": "2025-09-04T00:00:50.653-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "5.0",
+      "build_complete_date": null,
+      "teams": null,
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2024-12-09T16:42:12.736-0500",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 39.14,
+          "active_discovery_cycle_weeks": 39.14,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-329",
+      "summary": "Vanessa N/A Lead Test",
+      "assignee": "Vanessa Ferranto",
+      "status": "02 Generative Discovery",
+      "health": "On Track",
+      "created": "2025-04-09T15:55:51.064-0400",
+      "updated": "2025-09-04T00:00:50.477-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "State Farm",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-04-09T15:57:20.662-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 21.86,
+          "active_discovery_cycle_weeks": 21.0,
+          "weeks_excluded_from_active_discovery": 0.86
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-268",
+      "summary": "Test idea",
+      "assignee": null,
+      "status": "04 Problem Discovery",
+      "health": "Mystery",
+      "created": "2025-01-30T12:21:14.138-0500",
+      "updated": "2025-09-04T00:00:50.367-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": "2025-05-02",
+      "teams": "DEPT",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-04-09T13:54:40.789-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 21.86,
+          "active_discovery_cycle_weeks": 21.43,
+          "weeks_excluded_from_active_discovery": 0.43
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-373",
+      "summary": "AI | Fluree Evaluation",
+      "assignee": "Robert J. Johnson",
+      "status": "06 Build",
+      "health": "At Risk",
+      "created": "2025-05-27T14:39:57.744-0400",
+      "updated": "2025-09-04T00:00:49.122-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": "2025-08-27",
+      "teams": "Data",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-04T14:43:25.069-0400",
+          "first_build_date": "2025-07-16T13:20:14.217-0400",
+          "calendar_discovery_cycle_weeks": 5.86,
+          "active_discovery_cycle_weeks": 5.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-07-16T13:20:14.217-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 7.86,
+          "active_build_cycle_weeks": 7.86,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-348",
+      "summary": "LOS S4 | Auto-Generate Estimate",
+      "assignee": "Garima Giri",
+      "status": "06 Build",
+      "health": "On Track",
+      "created": "2025-05-06T17:27:56.594-0400",
+      "updated": "2025-09-04T00:00:46.976-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "4.0",
+      "build_complete_date": "2025-09-04",
+      "teams": "GM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": "2025-07-14T12:46:15.402-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 8.14,
+          "active_build_cycle_weeks": 8.14,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-345",
+      "summary": "Marketing/Capital | Equity Refresh Analysis",
+      "assignee": "Robert J. Johnson",
+      "status": "04 Problem Discovery",
+      "health": "On Track",
+      "created": "2025-05-06T11:08:08.502-0400",
+      "updated": "2025-09-04T00:00:46.966-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "4.0",
+      "build_complete_date": null,
+      "teams": "Data",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-05-21T14:00:03.948-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 15.86,
+          "active_discovery_cycle_weeks": 15.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-349",
+      "summary": "DocMagic SOW | Unlicensed product needs",
+      "assignee": "Jacqueline Gallagher",
+      "status": "05 Solution Discovery",
+      "health": "At Risk",
+      "created": "2025-05-07T11:26:32.160-0400",
+      "updated": "2025-09-04T00:00:46.424-0400",
+      "labels": [
+        "LOS"
+      ],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Totoro",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-05-07T11:30:07.210-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 17.86,
+          "active_discovery_cycle_weeks": 17.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-375",
+      "summary": "AVM Pulls by Purpose",
+      "assignee": "Robert J. Johnson",
+      "status": "05 Solution Discovery",
+      "health": "On Track",
+      "created": "2025-05-29T09:15:45.026-0400",
+      "updated": "2025-09-04T00:00:44.149-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "MK2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-05-29T14:26:48.528-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 14.71,
+          "active_discovery_cycle_weeks": 14.57,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-512",
+      "summary": "Digifi S9 | Reggora integration support",
+      "assignee": "Jacqueline Gallagher",
+      "status": "06 Build",
+      "health": "At Risk",
+      "created": "2025-08-26T14:50:19.594-0400",
+      "updated": "2025-09-04T00:00:43.472-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": "2025-09-04",
+      "teams": "GM1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-08-26T14:52:27.436-0400",
+          "first_build_date": "2025-08-26T14:57:41.824-0400",
+          "calendar_discovery_cycle_weeks": 0.0,
+          "active_discovery_cycle_weeks": 0,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": "2025-08-26T14:57:41.824-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 2.0,
+          "active_build_cycle_weeks": 2.0,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-479",
+      "summary": "Test Item",
+      "assignee": "asigel@hometap.com",
+      "status": "02 Generative Discovery",
+      "health": "On Track",
+      "created": "2025-07-28T10:46:01.844-0400",
+      "updated": "2025-09-04T00:00:41.325-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "1.0",
+      "build_complete_date": "2025-07-28",
+      "teams": "DEPT",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-28T10:46:16.718-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 6.14,
+          "active_discovery_cycle_weeks": 5.29,
+          "weeks_excluded_from_active_discovery": 0.86
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-382",
+      "summary": "LHEI variables",
+      "assignee": "Jacqueline Gallagher",
+      "status": "04 Problem Discovery",
+      "health": "At Risk",
+      "created": "2025-06-03T12:12:05.996-0400",
+      "updated": "2025-09-04T00:00:40.697-0400",
+      "labels": [
+        "LOS"
+      ],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Totoro",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-11T14:20:56.478-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 12.86,
+          "active_discovery_cycle_weeks": 12.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-398",
+      "summary": "Improve Document Upload To-Do Modals",
+      "assignee": "Lizzy Magill",
+      "status": "05 Solution Discovery",
+      "health": "On Track",
+      "created": "2025-06-17T12:02:10.148-0400",
+      "updated": "2025-09-04T00:00:38.999-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": null,
+      "teams": "CG2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-17T12:06:30.369-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 12.0,
+          "active_discovery_cycle_weeks": 11.86,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-417",
+      "summary": "Inquiry | Automate Prior Adverse Event DQs",
+      "assignee": "Robert J. Johnson",
+      "status": "02 Generative Discovery",
+      "health": "On Track",
+      "created": "2025-06-27T13:34:26.583-0400",
+      "updated": "2025-09-04T00:00:38.717-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Data",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-10T11:03:29.696-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 8.71,
+          "active_discovery_cycle_weeks": 8.71,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-488",
+      "summary": "Digifi S18 | DocMagic/Digifi integration (IDD and Contract Gen)",
+      "assignee": "Jacqueline Gallagher",
+      "status": "05 Solution Discovery",
+      "health": "On Track",
+      "created": "2025-07-30T13:23:56.104-0400",
+      "updated": "2025-09-04T00:00:38.507-0400",
+      "labels": [
+        "LOS"
+      ],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "GM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-30T13:34:25.486-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 5.86,
+          "active_discovery_cycle_weeks": 5.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-487",
+      "summary": "Digifi S19 | Leverage Setpoint in Digifi",
+      "assignee": "Jacqueline Gallagher",
+      "status": "04 Problem Discovery",
+      "health": "On Track",
+      "created": "2025-07-30T13:21:42.646-0400",
+      "updated": "2025-09-04T00:00:37.692-0400",
+      "labels": [
+        "LOS"
+      ],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Totoro",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-30T13:34:52.568-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 5.86,
+          "active_discovery_cycle_weeks": 5.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-523",
+      "summary": "LOS S14 | Expose Flood Zone Data to DigiFi",
+      "assignee": "Mike Karolow",
+      "status": "06 Build",
+      "health": "On Track",
+      "created": "2025-09-02T11:42:15.579-0400",
+      "updated": "2025-09-04T00:00:37.261-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": "2025-09-01",
+      "teams": null,
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": "2025-09-02T11:43:41.914-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 1.0,
+          "active_build_cycle_weeks": 1.0,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-469",
+      "summary": "S13 | DSCR Calculations (DigiFi Support)",
+      "assignee": "Jennie Goldenberg",
+      "status": "07 Beta",
+      "health": "Complete",
+      "created": "2025-07-15T13:47:26.377-0400",
+      "updated": "2025-09-03T16:08:48.528-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "1.0",
+      "build_complete_date": "2025-08-01",
+      "teams": "GM1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-15T13:48:59.815-0400",
+          "first_build_date": "2025-09-03T12:57:43.212-0400",
+          "calendar_discovery_cycle_weeks": 7.0,
+          "active_discovery_cycle_weeks": 6.86,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-09-03T12:57:43.212-0400",
+          "first_beta_or_live_date": "2025-09-03T16:07:21.078-0400",
+          "calendar_build_cycle_weeks": 0.0,
+          "active_build_cycle_weeks": 0,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-418",
+      "summary": "LHEI MD | Data for Examinations",
+      "assignee": "Jacqueline Gallagher",
+      "status": "04 Problem Discovery",
+      "health": "On Hold",
+      "created": "2025-06-27T16:15:53.635-0400",
+      "updated": "2025-09-03T14:54:20.950-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Totoro",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-07T10:57:04.748-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 9.14,
+          "active_discovery_cycle_weeks": 9.0,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-327",
+      "summary": "Setpoint Spike | LOE to use Setpoint to allocate investments in Hub",
+      "assignee": "Jacqueline Gallagher",
+      "status": "02 Generative Discovery",
+      "health": "Complete",
+      "created": "2025-04-07T14:26:04.077-0400",
+      "updated": "2025-09-03T14:53:10.885-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": null,
+      "teams": null,
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-04-07T14:34:28.634-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 22.14,
+          "active_discovery_cycle_weeks": 22.0,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-489",
+      "summary": "Phase 3 - FICO-only Risk Qualification - Update Hub UI to remove RB references",
+      "assignee": "Garima Giri",
+      "status": "07 Beta",
+      "health": "On Track",
+      "created": "2025-07-30T13:29:37.951-0400",
+      "updated": "2025-09-03T14:06:43.124-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2025-08-21",
+      "teams": "Tiger",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-30T13:39:17.139-0400",
+          "first_build_date": "2025-08-06T14:12:14.103-0400",
+          "calendar_discovery_cycle_weeks": 1.0,
+          "active_discovery_cycle_weeks": 0.86,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-08-06T14:12:14.103-0400",
+          "first_beta_or_live_date": "2025-09-03T14:06:43.124-0400",
+          "calendar_build_cycle_weeks": 3.86,
+          "active_build_cycle_weeks": 3.86,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-392",
+      "summary": "LOS S9 | Service to Handle ClearEdge Documents",
+      "assignee": "Mike Karolow",
+      "status": "05 Solution Discovery",
+      "health": "On Hold",
+      "created": "2025-06-06T14:45:40.049-0400",
+      "updated": "2025-08-28T16:32:46.311-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": "2025-09-01",
+      "teams": "MK1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-06T14:57:43.572-0400",
+          "first_build_date": "2025-07-16T15:06:41.053-0400",
+          "calendar_discovery_cycle_weeks": 5.71,
+          "active_discovery_cycle_weeks": 5.43,
+          "weeks_excluded_from_active_discovery": 0.29
+        },
+        "build": {
+          "first_build_date": "2025-07-16T15:06:41.053-0400",
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": 7.86,
+          "active_build_cycle_weeks": 7.86,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-413",
+      "summary": "DigiFi S5 M3| Co-applicant TLP Experience and Task Completion",
+      "assignee": "Chad Gallemore",
+      "status": "04 Problem Discovery",
+      "health": "On Hold",
+      "created": "2025-06-24T12:23:38.933-0400",
+      "updated": "2025-08-28T16:25:55.750-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": "CG2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-24T12:29:52.365-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 11.0,
+          "active_discovery_cycle_weeks": 10.71,
+          "weeks_excluded_from_active_discovery": 0.29
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-350",
+      "summary": "LOS S8 | UTM",
+      "assignee": "Garima Giri",
+      "status": "02 Generative Discovery",
+      "health": "Unknown",
+      "created": "2025-05-07T14:11:09.077-0400",
+      "updated": "2025-08-28T16:24:49.285-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": null,
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-05-07T14:18:37.496-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 17.86,
+          "active_discovery_cycle_weeks": 17.86,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-86",
+      "summary": "Automate UW Calculator | UW Details in SPA",
+      "assignee": "Jennie Goldenberg",
+      "status": "06 Build",
+      "health": "Unknown",
+      "created": "2024-09-13T17:01:04.526-0400",
+      "updated": "2025-08-28T06:31:38.987-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": "Canada",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-472",
+      "summary": "S11 | Adverse Events (DigiFi Support)",
+      "assignee": "Jennie Goldenberg",
+      "status": "07 Beta",
+      "health": "Complete",
+      "created": "2025-07-16T12:41:50.352-0400",
+      "updated": "2025-08-26T17:49:03.809-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2025-08-01",
+      "teams": "GM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-16T12:42:37.231-0400",
+          "first_build_date": "2025-08-26T17:48:11.759-0400",
+          "calendar_discovery_cycle_weeks": 5.86,
+          "active_discovery_cycle_weeks": 5.71,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-08-26T17:48:11.759-0400",
+          "first_beta_or_live_date": "2025-08-26T17:49:03.809-0400",
+          "calendar_build_cycle_weeks": 0.0,
+          "active_build_cycle_weeks": 0,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-296",
+      "summary": "LOS S1 | Submit Hometap Application backed by DigiFi configuration",
+      "assignee": "Chad Gallemore",
+      "status": "07 Beta",
+      "health": "Complete",
+      "created": "2025-03-06T11:58:10.263-0500",
+      "updated": "2025-08-26T09:15:38.224-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": "2025-07-24",
+      "teams": "CG2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-388",
+      "summary": "LOS S2 | Doc Kind Labels",
+      "assignee": "Greg Mundy",
+      "status": "07 Beta",
+      "health": "Complete",
+      "created": "2025-06-06T13:12:14.608-0400",
+      "updated": "2025-08-20T14:33:51.310-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": "2025-07-24",
+      "teams": "GM1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-06T13:55:52.343-0400",
+          "first_build_date": "2025-07-01T16:44:54.553-0400",
+          "calendar_discovery_cycle_weeks": 3.57,
+          "active_discovery_cycle_weeks": 3.57,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": "2025-07-01T16:44:54.553-0400",
+          "first_beta_or_live_date": "2025-08-20T14:23:47.423-0400",
+          "calendar_build_cycle_weeks": 7.0,
+          "active_build_cycle_weeks": 7.0,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-355",
+      "summary": "Update BlackKnight report to include all investments",
+      "assignee": "Mike Karolow",
+      "status": "07 Beta",
+      "health": "On Track",
+      "created": "2025-05-13T09:02:32.638-0400",
+      "updated": "2025-08-20T13:02:44.607-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2025-08-07",
+      "teams": "MK1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-468",
+      "summary": "DigiFi S5 M1 | Borrower Webhooks",
+      "assignee": "Mike Karolow",
+      "status": "07 Beta",
+      "health": "Complete",
+      "created": "2025-07-15T09:33:17.842-0400",
+      "updated": "2025-08-20T13:01:54.171-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": "2025-08-01",
+      "teams": "MK1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-15T09:36:23.351-0400",
+          "first_build_date": "2025-07-16T15:06:08.770-0400",
+          "calendar_discovery_cycle_weeks": 0.14,
+          "active_discovery_cycle_weeks": 0,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-07-16T15:06:08.770-0400",
+          "first_beta_or_live_date": "2025-08-20T13:00:44.446-0400",
+          "calendar_build_cycle_weeks": 4.86,
+          "active_build_cycle_weeks": 4.86,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-247",
+      "summary": "Contract Gen | Automatically send IDD upon creation",
+      "assignee": "Jacqueline Gallagher",
+      "status": "07 Beta",
+      "health": "Complete",
+      "created": "2025-01-13T10:10:22.719-0500",
+      "updated": "2025-08-14T13:27:54.002-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": "2025-07-10",
+      "teams": "GM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-11T14:48:30.083-0400",
+          "first_build_date": "2025-07-17T16:24:21.466-0400",
+          "calendar_discovery_cycle_weeks": 5.14,
+          "active_discovery_cycle_weeks": 4.71,
+          "weeks_excluded_from_active_discovery": 0.43
+        },
+        "build": {
+          "first_build_date": "2025-07-17T16:24:21.466-0400",
+          "first_beta_or_live_date": "2025-07-23T11:52:54.673-0400",
+          "calendar_build_cycle_weeks": 0.71,
+          "active_build_cycle_weeks": 0.71,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-365",
+      "summary": "S3 | AVM .pdf (Hometap Support) Property Details",
+      "assignee": "Jennie Goldenberg",
+      "status": "07 Beta",
+      "health": "Complete",
+      "created": "2025-05-21T15:28:38.461-0400",
+      "updated": "2025-08-14T13:27:53.078-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2025-07-10",
+      "teams": "MK1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-05-21T15:31:22.431-0400",
+          "first_build_date": "2025-07-08T12:43:02.841-0400",
+          "calendar_discovery_cycle_weeks": 6.71,
+          "active_discovery_cycle_weeks": 6.57,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": "2025-07-08T12:43:02.841-0400",
+          "first_beta_or_live_date": "2025-07-22T10:29:03.869-0400",
+          "calendar_build_cycle_weeks": 1.86,
+          "active_build_cycle_weeks": 1.86,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-294",
+      "summary": "LOS S1 | Unify FE for Investments and Overview page Cards",
+      "assignee": "Greg Mundy",
+      "status": "07 Beta",
+      "health": "Complete",
+      "created": "2025-03-03T11:08:19.560-0500",
+      "updated": "2025-08-05T12:41:01.300-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2025-05-15",
+      "teams": "GM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": "2025-04-15T17:04:14.077-0400",
+          "first_beta_or_live_date": "2025-06-06T13:11:37.064-0400",
+          "calendar_build_cycle_weeks": 7.29,
+          "active_build_cycle_weeks": 7.29,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-241",
+      "summary": "LOS S2 | Docs Proxy Service",
+      "assignee": "Greg Mundy",
+      "status": "07 Beta",
+      "health": "Complete",
+      "created": "2025-01-10T09:23:50.615-0500",
+      "updated": "2025-08-05T12:40:56.967-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "5.0",
+      "build_complete_date": "2025-05-29",
+      "teams": "GM1",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-239",
+      "summary": "LOS S1 | Inquiry to use DigiFi\u2019s Application",
+      "assignee": "Kristen Manning",
+      "status": "07 Beta",
+      "health": "Complete",
+      "created": "2025-01-08T16:10:06.501-0500",
+      "updated": "2025-08-05T12:40:03.404-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "2.0",
+      "build_complete_date": "2025-05-01",
+      "teams": "KM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": null,
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": null,
+          "active_discovery_cycle_weeks": null,
+          "weeks_excluded_from_active_discovery": 0
+        },
+        "build": {
+          "first_build_date": "2025-03-24T15:43:40.148-0400",
+          "first_beta_or_live_date": "2025-05-21T12:56:49.067-0400",
+          "calendar_build_cycle_weeks": 8.14,
+          "active_build_cycle_weeks": 8.14,
+          "weeks_excluded_from_active_build": 0.0
+        }
+      }
+    },
+    {
+      "project_key": "HT-414",
+      "summary": "DigiFi S5 M4| Co-applicant Estimate and Offer Experience",
+      "assignee": "Lizzy Magill",
+      "status": "04 Problem Discovery",
+      "health": "On Hold",
+      "created": "2025-06-24T12:31:13.275-0400",
+      "updated": "2025-07-30T13:58:38.824-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": "3.0",
+      "build_complete_date": null,
+      "teams": "KM2",
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-06-24T12:35:17.850-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 11.0,
+          "active_discovery_cycle_weeks": 10.86,
+          "weeks_excluded_from_active_discovery": 0.14
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    },
+    {
+      "project_key": "HT-466",
+      "summary": "S9 | Appraisals",
+      "assignee": "Jacqueline Gallagher",
+      "status": "02 Generative Discovery",
+      "health": "Unknown",
+      "created": "2025-07-08T16:59:42.211-0400",
+      "updated": "2025-07-16T15:12:13.299-0400",
+      "labels": [],
+      "components": [],
+      "discovery_effort": null,
+      "build_effort": null,
+      "build_complete_date": null,
+      "teams": null,
+      "cycle_tracking": {
+        "discovery": {
+          "first_generative_discovery_date": "2025-07-08T17:04:04.234-0400",
+          "first_build_date": null,
+          "calendar_discovery_cycle_weeks": 9.0,
+          "active_discovery_cycle_weeks": 9.0,
+          "weeks_excluded_from_active_discovery": 0.0
+        },
+        "build": {
+          "first_build_date": null,
+          "first_beta_or_live_date": null,
+          "calendar_build_cycle_weeks": null,
+          "active_build_cycle_weeks": null,
+          "weeks_excluded_from_active_build": 0
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "total_projects": 100,
+    "collection_time": "2025-09-10T10:42:48.552590",
+    "jira_query": "project = HT AND status != \"08 Live\" AND status != \"Won't Do\" AND status != \"01 Inbox\" AND (updated >= -30d OR created >= \"2025-01-01\") ORDER BY updated DESC"
+  }
+}

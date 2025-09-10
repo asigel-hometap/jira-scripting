@@ -21,6 +21,7 @@ import sys
 import json
 import csv
 import logging
+import time
 from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional, Any
 import argparse
@@ -44,13 +45,14 @@ RAW_DIR = os.path.join(SNAPSHOTS_DIR, 'raw')
 PROCESSED_DIR = os.path.join(SNAPSHOTS_DIR, 'processed')
 CURRENT_DIR = os.path.join(DATA_DIR, 'current')
 
-# JQL Query for HT projects - only active statuses
-JQL_QUERY = 'project = HT AND status IN ("02 Generative Discovery", "04 Problem Discovery", "05 Solution Discovery", "06 Build", "07 Beta") ORDER BY updated DESC'
+# JQL Query for HT projects - capture all active projects
+# This captures all projects in active statuses, ensuring complete historical data
+JQL_QUERY = 'project = HT AND status IN ("02 Generative Discovery", "04 Problem Discovery", "05 Solution Discovery", "06 Build", "07 Beta") AND status != "Won\'t Do" AND status != "Live" ORDER BY updated DESC'
 
 # Status mappings for cycle time tracking
 DISCOVERY_STATUSES = ['02 Generative Discovery', '04 Problem Discovery', '05 Solution Discovery']
 BUILD_STATUSES = ['06 Build']
-COMPLETION_STATUSES = ['07 Beta', '08 Live']
+COMPLETION_STATUSES = ['07 Beta', 'Live']
 HOLD_STATUSES = ['01 Inbox', '03 Committed']
 
 # Global logger (will be initialized in main)
@@ -72,35 +74,47 @@ def setup_logging():
     )
     return logging.getLogger(__name__)
 
-def get_jira_connection() -> Optional[JIRA]:
-    """Get Jira connection using environment variables."""
+def get_jira_connection(max_retries: int = 3, retry_delay: int = 5) -> Optional[JIRA]:
+    """Get Jira connection with retry logic and fallback mechanisms."""
     
-    try:
-        if not JIRA_API_TOKEN or not JIRA_EMAIL:
-            logger.error("JIRA_API_TOKEN and JIRA_EMAIL environment variables must be set")
-            return None
-            
-        # Try basic auth first (email + token)
-        try:
-            jira = JIRA(
-                server=JIRA_SERVER,
-                basic_auth=(JIRA_EMAIL, JIRA_API_TOKEN)
-            )
-            logger.info("✅ Connected to Jira using basic auth")
-            return jira
-        except Exception as e:
-            logger.warning(f"Basic auth failed: {e}")
-            # Fallback to token auth
-            jira = JIRA(
-                server=JIRA_SERVER,
-                token_auth=JIRA_API_TOKEN
-            )
-            logger.info("✅ Connected to Jira using token auth")
-            return jira
-            
-    except Exception as e:
-        logger.error(f"❌ Failed to connect to Jira: {e}")
+    if not JIRA_API_TOKEN or not JIRA_EMAIL:
+        logger.error("JIRA_API_TOKEN and JIRA_EMAIL environment variables must be set")
         return None
+    
+    for attempt in range(max_retries):
+        try:
+            # Try basic auth first (email + token)
+            try:
+                jira = JIRA(
+                    server=JIRA_SERVER,
+                    basic_auth=(JIRA_EMAIL, JIRA_API_TOKEN)
+                )
+                # Test connection
+                jira.myself()
+                logger.info("✅ Connected to Jira using basic auth")
+                return jira
+            except Exception as e:
+                logger.warning(f"Basic auth failed: {e}")
+                # Fallback to token auth
+                jira = JIRA(
+                    server=JIRA_SERVER,
+                    token_auth=JIRA_API_TOKEN
+                )
+                # Test connection
+                jira.myself()
+                logger.info("✅ Connected to Jira using token auth")
+                return jira
+                
+        except Exception as e:
+            if attempt < max_retries - 1:
+                logger.warning(f"⚠️ Jira connection attempt {attempt + 1} failed: {e}")
+                logger.info(f"🔄 Retrying in {retry_delay} seconds...")
+                time.sleep(retry_delay)
+            else:
+                logger.error(f"❌ Failed to connect to Jira after {max_retries} attempts: {e}")
+                return None
+    
+    return None
 
 def ensure_directories():
     """Ensure all required directories exist."""
@@ -118,7 +132,15 @@ def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
     
     projects = []
     start_at = 0
-    max_results = 50
+    max_results = 100
+    
+    # First, get the total count
+    try:
+        total_count = jira.search_issues(JQL_QUERY, maxResults=0, fields=['key']).total
+        logger.info(f"Total projects available: {total_count}")
+    except Exception as e:
+        logger.error(f"Error getting total count: {e}")
+        total_count = None
     
     while True:
         try:
@@ -126,7 +148,7 @@ def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
                 JQL_QUERY,
                 startAt=start_at,
                 maxResults=max_results,
-                fields='key,summary,assignee,status,priority,created,updated,labels,components,customfield_10238'
+                fields=['key', 'summary', 'assignee', 'status', 'priority', 'created', 'updated', 'labels', 'components', 'customfield_10238', 'customfield_10144', 'customfield_10243', 'customfield_10135']
             )
             
             if not issues:
@@ -142,7 +164,11 @@ def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
                     'created': issue.fields.created,
                     'updated': issue.fields.updated,
                     'labels': get_labels(issue),
-                    'components': get_components(issue)
+                    'components': get_components(issue),
+                    'discovery_effort': get_discovery_effort(issue),
+                    'build_effort': get_build_effort(issue),
+                    'build_complete_date': get_build_complete_date(issue),
+                    'teams': get_teams(issue)
                 }
                 
                 # Only include projects with active health statuses
@@ -150,9 +176,12 @@ def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
                     projects.append(project_data)
             
             logger.info(f"Fetched {len(issues)} projects (total: {len(projects)})")
-            start_at += max_results
+            start_at += len(issues)
             
+            # Continue until we've fetched all available projects
             if len(issues) < max_results:
+                break
+            if total_count and start_at >= total_count:
                 break
                 
         except Exception as e:
@@ -190,6 +219,84 @@ def get_health_status(issue) -> str:
     except Exception as e:
         logger.warning(f"Error getting health status for {issue.key}: {e}")
         return 'Unknown'
+
+def get_discovery_effort(issue) -> Optional[str]:
+    """Extract discovery effort from custom field."""
+    try:
+        discovery_effort_field = getattr(issue.fields, 'customfield_10389', None)
+        if discovery_effort_field:
+            if hasattr(discovery_effort_field, 'value'):
+                return discovery_effort_field.value
+            else:
+                return str(discovery_effort_field)
+        return None
+    except Exception as e:
+        logger.warning(f"Error getting discovery effort for {issue.key}: {e}")
+        return None
+
+def get_build_effort(issue) -> Optional[str]:
+    """Extract build effort from custom field."""
+    try:
+        build_effort_field = getattr(issue.fields, 'customfield_10144', None)
+        if build_effort_field:
+            if hasattr(build_effort_field, 'value'):
+                return build_effort_field.value
+            else:
+                return str(build_effort_field)
+        return None
+    except Exception as e:
+        logger.warning(f"Error getting build effort for {issue.key}: {e}")
+        return None
+
+def get_build_complete_date(issue) -> Optional[str]:
+    """Extract build complete date from custom field."""
+    try:
+        build_complete_field = getattr(issue.fields, 'customfield_10243', None)
+        if build_complete_field:
+            # Field is already a JSON string, parse it to get the start date
+            if isinstance(build_complete_field, str):
+                import json
+                try:
+                    date_data = json.loads(build_complete_field)
+                    return date_data.get('start')
+                except json.JSONDecodeError:
+                    return build_complete_field
+            elif hasattr(build_complete_field, 'value'):
+                # Handle date range objects
+                if hasattr(build_complete_field.value, 'start'):
+                    return build_complete_field.value.start
+                else:
+                    return build_complete_field.value
+            else:
+                return str(build_complete_field)
+        return None
+    except Exception as e:
+        logger.warning(f"Error getting build complete date for {issue.key}: {e}")
+        return None
+
+def get_teams(issue) -> Optional[str]:
+    """Extract teams from custom field."""
+    try:
+        teams_field = getattr(issue.fields, 'customfield_10135', None)
+        if teams_field:
+            # Field is already a list of CustomFieldOption objects
+            if isinstance(teams_field, list):
+                return ', '.join([item.value for item in teams_field if hasattr(item, 'value')])
+            elif hasattr(teams_field, 'value'):
+                # Handle single CustomFieldOption
+                if hasattr(teams_field.value, 'value'):
+                    return teams_field.value.value
+                # Handle list of CustomFieldOptions
+                elif isinstance(teams_field.value, list):
+                    return ', '.join([item.value for item in teams_field.value if hasattr(item, 'value')])
+                else:
+                    return teams_field.value
+            else:
+                return str(teams_field)
+        return None
+    except Exception as e:
+        logger.warning(f"Error getting teams for {issue.key}: {e}")
+        return None
 
 def get_labels(issue) -> List[str]:
     """Extract labels from issue."""
@@ -232,18 +339,16 @@ def parse_datetime(date_str: str) -> datetime:
         return datetime.now(timezone.utc)
 
 def is_active_project(project_data: Dict[str, Any]) -> bool:
-    """Check if project should be included in active project count."""
-    # Active health statuses (including Unknown)
-    active_health_statuses = ['At Risk', 'On Track', 'Off Track', 'Mystery', 'Unknown']
-    
-    # Active statuses (already filtered by JQL, but double-check)
-    active_statuses = ['02 Generative Discovery', '04 Problem Discovery', '05 Solution Discovery', '06 Build', '07 Beta']
+    """Check if project should be included in snapshot (widened aperture)."""
+    # Exclude only clearly inactive/completed projects
+    excluded_statuses = ['Live', 'Won\'t Do', 'Done', 'Closed', 'Resolved']
+    excluded_health_statuses = ['Archived', 'Deleted']
     
     status = project_data.get('status', '')
     health = project_data.get('health', '')
     
-    # Must be in active status AND active health
-    return status in active_statuses and health in active_health_statuses
+    # Include all projects EXCEPT those in excluded statuses or health
+    return status not in excluded_statuses and health not in excluded_health_statuses
 
 def calculate_cycle_times(projects: List[Dict[str, Any]], snapshot_date: str, jira: JIRA) -> List[Dict[str, Any]]:
     """Calculate cycle times for each project based on changelog data."""
@@ -365,7 +470,7 @@ def calculate_discovery_cycle_from_changelog(status_changes: List[Dict[str, Any]
     # Calculate calendar cycle time
     start_dt = parse_datetime(first_discovery)
     end_dt = parse_datetime(end_date)
-    calendar_weeks = (end_dt - start_dt).days / 7
+    calendar_weeks = (end_dt - start_dt).total_seconds() / (7 * 24 * 60 * 60)
     
     # Calculate active cycle time (excluding hold periods)
     active_weeks = calculate_active_weeks_from_changelog(status_changes, first_discovery, end_date)
@@ -408,7 +513,7 @@ def calculate_build_cycle_from_changelog(status_changes: List[Dict[str, Any]], c
     # Calculate calendar cycle time
     start_dt = parse_datetime(first_build)
     end_dt = parse_datetime(end_date)
-    calendar_weeks = (end_dt - start_dt).days / 7
+    calendar_weeks = (end_dt - start_dt).total_seconds() / (7 * 24 * 60 * 60)
     
     # Calculate active cycle time (excluding hold periods)
     active_weeks = calculate_active_weeks_from_changelog(status_changes, first_build, end_date)
@@ -425,7 +530,7 @@ def calculate_active_weeks_from_changelog(status_changes: List[Dict[str, Any]], 
     """Calculate active weeks excluding hold periods from changelog data."""
     # This is a simplified calculation - in practice, you'd want to
     # analyze each week between start and end dates
-    total_weeks = (parse_datetime(end_date) - parse_datetime(start_date)).days / 7
+    total_weeks = (parse_datetime(end_date) - parse_datetime(start_date)).total_seconds() / (7 * 24 * 60 * 60)
     
     # Count weeks that should be excluded (simplified approach)
     excluded_weeks = 0
@@ -491,7 +596,7 @@ def calculate_discovery_cycle(project_history: List[Dict[str, Any]], current_dat
     # Calculate calendar cycle time
     start_dt = datetime.strptime(first_discovery, '%Y-%m-%d')
     end_dt = datetime.strptime(end_date, '%Y-%m-%d')
-    calendar_weeks = (end_dt - start_dt).days / 7
+    calendar_weeks = (end_dt - start_dt).total_seconds() / (7 * 24 * 60 * 60)
     
     # Calculate active cycle time (excluding hold periods)
     active_weeks = calculate_active_weeks(project_history, first_discovery, end_date)
@@ -531,7 +636,7 @@ def calculate_build_cycle(project_history: List[Dict[str, Any]], current_date: s
     # Calculate calendar cycle time
     start_dt = datetime.strptime(first_build, '%Y-%m-%d')
     end_dt = datetime.strptime(end_date, '%Y-%m-%d')
-    calendar_weeks = (end_dt - start_dt).days / 7
+    calendar_weeks = (end_dt - start_dt).total_seconds() / (7 * 24 * 60 * 60)
     
     # Calculate active cycle time (excluding hold periods)
     active_weeks = calculate_active_weeks(project_history, first_build, end_date)
@@ -548,7 +653,7 @@ def calculate_active_weeks(project_history: List[Dict[str, Any]], start_date: st
     """Calculate active weeks excluding hold periods."""
     # This is a simplified calculation - in practice, you'd want to
     # analyze each week between start and end dates
-    total_weeks = (datetime.strptime(end_date, '%Y-%m-%d') - datetime.strptime(start_date, '%Y-%m-%d')).days / 7
+    total_weeks = (datetime.strptime(end_date, '%Y-%m-%d') - datetime.strptime(start_date, '%Y-%m-%d')).total_seconds() / (7 * 24 * 60 * 60)
     
     # Count weeks that should be excluded
     excluded_weeks = 0
@@ -631,7 +736,11 @@ def save_projects_to_csv(projects: List[Dict[str, Any]], csv_file: str):
             'build_first_beta_or_live_date': build.get('first_beta_or_live_date'),
             'build_calendar_cycle_weeks': build.get('calendar_build_cycle_weeks'),
             'build_active_cycle_weeks': build.get('active_build_cycle_weeks'),
-            'build_weeks_excluded': build.get('weeks_excluded_from_active_build')
+            'build_weeks_excluded': build.get('weeks_excluded_from_active_build'),
+            'discovery_effort': project.get('discovery_effort'),
+            'build_effort': project.get('build_effort'),
+            'build_complete_date': project.get('build_complete_date'),
+            'teams': project.get('teams')
         })
         
         flattened_projects.append(flat_project)
@@ -674,15 +783,35 @@ def main():
         sys.exit(1)
     
     try:
+        # Get previous snapshot count for validation
+        previous_count = get_previous_snapshot_count()
+        
         # Fetch projects from Jira
         projects = fetch_projects_from_jira(jira)
         
         if not projects:
             logger.warning("⚠️ No projects found")
+            # Try to use the most recent snapshot as fallback
+            if not args.dry_run:
+                logger.info("🔄 Attempting to use most recent snapshot as fallback...")
+                fallback_success = use_fallback_snapshot(snapshot_date)
+                if fallback_success:
+                    logger.info("✅ Fallback snapshot created successfully")
+                    return
+                else:
+                    logger.error("❌ Fallback snapshot also failed")
             return
         
         # Calculate cycle times
         projects_with_cycles = calculate_cycle_times(projects, snapshot_date, jira)
+        
+        # Validate data quality
+        validation_passed = validate_snapshot_data(projects_with_cycles, previous_count)
+        if not validation_passed:
+            logger.error("❌ Data validation failed - snapshot may be incomplete")
+            if not args.dry_run:
+                logger.error("❌ Aborting snapshot save due to validation failure")
+                return
         
         # Save snapshot
         save_snapshot(projects_with_cycles, snapshot_date, args.dry_run)
@@ -696,6 +825,125 @@ def main():
     except Exception as e:
         logger.error(f"❌ Error during snapshot collection: {e}")
         sys.exit(1)
+
+def validate_snapshot_data(projects: List[Dict[str, Any]], previous_count: Optional[int] = None) -> bool:
+    """Validate snapshot data quality and alert on issues."""
+    current_count = len(projects)
+    
+    # Check for significant drop in project count
+    if previous_count and current_count < (previous_count * 0.8):
+        logger.warning(f"⚠️ Project count dropped significantly: {previous_count} -> {current_count} (20%+ decrease)")
+        return False
+    
+    # Check for empty snapshot
+    if current_count == 0:
+        logger.error("❌ No projects found in snapshot - this may indicate a data collection issue")
+        return False
+    
+    # Validate cycle time calculations
+    invalid_cycles = 0
+    for project in projects:
+        cycle_tracking = project.get('cycle_tracking', {})
+        discovery = cycle_tracking.get('discovery', {})
+        build = cycle_tracking.get('build', {})
+        
+        # Check for negative cycle times (should not happen)
+        if discovery.get('calendar_discovery_cycle_weeks', 0) < 0:
+            invalid_cycles += 1
+        if build.get('calendar_build_cycle_weeks', 0) < 0:
+            invalid_cycles += 1
+    
+    if invalid_cycles > 0:
+        logger.warning(f"⚠️ Found {invalid_cycles} projects with negative cycle times")
+    
+    # Check for missing required fields
+    missing_fields = 0
+    required_fields = ['project_key', 'summary', 'status', 'health']
+    for project in projects:
+        for field in required_fields:
+            if not project.get(field):
+                missing_fields += 1
+    
+    if missing_fields > 0:
+        logger.warning(f"⚠️ Found {missing_fields} missing required field values")
+    
+    logger.info(f"✅ Data validation passed: {current_count} projects, {invalid_cycles} invalid cycles, {missing_fields} missing fields")
+    return True
+
+def get_previous_snapshot_count() -> Optional[int]:
+    """Get project count from the most recent previous snapshot."""
+    try:
+        processed_dir = os.path.join(BASE_DIR, 'data', 'snapshots', 'processed')
+        if not os.path.exists(processed_dir):
+            return None
+        
+        # Get all regular snapshot files (not quarterly)
+        snapshot_files = [f for f in os.listdir(processed_dir) 
+                         if f.endswith('.csv') and not f.startswith('quarterly_')]
+        
+        if len(snapshot_files) < 2:  # Need at least 2 files to compare
+            return None
+        
+        # Get the second most recent file
+        latest_files = sorted(snapshot_files)[-2]
+        latest_path = os.path.join(processed_dir, latest_files)
+        
+        # Count projects in the file
+        df = pd.read_csv(latest_path)
+        return len(df)
+        
+    except Exception as e:
+        logger.warning(f"Could not get previous snapshot count: {e}")
+        return None
+
+def use_fallback_snapshot(snapshot_date: str) -> bool:
+    """Use the most recent snapshot as a fallback when API fails."""
+    try:
+        processed_dir = os.path.join(BASE_DIR, 'data', 'snapshots', 'processed')
+        if not os.path.exists(processed_dir):
+            logger.error("No processed snapshots directory found")
+            return False
+        
+        # Get all regular snapshot files (not quarterly)
+        snapshot_files = [f for f in os.listdir(processed_dir) 
+                         if f.endswith('.csv') and not f.startswith('quarterly_')]
+        
+        if not snapshot_files:
+            logger.error("No previous snapshots found for fallback")
+            return False
+        
+        # Get the most recent file
+        latest_file = sorted(snapshot_files)[-1]
+        latest_path = os.path.join(processed_dir, latest_file)
+        
+        logger.info(f"Using fallback snapshot: {latest_file}")
+        
+        # Copy the latest snapshot as the new snapshot
+        new_filename = f"{snapshot_date}_weekly_snapshot.csv"
+        new_path = os.path.join(processed_dir, new_filename)
+        
+        # Read and update the snapshot
+        df = pd.read_csv(latest_path)
+        
+        # Update the snapshot date in the data (if there's a date column)
+        if 'snapshot_date' in df.columns:
+            df['snapshot_date'] = snapshot_date
+        
+        # Save as new snapshot
+        df.to_csv(new_path, index=False)
+        
+        # Also update the current snapshot
+        current_path = os.path.join(CURRENT_DIR, 'current_snapshot.csv')
+        df.to_csv(current_path, index=False)
+        
+        logger.info(f"✅ Fallback snapshot created: {new_filename}")
+        logger.warning("⚠️ This snapshot contains stale data - API access should be restored")
+        
+        return True
+        
+    except Exception as e:
+        logger.error(f"Failed to create fallback snapshot: {e}")
+        return False
 
 def show_summary_statistics(projects: List[Dict[str, Any]]):
     """Show summary statistics of the collected data."""

@@ -62,3 +62,4 @@ def test_changelog_cycle_times():
 if __name__ == '__main__':
     success = test_changelog_cycle_times()
     sys.exit(0 if success else 1)
+

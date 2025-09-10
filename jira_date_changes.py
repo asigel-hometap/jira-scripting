@@ -174,7 +174,7 @@ def main():
             # Try to access the custom fields directly
             try:
                 if hasattr(issue.fields, 'customfield_10243'):
-                    print(f"    customfield_10243 (Build Complete): {getattr(issue.fields, 'customfield_10243')}")
+                    print(f"    customfield_10243 (Build and Complete): {getattr(issue.fields, 'customfield_10243')}")
                 if hasattr(issue.fields, 'customfield_10244'):
                     print(f"    customfield_10244 (Deployed): {getattr(issue.fields, 'customfield_10244')}")
                 if hasattr(issue.fields, 'customfield_10241'):
