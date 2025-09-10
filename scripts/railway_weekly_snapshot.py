@@ -47,8 +47,7 @@ RAW_DIR = os.path.join(SNAPSHOTS_DIR, 'raw')
 PROCESSED_DIR = os.path.join(SNAPSHOTS_DIR, 'processed')
 
 # JQL Query for HT projects - capture all active projects
-# Start with a simpler query to test API connectivity
-JQL_QUERY = 'project = HT ORDER BY updated DESC'
+JQL_QUERY = 'project = HT AND status IN ("02 Generative Discovery", "04 Problem Discovery", "05 Solution Discovery", "06 Build", "07 Beta") AND status != "Won\'t Do" AND status != "Live" ORDER BY updated DESC'
 
 # Status mappings for cycle time tracking
 DISCOVERY_STATUSES = ['02 Generative Discovery', '04 Problem Discovery', '05 Solution Discovery']
@@ -150,37 +149,32 @@ def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
                 logger.info("No issues returned, breaking loop")
                 break
                 
-            # Check if we've reached the end of results
-            if start_at >= total:
-                logger.info(f"Reached end of results: start_at={start_at} >= total={total}")
-                break
-                
+            # Process the issues we got
             for issue in issues:
                 # API v3 response format is different
                 fields = issue.get('fields', {})
                 
                 project_data = {
                     'project_key': issue.get('key'),
-                    'summary': fields.get('summary'),
-                    'assignee': get_assignee_email_from_api_v3(fields),
-                    'status': fields.get('status', {}).get('name'),
-                    'health': get_health_status_from_api_v3(fields),
-                    'created': fields.get('created'),
-                    'updated': fields.get('updated'),
+                    'summary': fields.get('summary', ''),
+                    'assignee_email': get_assignee_email_from_api_v3(fields),
+                    'status': fields.get('status', {}).get('name', ''),
+                    'priority': fields.get('priority', {}).get('name', ''),
+                    'created': fields.get('created', ''),
+                    'updated': fields.get('updated', ''),
                     'labels': get_labels_from_api_v3(fields),
                     'components': get_components_from_api_v3(fields),
                     'discovery_effort': get_discovery_effort_from_api_v3(fields),
                     'build_effort': get_build_effort_from_api_v3(fields),
                     'build_complete_date': get_build_complete_date_from_api_v3(fields),
-                    'teams': get_teams_from_api_v3(fields)
+                    'teams': get_teams_from_api_v3(fields),
+                    'health_status': get_health_status_from_api_v3(fields)
                 }
                 
-                # Only include projects with active health statuses
-                if is_active_project(project_data):
-                    projects.append(project_data)
+                projects.append(project_data)
             
-            logger.info(f"Fetched {len(issues)} projects (total: {len(projects)})")
-            start_at += max_results
+            # Update start_at for next iteration
+            start_at += len(issues)
             
         except Exception as e:
             logger.error(f"Error fetching projects: {e}")
