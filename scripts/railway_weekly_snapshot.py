@@ -254,24 +254,154 @@ def calculate_cycle_times(projects: List[Dict[str, Any]], snapshot_date: str, ji
 
 def calculate_project_cycle_times_from_changelog(issue, snapshot_date: str) -> Dict[str, Any]:
     """Calculate cycle times from Jira changelog."""
-    # This is a simplified version - you'd want to use the full implementation
-    # from your existing weekly_snapshot.py
-    return {
-        'discovery': {
+    try:
+        # Parse snapshot date
+        current_date = datetime.strptime(snapshot_date, '%Y-%m-%d').strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        
+        # Get status changes from changelog
+        status_changes = []
+        if hasattr(issue, 'changelog') and issue.changelog:
+            for history in issue.changelog.histories:
+                created = history.created
+                for item in history.items:
+                    if item.field == 'status':
+                        status_changes.append({
+                            'date': created,
+                            'from_status': item.fromString,
+                            'to_status': item.toString
+                        })
+        
+        # Sort by date
+        status_changes.sort(key=lambda x: x['date'])
+        
+        # Calculate discovery cycle times
+        discovery_cycle = calculate_discovery_cycle_from_changelog(status_changes, current_date)
+        
+        # Calculate build cycle times
+        build_cycle = calculate_build_cycle_from_changelog(status_changes, current_date)
+        
+        return {
+            'discovery': discovery_cycle,
+            'build': build_cycle
+        }
+        
+    except Exception as e:
+        logger.warning(f"Error calculating cycle times for {issue.key}: {e}")
+        return {
+            'discovery': {
+                'first_generative_discovery_date': None,
+                'first_build_date': None,
+                'calendar_discovery_cycle_weeks': None,
+                'active_discovery_cycle_weeks': None,
+                'weeks_excluded_from_active_discovery': 0
+            },
+            'build': {
+                'first_build_date': None,
+                'first_beta_or_live_date': None,
+                'calendar_build_cycle_weeks': None,
+                'active_build_cycle_weeks': None,
+                'weeks_excluded_from_active_build': 0
+            }
+        }
+
+def calculate_discovery_cycle_from_changelog(status_changes: List[Dict[str, Any]], current_date: str) -> Dict[str, Any]:
+    """Calculate discovery cycle times from changelog data."""
+    # Find first Generative Discovery
+    first_discovery = None
+    first_build = None
+    
+    for change in status_changes:
+        to_status = change['to_status']
+        date = change['date']
+        
+        if to_status in DISCOVERY_STATUSES and not first_discovery:
+            first_discovery = date
+        if to_status in BUILD_STATUSES and not first_build:
+            first_build = date
+    
+    if not first_discovery:
+        return {
             'first_generative_discovery_date': None,
             'first_build_date': None,
             'calendar_discovery_cycle_weeks': None,
             'active_discovery_cycle_weeks': None,
             'weeks_excluded_from_active_discovery': 0
-        },
-        'build': {
+        }
+    
+    # Use current date if not yet in build
+    end_date = first_build if first_build else current_date
+    
+    # Calculate calendar cycle time
+    start_dt = parse_datetime(first_discovery)
+    end_dt = parse_datetime(end_date)
+    calendar_weeks = (end_dt - start_dt).total_seconds() / (7 * 24 * 60 * 60)
+    
+    # For now, use calendar weeks as active weeks (simplified)
+    active_weeks = calendar_weeks
+    
+    return {
+        'first_generative_discovery_date': first_discovery,
+        'first_build_date': first_build,
+        'calendar_discovery_cycle_weeks': round(calendar_weeks, 2),
+        'active_discovery_cycle_weeks': round(active_weeks, 2),
+        'weeks_excluded_from_active_discovery': 0
+    }
+
+def calculate_build_cycle_from_changelog(status_changes: List[Dict[str, Any]], current_date: str) -> Dict[str, Any]:
+    """Calculate build cycle times from changelog data."""
+    # Find first Build
+    first_build = None
+    first_completion = None
+    
+    for change in status_changes:
+        to_status = change['to_status']
+        date = change['date']
+        
+        if to_status in BUILD_STATUSES and not first_build:
+            first_build = date
+        if to_status in COMPLETION_STATUSES and not first_completion:
+            first_completion = date
+    
+    if not first_build:
+        return {
             'first_build_date': None,
             'first_beta_or_live_date': None,
             'calendar_build_cycle_weeks': None,
             'active_build_cycle_weeks': None,
             'weeks_excluded_from_active_build': 0
         }
+    
+    # Use current date if not yet completed
+    end_date = first_completion if first_completion else current_date
+    
+    # Calculate calendar cycle time
+    start_dt = parse_datetime(first_build)
+    end_dt = parse_datetime(end_date)
+    calendar_weeks = (end_dt - start_dt).total_seconds() / (7 * 24 * 60 * 60)
+    
+    # For now, use calendar weeks as active weeks (simplified)
+    active_weeks = calendar_weeks
+    
+    return {
+        'first_build_date': first_build,
+        'first_beta_or_live_date': first_completion,
+        'calendar_build_cycle_weeks': round(calendar_weeks, 2),
+        'active_build_cycle_weeks': round(active_weeks, 2),
+        'weeks_excluded_from_active_build': 0
     }
+
+def parse_datetime(date_str: str) -> datetime:
+    """Parse datetime string with error handling."""
+    try:
+        # Try parsing with timezone info
+        if 'T' in date_str and ('+' in date_str or 'Z' in date_str):
+            return datetime.fromisoformat(date_str.replace('Z', '+00:00'))
+        else:
+            # Fallback to basic parsing
+            return datetime.fromisoformat(date_str)
+    except:
+        # Fallback to current time
+        return datetime.now(timezone.utc)
 
 def save_snapshot(projects: List[Dict[str, Any]], snapshot_date: str):
     """Save snapshot data."""
