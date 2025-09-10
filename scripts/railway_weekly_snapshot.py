@@ -110,9 +110,12 @@ def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
     projects = []
     start_at = 0
     max_results = 100
+    max_iterations = 50  # Safety limit to prevent infinite loops
+    iteration_count = 0
     
     # Use direct API v3 call instead of the deprecated search_issues method
-    while True:
+    while iteration_count < max_iterations:
+        iteration_count += 1
         try:
             # Use the new API v3 endpoint directly
             url = f"{JIRA_SERVER}/rest/api/3/search/jql"
@@ -149,6 +152,13 @@ def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
                 logger.info("No issues returned, breaking loop")
                 break
                 
+            # Safety check: if we get the same number of issues and total is 0, 
+            # we're likely in an infinite loop
+            if total == 0 and len(issues) == max_results and iteration_count > 1:
+                logger.warning(f"⚠️ Detected potential infinite loop: total=0, issues={len(issues)}, iteration={iteration_count}")
+                logger.warning("Breaking loop to prevent infinite execution")
+                break
+                
             # Process the issues we got
             for issue in issues:
                 # API v3 response format is different
@@ -176,10 +186,20 @@ def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
             # Update start_at for next iteration
             start_at += len(issues)
             
+            # If we've processed a reasonable number of projects, break
+            if len(projects) >= 1000:  # Safety limit
+                logger.info(f"Reached safety limit of {len(projects)} projects, breaking loop")
+                break
+            
         except Exception as e:
             logger.error(f"Error fetching projects: {e}")
             break
     
+    # Final safety check
+    if iteration_count >= max_iterations:
+        logger.warning(f"⚠️ Reached maximum iterations ({max_iterations}), stopping to prevent infinite loop")
+    
+    logger.info(f"📊 Total projects fetched: {len(projects)}")
     return projects
 
 def get_assignee_email(issue) -> Optional[str]:
