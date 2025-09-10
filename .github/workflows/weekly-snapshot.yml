@@ -34,7 +34,15 @@ jobs:
         RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
       run: |
+        echo "🚀 Starting weekly snapshot..."
         python scripts/railway_weekly_snapshot.py
+        echo "✅ Snapshot script completed"
+        
+    - name: Check if snapshot files were created
+      run: |
+        echo "Checking for snapshot files..."
+        ls -la data/snapshots/processed/ || echo "No processed directory found"
+        find data/ -name "*.csv" -o -name "*.json" || echo "No CSV/JSON files found"
         
     - name: Upload snapshot to Railway
       if: success()

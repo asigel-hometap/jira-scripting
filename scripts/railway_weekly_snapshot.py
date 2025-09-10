@@ -530,6 +530,22 @@ def main():
     logger.info(f"🚀 Starting weekly snapshot collection for {snapshot_date}")
     
     try:
+        # Test imports first
+        logger.info("🔍 Testing imports...")
+        try:
+            from jira import JIRA
+            logger.info("✅ Jira import successful")
+        except ImportError as e:
+            logger.error(f"❌ Jira import failed: {e}")
+            sys.exit(1)
+            
+        try:
+            import pandas as pd
+            logger.info("✅ Pandas import successful")
+        except ImportError as e:
+            logger.error(f"❌ Pandas import failed: {e}")
+            sys.exit(1)
+        
         # Ensure directories exist
         logger.info("📁 Ensuring directories exist...")
         ensure_directories()
