@@ -407,21 +407,43 @@ def save_snapshot(projects: List[Dict[str, Any]], snapshot_date: str):
     """Save snapshot data."""
     logger.info(f"Saving snapshot for {snapshot_date}")
     
-    # Save as CSV
-    csv_filename = f"{snapshot_date}_weekly_snapshot.csv"
-    csv_path = os.path.join(PROCESSED_DIR, csv_filename)
-    save_projects_to_csv(projects, csv_path)
-    
-    # Save as JSON
-    json_filename = f"{snapshot_date}_weekly_snapshot.json"
-    json_path = os.path.join(PROCESSED_DIR, json_filename)
-    save_projects_to_json(projects, json_path)
-    
-    logger.info(f"✅ Snapshot saved: {csv_filename}")
+    try:
+        # Save as CSV
+        csv_filename = f"{snapshot_date}_weekly_snapshot.csv"
+        csv_path = os.path.join(PROCESSED_DIR, csv_filename)
+        logger.info(f"💾 Saving CSV to: {csv_path}")
+        save_projects_to_csv(projects, csv_path)
+        
+        # Verify CSV was created
+        if os.path.exists(csv_path):
+            logger.info(f"✅ CSV file created: {csv_path}")
+        else:
+            logger.error(f"❌ CSV file not created: {csv_path}")
+        
+        # Save as JSON
+        json_filename = f"{snapshot_date}_weekly_snapshot.json"
+        json_path = os.path.join(PROCESSED_DIR, json_filename)
+        logger.info(f"💾 Saving JSON to: {json_path}")
+        save_projects_to_json(projects, json_path)
+        
+        # Verify JSON was created
+        if os.path.exists(json_path):
+            logger.info(f"✅ JSON file created: {json_path}")
+        else:
+            logger.error(f"❌ JSON file not created: {json_path}")
+        
+        logger.info(f"✅ Snapshot saved: {csv_filename}")
+        
+    except Exception as e:
+        logger.error(f"❌ Error saving snapshot: {e}")
+        raise
 
 def save_projects_to_csv(projects: List[Dict[str, Any]], csv_file: str):
     """Save projects data to CSV format."""
+    logger.info(f"💾 Saving {len(projects)} projects to CSV: {csv_file}")
+    
     if not projects:
+        logger.warning("⚠️ No projects to save to CSV")
         return
     
     # Flatten cycle tracking data for CSV
@@ -461,12 +483,21 @@ def save_projects_to_csv(projects: List[Dict[str, Any]], csv_file: str):
         
         flattened_projects.append(flat_project)
     
+    logger.info(f"💾 Flattened {len(flattened_projects)} projects for CSV")
+    
     # Write to CSV
-    with open(csv_file, 'w', newline='') as f:
-        if flattened_projects:
-            writer = csv.DictWriter(f, fieldnames=flattened_projects[0].keys())
-            writer.writeheader()
-            writer.writerows(flattened_projects)
+    try:
+        with open(csv_file, 'w', newline='') as f:
+            if flattened_projects:
+                writer = csv.DictWriter(f, fieldnames=flattened_projects[0].keys())
+                writer.writeheader()
+                writer.writerows(flattened_projects)
+                logger.info(f"✅ CSV written successfully with {len(flattened_projects)} rows")
+            else:
+                logger.warning("⚠️ No flattened projects to write to CSV")
+    except Exception as e:
+        logger.error(f"❌ Error writing CSV file: {e}")
+        raise
 
 def save_projects_to_json(projects: List[Dict[str, Any]], json_file: str):
     """Save projects data to JSON format."""
@@ -498,37 +529,51 @@ def main():
     snapshot_date = datetime.now().strftime('%Y-%m-%d')
     logger.info(f"🚀 Starting weekly snapshot collection for {snapshot_date}")
     
-    # Ensure directories exist
-    ensure_directories()
-    
-    # Get Jira connection
-    jira = get_jira_connection()
-    if not jira:
-        logger.error("❌ Cannot proceed without Jira connection")
-        sys.exit(1)
-    
     try:
+        # Ensure directories exist
+        logger.info("📁 Ensuring directories exist...")
+        ensure_directories()
+        logger.info("✅ Directories ready")
+        
+        # Get Jira connection
+        logger.info("🔌 Connecting to Jira...")
+        jira = get_jira_connection()
+        if not jira:
+            logger.error("❌ Cannot proceed without Jira connection")
+            sys.exit(1)
+        logger.info("✅ Jira connection established")
+        
         # Fetch projects from Jira
+        logger.info("📊 Fetching projects from Jira...")
         projects = fetch_projects_from_jira(jira)
+        logger.info(f"📊 Found {len(projects)} projects")
         
         if not projects:
             logger.warning("⚠️ No projects found")
             return
         
         # Calculate cycle times
+        logger.info("⏱️ Calculating cycle times...")
         projects_with_cycles = calculate_cycle_times(projects, snapshot_date, jira)
+        logger.info(f"⏱️ Calculated cycle times for {len(projects_with_cycles)} projects")
         
         # Save snapshot
+        logger.info("💾 Saving snapshot...")
         save_snapshot(projects_with_cycles, snapshot_date)
+        logger.info("✅ Snapshot saved successfully")
         
         # Upload to Railway
+        logger.info("🚀 Uploading to Railway...")
         upload_to_railway(snapshot_date)
+        logger.info("✅ Upload completed")
         
         logger.info(f"✅ Weekly snapshot collection completed successfully!")
         logger.info(f"📊 Collected {len(projects)} projects")
         
     except Exception as e:
         logger.error(f"❌ Error during snapshot collection: {e}")
+        import traceback
+        logger.error(f"❌ Traceback: {traceback.format_exc()}")
         sys.exit(1)
 
 if __name__ == "__main__":
