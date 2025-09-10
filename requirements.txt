@@ -1,4 +1,10 @@
+# Core dependencies with compatible versions
+numpy==1.24.4
+pandas==2.1.4
 jira==3.5.2
-pandas==2.0.3
 requests==2.31.0
 python-dateutil==2.8.2
+
+# Additional dependencies for stability
+setuptools>=65.0.0
+wheel>=0.38.0
