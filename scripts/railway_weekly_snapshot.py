@@ -141,6 +141,11 @@ def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
             if not issues:
                 break
                 
+            # Check if we've reached the end of results
+            total = data.get('total', 0)
+            if start_at >= total:
+                break
+                
             for issue in issues:
                 # API v3 response format is different
                 fields = issue.get('fields', {})
