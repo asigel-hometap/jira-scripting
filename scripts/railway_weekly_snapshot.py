@@ -647,9 +647,9 @@ def save_projects_to_csv(projects: List[Dict[str, Any]], csv_file: str):
         flat_project = {
             'project_key': project['project_key'],
             'summary': project['summary'],
-            'assignee': project['assignee'],
+            'assignee': project.get('assignee_email', ''),
             'status': project['status'],
-            'health': project['health'],
+            'health': project.get('health_status', ''),
             'created': project['created'],
             'updated': project['updated']
         }
