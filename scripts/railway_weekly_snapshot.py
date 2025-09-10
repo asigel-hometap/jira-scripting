@@ -22,6 +22,7 @@ import csv
 import logging
 import time
 import requests
+import base64
 from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional, Any
 
@@ -115,8 +116,12 @@ def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
         try:
             # Use the new API v3 endpoint directly
             url = f"{JIRA_SERVER}/rest/api/3/search/jql"
+            
+            # Create basic auth string manually
+            auth_string = base64.b64encode(f"{JIRA_EMAIL}:{JIRA_API_TOKEN}".encode()).decode()
+            
             headers = {
-                'Authorization': f'Basic {jira._get_basic_auth_string()}',
+                'Authorization': f'Basic {auth_string}',
                 'Content-Type': 'application/json'
             }
             
@@ -351,8 +356,12 @@ def calculate_project_cycle_times_from_api_v3(project_key: str, snapshot_date: s
     try:
         # Get changelog data using API v3
         url = f"{JIRA_SERVER}/rest/api/3/issue/{project_key}/changelog"
+        
+        # Create basic auth string manually
+        auth_string = base64.b64encode(f"{JIRA_EMAIL}:{JIRA_API_TOKEN}".encode()).decode()
+        
         headers = {
-            'Authorization': f'Basic {jira._get_basic_auth_string()}',
+            'Authorization': f'Basic {auth_string}',
             'Content-Type': 'application/json'
         }
         
