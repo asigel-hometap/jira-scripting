@@ -47,7 +47,8 @@ RAW_DIR = os.path.join(SNAPSHOTS_DIR, 'raw')
 PROCESSED_DIR = os.path.join(SNAPSHOTS_DIR, 'processed')
 
 # JQL Query for HT projects - capture all active projects
-JQL_QUERY = 'project = HT AND status IN ("02 Generative Discovery", "04 Problem Discovery", "05 Solution Discovery", "06 Build", "07 Beta") AND status != "Won\'t Do" AND status != "Live" ORDER BY updated DESC'
+# Start with a simpler query to test API connectivity
+JQL_QUERY = 'project = HT ORDER BY updated DESC'
 
 # Status mappings for cycle time tracking
 DISCOVERY_STATUSES = ['02 Generative Discovery', '04 Problem Discovery', '05 Solution Discovery']
@@ -137,13 +138,21 @@ def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
             
             data = response.json()
             issues = data.get('issues', [])
+            total = data.get('total', 0)
+            
+            logger.info(f"API Response: total={total}, issues_count={len(issues)}, start_at={start_at}")
+            
+            # Debug: Log the first few characters of the response to see what we're getting
+            if start_at == 0:  # Only log on first request to avoid spam
+                logger.info(f"First API response sample: {str(data)[:500]}...")
             
             if not issues:
+                logger.info("No issues returned, breaking loop")
                 break
                 
             # Check if we've reached the end of results
-            total = data.get('total', 0)
             if start_at >= total:
+                logger.info(f"Reached end of results: start_at={start_at} >= total={total}")
                 break
                 
             for issue in issues:
