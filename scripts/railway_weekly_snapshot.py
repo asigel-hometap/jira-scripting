@@ -103,40 +103,57 @@ def ensure_directories():
         os.makedirs(directory, exist_ok=True)
 
 def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
-    """Fetch all HT projects from Jira."""
+    """Fetch all HT projects from Jira using API v3."""
     logger.info(f"Fetching projects with JQL: {JQL_QUERY}")
     
     projects = []
     start_at = 0
     max_results = 100
     
+    # Use direct API v3 call instead of the deprecated search_issues method
     while True:
         try:
-            issues = jira.search_issues(
-                JQL_QUERY,
-                startAt=start_at,
-                maxResults=max_results,
-                fields=['key', 'summary', 'assignee', 'status', 'priority', 'created', 'updated', 'labels', 'components', 'customfield_10238', 'customfield_10144', 'customfield_10243', 'customfield_10135']
-            )
+            # Use the new API v3 endpoint directly
+            url = f"{JIRA_SERVER}/rest/api/3/search/jql"
+            headers = {
+                'Authorization': f'Basic {jira._get_basic_auth_string()}',
+                'Content-Type': 'application/json'
+            }
+            
+            params = {
+                'jql': JQL_QUERY,
+                'startAt': start_at,
+                'maxResults': max_results,
+                'fields': ['key', 'summary', 'assignee', 'status', 'priority', 'created', 'updated', 'labels', 'components', 'customfield_10238', 'customfield_10144', 'customfield_10243', 'customfield_10135']
+            }
+            
+            response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()
+            
+            data = response.json()
+            issues = data.get('issues', [])
             
             if not issues:
                 break
                 
             for issue in issues:
+                # API v3 response format is different
+                fields = issue.get('fields', {})
+                
                 project_data = {
-                    'project_key': issue.key,
-                    'summary': issue.fields.summary,
-                    'assignee': get_assignee_email(issue),
-                    'status': issue.fields.status.name,
-                    'health': get_health_status(issue),
-                    'created': issue.fields.created,
-                    'updated': issue.fields.updated,
-                    'labels': get_labels(issue),
-                    'components': get_components(issue),
-                    'discovery_effort': get_discovery_effort(issue),
-                    'build_effort': get_build_effort(issue),
-                    'build_complete_date': get_build_complete_date(issue),
-                    'teams': get_teams(issue)
+                    'project_key': issue.get('key'),
+                    'summary': fields.get('summary'),
+                    'assignee': get_assignee_email_from_api_v3(fields),
+                    'status': fields.get('status', {}).get('name'),
+                    'health': get_health_status_from_api_v3(fields),
+                    'created': fields.get('created'),
+                    'updated': fields.get('updated'),
+                    'labels': get_labels_from_api_v3(fields),
+                    'components': get_components_from_api_v3(fields),
+                    'discovery_effort': get_discovery_effort_from_api_v3(fields),
+                    'build_effort': get_build_effort_from_api_v3(fields),
+                    'build_complete_date': get_build_complete_date_from_api_v3(fields),
+                    'teams': get_teams_from_api_v3(fields)
                 }
                 
                 # Only include projects with active health statuses
@@ -225,6 +242,84 @@ def get_teams(issue) -> Optional[str]:
         pass
     return None
 
+# API v3 helper functions
+def get_assignee_email_from_api_v3(fields: Dict[str, Any]) -> Optional[str]:
+    """Get assignee email address from API v3 response."""
+    try:
+        assignee = fields.get('assignee')
+        if assignee:
+            return assignee.get('emailAddress')
+    except:
+        pass
+    return None
+
+def get_health_status_from_api_v3(fields: Dict[str, Any]) -> str:
+    """Get health status from custom field in API v3 response."""
+    try:
+        health_field = fields.get('customfield_10238')
+        if health_field:
+            return health_field.get('value', str(health_field))
+    except:
+        pass
+    return 'Unknown'
+
+def get_labels_from_api_v3(fields: Dict[str, Any]) -> List[str]:
+    """Get labels from API v3 response."""
+    try:
+        return fields.get('labels', [])
+    except:
+        pass
+    return []
+
+def get_components_from_api_v3(fields: Dict[str, Any]) -> List[str]:
+    """Get components from API v3 response."""
+    try:
+        components = fields.get('components', [])
+        return [comp.get('name', '') for comp in components if comp.get('name')]
+    except:
+        pass
+    return []
+
+def get_discovery_effort_from_api_v3(fields: Dict[str, Any]) -> Optional[float]:
+    """Get discovery effort from custom field in API v3 response."""
+    try:
+        effort_field = fields.get('customfield_10243')
+        if effort_field:
+            return float(effort_field)
+    except:
+        pass
+    return None
+
+def get_build_effort_from_api_v3(fields: Dict[str, Any]) -> Optional[float]:
+    """Get build effort from custom field in API v3 response."""
+    try:
+        effort_field = fields.get('customfield_10144')
+        if effort_field:
+            return float(effort_field)
+    except:
+        pass
+    return None
+
+def get_build_complete_date_from_api_v3(fields: Dict[str, Any]) -> Optional[str]:
+    """Get build complete date from custom field in API v3 response."""
+    try:
+        date_field = fields.get('customfield_10135')
+        if date_field:
+            return str(date_field)
+    except:
+        pass
+    return None
+
+def get_teams_from_api_v3(fields: Dict[str, Any]) -> Optional[str]:
+    """Get teams from custom field in API v3 response."""
+    try:
+        teams_field = fields.get('customfield_10238')
+        if teams_field:
+            return str(teams_field)
+    except:
+        pass
+    return None
+
 def is_active_project(project_data: Dict[str, Any]) -> bool:
     """Check if project should be included in snapshot."""
     excluded_statuses = ['Live', 'Won\'t Do', 'Done', 'Closed', 'Resolved']
@@ -242,15 +337,78 @@ def calculate_cycle_times(projects: List[Dict[str, Any]], snapshot_date: str, ji
     for project in projects:
         project_key = project['project_key']
         try:
-            # Get changelog for cycle time calculation
-            issue = jira.issue(project_key, expand='changelog')
-            cycle_tracking = calculate_project_cycle_times_from_changelog(issue, snapshot_date)
+            # Get changelog for cycle time calculation using API v3
+            cycle_tracking = calculate_project_cycle_times_from_api_v3(project_key, snapshot_date, jira)
             project['cycle_tracking'] = cycle_tracking
         except Exception as e:
             logger.warning(f"Could not calculate cycle times for {project_key}: {e}")
             project['cycle_tracking'] = {}
     
     return projects
+
+def calculate_project_cycle_times_from_api_v3(project_key: str, snapshot_date: str, jira: JIRA) -> Dict[str, Any]:
+    """Calculate cycle times using API v3 to get changelog data."""
+    try:
+        # Get changelog data using API v3
+        url = f"{JIRA_SERVER}/rest/api/3/issue/{project_key}/changelog"
+        headers = {
+            'Authorization': f'Basic {jira._get_basic_auth_string()}',
+            'Content-Type': 'application/json'
+        }
+        
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        
+        data = response.json()
+        changelog = data.get('values', [])
+        
+        # Parse snapshot date
+        current_date = datetime.strptime(snapshot_date, '%Y-%m-%d').strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        
+        # Get status changes from changelog
+        status_changes = []
+        for history in changelog:
+            created = history.get('created')
+            for item in history.get('items', []):
+                if item.get('field') == 'status':
+                    status_changes.append({
+                        'date': created,
+                        'from_status': item.get('fromString'),
+                        'to_status': item.get('toString')
+                    })
+        
+        # Sort by date
+        status_changes.sort(key=lambda x: x['date'])
+        
+        # Calculate discovery cycle times
+        discovery_cycle = calculate_discovery_cycle_from_changelog(status_changes, current_date)
+        
+        # Calculate build cycle times
+        build_cycle = calculate_build_cycle_from_changelog(status_changes, current_date)
+        
+        return {
+            'discovery': discovery_cycle,
+            'build': build_cycle
+        }
+        
+    except Exception as e:
+        logger.warning(f"Error calculating cycle times for {project_key}: {e}")
+        return {
+            'discovery': {
+                'first_generative_discovery_date': None,
+                'first_build_date': None,
+                'calendar_discovery_cycle_weeks': None,
+                'active_discovery_cycle_weeks': None,
+                'weeks_excluded_from_active_discovery': 0
+            },
+            'build': {
+                'first_build_date': None,
+                'first_beta_or_live_date': None,
+                'calendar_build_cycle_weeks': None,
+                'active_build_cycle_weeks': None,
+                'weeks_excluded_from_active_build': 0
+            }
+        }
 
 def calculate_project_cycle_times_from_changelog(issue, snapshot_date: str) -> Dict[str, Any]:
     """Calculate cycle times from Jira changelog."""
