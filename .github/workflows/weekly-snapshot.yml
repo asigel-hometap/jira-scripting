@@ -1,0 +1,40 @@
+name: Weekly Jira Snapshot
+
+on:
+  schedule:
+    # Run every Sunday at 2 AM UTC (adjust timezone as needed)
+    - cron: '0 2 * * 0'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  weekly-snapshot:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Run weekly snapshot
+      env:
+        JIRA_SERVER: ${{ secrets.JIRA_SERVER }}
+        JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+        RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+      run: |
+        python scripts/railway_weekly_snapshot.py
+        
+    - name: Upload snapshot to Railway
+      if: success()
+      run: |
+        python scripts/upload_to_railway.py
