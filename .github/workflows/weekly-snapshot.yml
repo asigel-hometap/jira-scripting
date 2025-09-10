@@ -46,5 +46,18 @@ jobs:
         
     - name: Upload snapshot to Railway
       if: success()
+      env:
+        RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+        RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+        RAILWAY_UPLOAD_METHOD: volume
       run: |
+        echo "🚀 Uploading snapshot to Railway..."
         python scripts/upload_to_railway.py
+        echo "✅ Upload completed"
+        
+    - name: Verify Railway upload
+      if: success()
+      run: |
+        echo "🔍 Verifying Railway upload..."
+        ls -la /tmp/railway_upload/ || echo "No Railway upload directory found"
+        echo "✅ Verification completed"

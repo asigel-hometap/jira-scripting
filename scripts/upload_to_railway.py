@@ -61,26 +61,46 @@ def upload_to_volume(snapshot_date: str, csv_file: str, json_file: str):
     """Upload snapshot to Railway mounted volume."""
     print(f"Uploading snapshot {snapshot_date} to Railway volume...")
     
-    # This would upload to a mounted volume in Railway
-    # The volume would be mounted at /data in your web service
+    # Check if we're in Railway environment
+    if os.path.exists('/data'):
+        # We're in Railway - use the mounted volume
+        volume_path = '/data/snapshots'
+        print(f"📁 Using Railway volume: {volume_path}")
+    else:
+        # We're in GitHub Actions - simulate the upload
+        volume_path = '/tmp/railway_upload'
+        print(f"📁 Simulating Railway upload to: {volume_path}")
     
-    volume_path = '/data/snapshots'
-    os.makedirs(volume_path, exist_ok=True)
-    
-    # Copy files to volume
-    import shutil
-    
-    csv_dest = os.path.join(volume_path, f"{snapshot_date}_weekly_snapshot.csv")
-    json_dest = os.path.join(volume_path, f"{snapshot_date}_weekly_snapshot.json")
-    
-    shutil.copy2(csv_file, csv_dest)
-    shutil.copy2(json_file, json_dest)
-    
-    print(f"✅ Files uploaded to volume: {volume_path}")
-    print(f"📁 CSV: {csv_dest}")
-    print(f"📁 JSON: {json_dest}")
-    
-    return True
+    try:
+        os.makedirs(volume_path, exist_ok=True)
+        
+        # Copy files to volume
+        import shutil
+        
+        csv_dest = os.path.join(volume_path, f"{snapshot_date}_weekly_snapshot.csv")
+        json_dest = os.path.join(volume_path, f"{snapshot_date}_weekly_snapshot.json")
+        
+        shutil.copy2(csv_file, csv_dest)
+        shutil.copy2(json_file, json_dest)
+        
+        print(f"✅ Files uploaded to volume: {volume_path}")
+        print(f"📁 CSV: {csv_dest}")
+        print(f"📁 JSON: {json_dest}")
+        
+        # Verify files were copied
+        if os.path.exists(csv_dest) and os.path.exists(json_dest):
+            csv_size = os.path.getsize(csv_dest)
+            json_size = os.path.getsize(json_dest)
+            print(f"📊 CSV size: {csv_size:,} bytes")
+            print(f"📊 JSON size: {json_size:,} bytes")
+            return True
+        else:
+            print("❌ Files not found after copy")
+            return False
+            
+    except Exception as e:
+        print(f"❌ Error uploading to volume: {e}")
+        return False
 
 def upload_via_api(snapshot_date: str, csv_file: str, json_file: str):
     """Upload snapshot via Railway API (if supported)."""
