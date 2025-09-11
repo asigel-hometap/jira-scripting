@@ -40,9 +40,9 @@ def start_web_app():
     print("🚀 Starting web application...")
     
     try:
-        # Change to web directory and start the minimal app
+        # Change to web directory and start the database-connected app
         os.chdir('web')
-        subprocess.run([sys.executable, 'app_minimal.py'])
+        subprocess.run([sys.executable, 'app_with_database.py'])
         
     except Exception as e:
         print(f"❌ Error starting web app: {e}")
