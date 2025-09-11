@@ -42,7 +42,7 @@ def start_web_app():
     try:
         # Change to web directory and start the database-connected app
         os.chdir('web')
-        subprocess.run([sys.executable, 'app_with_database.py'])
+        subprocess.run([sys.executable, 'app_with_database_psycopg3.py'])
         
     except Exception as e:
         print(f"❌ Error starting web app: {e}")
