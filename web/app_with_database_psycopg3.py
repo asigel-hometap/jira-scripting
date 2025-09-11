@@ -144,12 +144,12 @@ def cycle_time_data():
         conn.close()
         
         # Process data for frontend
-        discovery_cycles = [row[0] for row in results if row[0] is not None]
-        build_cycles = [row[1] for row in results if row[1] is not None]
+        discovery_cycles = [float(row[0]) for row in results if row[0] is not None]
+        build_cycles = [float(row[1]) for row in results if row[1] is not None]
         
         # Calculate averages for the dashboard
-        avg_discovery = sum(discovery_cycles) / len(discovery_cycles) if discovery_cycles else 0
-        avg_build = sum(build_cycles) / len(build_cycles) if build_cycles else 0
+        avg_discovery = float(sum(discovery_cycles) / len(discovery_cycles)) if discovery_cycles else 0.0
+        avg_build = float(sum(build_cycles) / len(build_cycles)) if build_cycles else 0.0
         
         return jsonify({
             'success': True,
