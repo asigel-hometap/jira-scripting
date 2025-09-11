@@ -63,7 +63,12 @@ def api_health():
 def cycle_time_data():
     """Placeholder for cycle time data."""
     return jsonify({
-        'quarters': [],
+        'success': True,
+        'data': {
+            'quarters': [],
+            'discovery_cycle_times': [],
+            'build_cycle_times': []
+        },
         'message': 'Database not yet connected - run GitHub Actions to populate data'
     })
 
@@ -72,6 +77,8 @@ def quarterly_cycle_time_data():
     """Placeholder for quarterly cycle time data."""
     return jsonify({
         'quarters': [],
+        'discovery_cycle_times': [],
+        'build_cycle_times': [],
         'message': 'Database not yet connected - run GitHub Actions to populate data'
     })
 
@@ -103,7 +110,10 @@ def project_overview():
 def current_data():
     """Placeholder for current data."""
     return jsonify({
-        'projects': [],
+        'success': True,
+        'data': {
+            'projects': []
+        },
         'message': 'Database not yet connected - run GitHub Actions to populate data'
     })
 
@@ -111,6 +121,7 @@ def current_data():
 def historical_data():
     """Placeholder for historical data."""
     return jsonify({
+        'success': True,
         'data': [],
         'message': 'Database not yet connected - run GitHub Actions to populate data'
     })
