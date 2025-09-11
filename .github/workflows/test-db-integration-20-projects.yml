@@ -1,0 +1,56 @@
+name: Test Database Integration - 20 Projects
+
+on:
+  workflow_dispatch:  # Manual trigger only
+  push:
+    paths:
+      - 'scripts/test_db_integration_20_projects.py'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests pandas psycopg2-binary
+        
+    - name: Test database integration with 20 projects
+      env:
+        JIRA_SERVER: ${{ secrets.JIRA_SERVER }}
+        JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      run: |
+        echo "🚀 Testing database integration with 20 projects..."
+        python scripts/test_db_integration_20_projects.py
+        echo "✅ Database integration test completed"
+        
+    - name: Verify database upload
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      run: |
+        echo "🔍 Verifying database upload..."
+        python -c "
+        import psycopg2
+        import os
+        conn = psycopg2.connect(os.getenv('DATABASE_URL'))
+        cursor = conn.cursor()
+        cursor.execute('SELECT COUNT(*) FROM weekly_snapshots')
+        snapshots = cursor.fetchone()[0]
+        cursor.execute('SELECT COUNT(*) FROM projects')
+        projects = cursor.fetchone()[0]
+        print(f'📊 Snapshots in database: {snapshots}')
+        print(f'📊 Projects in database: {projects}')
+        cursor.close()
+        conn.close()
+        "
