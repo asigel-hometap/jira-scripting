@@ -349,8 +349,8 @@ def current_data():
         
         # Get all projects
         results = conn.execute("""
-            SELECT project_key, summary, status, assignee, created, updated, 
-                   discovery_cycle_weeks, build_cycle_weeks
+            SELECT project_key, project_name, status, assignee_email, created, updated, 
+                   discovery_cycle_time_weeks, build_cycle_time_weeks
             FROM projects 
             ORDER BY updated DESC
         """).fetchall()
@@ -479,10 +479,10 @@ def projects_at_risk():
         
         # Get projects with long discovery cycles (over 4 weeks)
         results = conn.execute("""
-            SELECT project_key, summary, status, assignee, discovery_cycle_weeks
+            SELECT project_key, project_name, status, assignee_email, discovery_cycle_time_weeks
             FROM projects 
-            WHERE discovery_cycle_weeks > 4
-            ORDER BY discovery_cycle_weeks DESC
+            WHERE discovery_cycle_time_weeks > 4
+            ORDER BY discovery_cycle_time_weeks DESC
         """).fetchall()
         
         conn.close()
@@ -516,7 +516,7 @@ def projects_on_hold():
         
         # Get projects that haven't been updated in 2+ weeks
         results = conn.execute("""
-            SELECT project_key, summary, status, assignee, updated
+            SELECT project_key, project_name, status, assignee_email, updated
             FROM projects 
             WHERE updated < NOW() - INTERVAL '14 days'
             ORDER BY updated ASC
