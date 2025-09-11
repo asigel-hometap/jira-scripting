@@ -147,12 +147,18 @@ def cycle_time_data():
         discovery_cycles = [row[0] for row in results if row[0] is not None]
         build_cycles = [row[1] for row in results if row[1] is not None]
         
+        # Calculate averages for the dashboard
+        avg_discovery = sum(discovery_cycles) / len(discovery_cycles) if discovery_cycles else 0
+        avg_build = sum(build_cycles) / len(build_cycles) if build_cycles else 0
+        
         return jsonify({
             'success': True,
             'data': {
                 'quarters': ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],  # Placeholder quarters
                 'discovery_cycle_times': discovery_cycles,
-                'build_cycle_times': build_cycles
+                'build_cycle_times': build_cycles,
+                'avg_discovery_calendar_cycle': avg_discovery,
+                'avg_build_calendar_cycle': avg_build
             }
         })
         
@@ -482,6 +488,55 @@ def projects_on_hold():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/trend-data')
+def trend_data():
+    """Get trend data for team members."""
+    try:
+        members = request.args.getlist('members')
+        conn = get_db_connection()
+        if not conn:
+            return jsonify({'error': 'Database connection failed'}), 500
+        
+        # Get projects for specified team members
+        if members:
+            placeholders = ','.join(['%s'] * len(members))
+            query = f"""
+                SELECT project_key, summary, status, assignee, created, updated, 
+                       discovery_cycle_weeks, build_cycle_weeks
+                FROM projects 
+                WHERE assignee IN ({placeholders})
+                ORDER BY updated DESC
+            """
+            results = conn.execute(query, members).fetchall()
+        else:
+            results = conn.execute("""
+                SELECT project_key, summary, status, assignee, created, updated, 
+                       discovery_cycle_weeks, build_cycle_weeks
+                FROM projects 
+                ORDER BY updated DESC
+            """).fetchall()
+        
+        conn.close()
+        
+        # Convert to list of dicts
+        projects = []
+        for row in results:
+            projects.append({
+                'key': row[0],
+                'summary': row[1],
+                'status': row[2],
+                'assignee': row[3],
+                'created': row[4].isoformat() if row[4] else None,
+                'updated': row[5].isoformat() if row[5] else None,
+                'discovery_cycle_weeks': float(row[6]) if row[6] else None,
+                'build_cycle_weeks': float(row[7]) if row[7] else None
+            })
+        
+        return jsonify(projects)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/api/refresh-data', methods=['POST'])
 def refresh_data():
     """Refresh data endpoint."""
@@ -489,6 +544,24 @@ def refresh_data():
         'success': True,
         'message': 'Data refreshed successfully'
     })
+
+@app.route('/api/debug-env')
+def debug_env():
+    """Debug environment variables."""
+    import subprocess
+    try:
+        result = subprocess.run(['python3', 'web/debug_env.py'], 
+                              capture_output=True, text=True, cwd='/app')
+        return jsonify({
+            'success': True,
+            'output': result.stdout,
+            'error': result.stderr
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
