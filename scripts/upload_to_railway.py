@@ -53,12 +53,17 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
         df = pd.read_csv(csv_file)
         print(f"📊 Read {len(df)} projects from CSV")
         
+        # Clean the data for JSON serialization
+        df_clean = df.copy()
+        # Replace NaN values with None for proper JSON serialization
+        df_clean = df_clean.where(pd.notnull(df_clean), None)
+        
         # Convert to JSON for database storage
         snapshot_data = {
             'snapshot_date': snapshot_date,
             'created_at': datetime.now().isoformat(),
-            'project_count': len(df),
-            'data': df.to_dict('records')
+            'project_count': len(df_clean),
+            'data': df_clean.to_dict('records')
         }
         
         # Insert into weekly_snapshots table
@@ -70,11 +75,11 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
                 project_count = EXCLUDED.project_count,
                 data = EXCLUDED.data,
                 created_at = CURRENT_TIMESTAMP
-        """, (snapshot_date, len(df), json.dumps(snapshot_data), 'github_actions'))
+        """, (snapshot_date, len(df_clean), json.dumps(snapshot_data), 'github_actions'))
         
         # Insert individual projects
         project_records = []
-        for _, row in df.iterrows():
+        for _, row in df_clean.iterrows():
             project_record = (
                 snapshot_date,
                 row.get('project_key', ''),
@@ -117,7 +122,7 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
         # Commit the transaction
         conn.commit()
         
-        print(f"✅ Uploaded {len(df)} projects to database")
+        print(f"✅ Uploaded {len(df_clean)} projects to database")
         print(f"📊 Snapshot data size: {len(json.dumps(snapshot_data))} bytes")
         
         cursor.close()
