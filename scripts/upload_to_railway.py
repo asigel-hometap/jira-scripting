@@ -154,20 +154,18 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
             project_record = (
                 snapshot_date,
                 row.get('project_key', ''),
-                row.get('project_name', ''),
-                row.get('assignee_email', ''),
-                row.get('health_status', ''),
+                row.get('summary', ''),  # project_name
+                row.get('assignee', ''),  # assignee_email
+                row.get('health', ''),  # health_status
                 row.get('status', ''),
                 row.get('priority', ''),
-                safe_json_loads(row.get('labels', '[]')),
-                safe_json_loads(row.get('components', '[]')),
                 row.get('discovery_effort', None),
                 row.get('build_effort', None),
-                row.get('discovery_cycle_time_weeks', None),
-                row.get('build_cycle_time_weeks', None),
-                row.get('discovery_start_date', None),
-                row.get('discovery_end_date', None),
-                row.get('build_start_date', None),
+                row.get('discovery_calendar_cycle_weeks', None),  # discovery_cycle_time_weeks
+                row.get('build_calendar_cycle_weeks', None),  # build_cycle_time_weeks
+                row.get('discovery_first_generative_discovery_date', None),  # discovery_start_date
+                row.get('discovery_first_build_date', None),  # discovery_end_date
+                row.get('build_first_build_date', None),  # build_start_date
                 row.get('build_complete_date', None)
             )
             project_records.append(project_record)
@@ -181,7 +179,7 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
                 cursor,
                 """INSERT INTO projects (
                     snapshot_date, project_key, project_name, assignee_email, 
-                    health_status, status, priority, labels, components,
+                    health_status, status, priority,
                     discovery_effort, build_effort, discovery_cycle_time_weeks, 
                     build_cycle_time_weeks, discovery_start_date, discovery_end_date,
                     build_start_date, build_complete_date
