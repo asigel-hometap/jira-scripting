@@ -1,0 +1,41 @@
+name: Simple Jira Test
+
+on:
+  workflow_dispatch:  # Manual trigger only
+  push:
+    paths:
+      - 'scripts/simple_test.py'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests pandas
+        
+    - name: Run simple test
+      env:
+        JIRA_SERVER: ${{ secrets.JIRA_SERVER }}
+        JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      run: |
+        echo "🚀 Running simple Jira test..."
+        python scripts/simple_test.py
+        echo "✅ Test completed"
+        
+    - name: Check results
+      run: |
+        echo "Checking for output files..."
+        ls -la data/snapshots/processed/ || echo "No output directory found"
+        find data/ -name "*.csv" -o -name "*.json" || echo "No CSV/JSON files found"
