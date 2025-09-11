@@ -98,44 +98,54 @@ def create_views(conn):
     """Create useful database views."""
     print("📊 Creating database views...")
     
-    # Latest snapshot view
-    conn.execute("""
-        CREATE OR REPLACE VIEW latest_snapshot AS
-        SELECT * FROM weekly_snapshots 
-        ORDER BY snapshot_date DESC 
-        LIMIT 1;
-    """)
-    
-    # Active projects view
-    conn.execute("""
-        CREATE OR REPLACE VIEW active_projects AS
-        SELECT DISTINCT ON (project_key) 
-            project_key, summary, status, assignee, 
-            created, updated, discovery_cycle_weeks, build_cycle_weeks
-        FROM projects 
-        WHERE snapshot_date = (SELECT MAX(snapshot_date) FROM projects)
-        ORDER BY project_key, snapshot_date DESC;
-    """)
-    
-    # Cycle time analysis view
-    conn.execute("""
-        CREATE OR REPLACE VIEW cycle_time_analysis AS
-        SELECT 
-            project_key,
-            summary,
-            status,
-            assignee,
-            discovery_cycle_weeks,
-            build_cycle_weeks,
-            snapshot_date,
-            created,
-            updated
-        FROM projects 
-        WHERE (discovery_cycle_weeks IS NOT NULL OR build_cycle_weeks IS NOT NULL)
-        ORDER BY snapshot_date DESC, project_key;
-    """)
-    
-    print("✅ Database views created successfully")
+    try:
+        # Drop existing views first
+        conn.execute("DROP VIEW IF EXISTS latest_snapshot CASCADE;")
+        conn.execute("DROP VIEW IF EXISTS active_projects CASCADE;")
+        conn.execute("DROP VIEW IF EXISTS cycle_time_analysis CASCADE;")
+        
+        # Latest snapshot view
+        conn.execute("""
+            CREATE VIEW latest_snapshot AS
+            SELECT * FROM weekly_snapshots 
+            ORDER BY snapshot_date DESC 
+            LIMIT 1;
+        """)
+        
+        # Active projects view
+        conn.execute("""
+            CREATE VIEW active_projects AS
+            SELECT DISTINCT ON (project_key) 
+                project_key, summary, status, assignee, 
+                created, updated, discovery_cycle_weeks, build_cycle_weeks
+            FROM projects 
+            WHERE snapshot_date = (SELECT MAX(snapshot_date) FROM projects)
+            ORDER BY project_key, snapshot_date DESC;
+        """)
+        
+        # Cycle time analysis view
+        conn.execute("""
+            CREATE VIEW cycle_time_analysis AS
+            SELECT 
+                project_key,
+                summary,
+                status,
+                assignee,
+                discovery_cycle_weeks,
+                build_cycle_weeks,
+                snapshot_date,
+                created,
+                updated
+            FROM projects 
+            WHERE (discovery_cycle_weeks IS NOT NULL OR build_cycle_weeks IS NOT NULL)
+            ORDER BY snapshot_date DESC, project_key;
+        """)
+        
+        print("✅ Database views created successfully")
+        
+    except Exception as e:
+        print(f"⚠️ Warning: Could not create views: {e}")
+        print("⚠️ Continuing without views - tables are still functional")
 
 def main():
     """Main function to set up the database."""
