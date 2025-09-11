@@ -408,13 +408,22 @@ def current_data():
                 'count': count
             })
         
+        # Create status data for charts
+        status_data = []
+        for status, count in status_counts.items():
+            status_data.append({
+                'project_status': status,
+                'count': count
+            })
+        
         return jsonify({
             'success': True,
             'data': {
                 'projects': projects,
                 'team_members': team_members,
                 'team': team_data,
-                'health': health_data
+                'health': health_data,
+                'status': status_data
             },
             'config': {
                 'default_visible': team_members[:5],  # First 5 team members
@@ -489,7 +498,10 @@ def projects_at_risk():
                 'discovery_cycle_weeks': float(row[4]) if row[4] else None
             })
         
-        return jsonify(projects)
+        return jsonify({
+            'success': True,
+            'projects': projects
+        })
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -523,7 +535,10 @@ def projects_on_hold():
                 'updated': row[4].isoformat() if row[4] else None
             })
         
-        return jsonify(projects)
+        return jsonify({
+            'success': True,
+            'projects': projects
+        })
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500
