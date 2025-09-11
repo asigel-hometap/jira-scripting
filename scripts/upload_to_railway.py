@@ -73,13 +73,17 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
                 return obj
         
         # Convert DataFrame to records and clean
-        # Fill any remaining NaN values before converting to dict
-        print(f"🔍 About to call fillna on DataFrame with shape: {df_clean.shape}")
+        # Replace NaN values with None for JSON serialization
+        print(f"🔍 About to process DataFrame with shape: {df_clean.shape}")
         print(f"🔍 DataFrame columns: {list(df_clean.columns)}")
         print(f"🔍 DataFrame dtypes: {df_clean.dtypes.to_dict()}")
         
-        df_clean = df_clean.fillna(value=None)
-        print(f"✅ fillna completed successfully")
+        # Replace NaN values with None using where() method (compatible with pandas 2.1.4)
+        for col in df_clean.columns:
+            if df_clean[col].dtype in ['float64', 'int64']:
+                df_clean[col] = df_clean[col].where(pd.notnull(df_clean[col]), None)
+        
+        print(f"✅ NaN replacement completed successfully")
         
         records = df_clean.to_dict('records')
         print(f"✅ to_dict completed successfully, got {len(records)} records")
