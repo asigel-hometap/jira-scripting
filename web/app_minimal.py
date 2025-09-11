@@ -18,6 +18,15 @@ from datetime import datetime
 app = Flask(__name__)
 CORS(app)
 
+# Add error handler for API routes
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({'error': 'Not found', 'message': 'API endpoint not found'}), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return jsonify({'error': 'Internal server error', 'message': 'Something went wrong'}), 500
+
 # Root route - redirect to dashboard
 @app.route('/')
 def index():
@@ -67,6 +76,20 @@ def discovery_projects():
 def build_projects():
     """Placeholder for build projects."""
     return jsonify([])
+
+@app.route('/api/team-members')
+def team_members():
+    """Placeholder for team members."""
+    return jsonify([])
+
+@app.route('/api/project-overview')
+def project_overview():
+    """Placeholder for project overview data."""
+    return jsonify({
+        'total_projects': 0,
+        'active_projects': 0,
+        'message': 'Database not yet connected - run GitHub Actions to populate data'
+    })
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
