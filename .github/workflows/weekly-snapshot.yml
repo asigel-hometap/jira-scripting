@@ -49,8 +49,13 @@ jobs:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
       run: |
         echo "🗄️ Setting up database schema..."
-        python scripts/setup_database.py
-        echo "✅ Database schema ready"
+        python scripts/setup_database_psycopg2.py
+        if [ $? -eq 0 ]; then
+          echo "✅ Database schema ready"
+        else
+          echo "❌ Database setup failed"
+          exit 1
+        fi
         
     - name: Upload snapshot to Railway
       if: success()
@@ -62,7 +67,12 @@ jobs:
       run: |
         echo "🚀 Uploading snapshot to Railway database..."
         python scripts/upload_to_railway.py
-        echo "✅ Upload completed"
+        if [ $? -eq 0 ]; then
+          echo "✅ Upload completed"
+        else
+          echo "❌ Upload failed"
+          exit 1
+        fi
         
     - name: Verify Railway upload
       if: success()
