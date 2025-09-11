@@ -49,7 +49,7 @@ jobs:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
       run: |
         echo "🗄️ Setting up database schema..."
-        python scripts/setup_database_psycopg3.py
+        python scripts/setup_database.py
         echo "✅ Database schema ready"
         
     - name: Upload snapshot to Railway
