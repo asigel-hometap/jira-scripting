@@ -25,10 +25,18 @@ CORS(app)
 def get_db_connection():
     """Get database connection."""
     try:
-        conn = psycopg.connect(os.getenv('DATABASE_URL'))
+        database_url = os.getenv('DATABASE_URL')
+        if not database_url:
+            print("❌ DATABASE_URL environment variable not set")
+            return None
+        
+        print(f"🔌 Attempting database connection...")
+        conn = psycopg.connect(database_url)
+        print("✅ Database connection successful")
         return conn
     except Exception as e:
-        print(f"Database connection error: {e}")
+        print(f"❌ Database connection error: {e}")
+        print(f"❌ Error type: {type(e).__name__}")
         return None
 
 # Add error handler for API routes
@@ -72,16 +80,46 @@ def dashboard():
 @app.route('/api/health')
 def api_health():
     """API health check."""
+    database_url = os.getenv('DATABASE_URL')
     conn = get_db_connection()
     database_connected = conn is not None
-    if conn:
-        conn.close()
     
-    return jsonify({
-        'status': 'healthy',
-        'database_connected': database_connected,
-        'message': 'API is running with database connection' if database_connected else 'Database connection failed'
-    })
+    # Debug: Show all environment variables that contain 'DATABASE' or 'POSTGRES'
+    db_vars = {k: v for k, v in os.environ.items() if 'DATABASE' in k or 'POSTGRES' in k or 'PG' in k}
+    
+    if conn:
+        try:
+            # Test a simple query
+            result = conn.execute("SELECT COUNT(*) FROM projects").fetchone()
+            project_count = result[0]
+            conn.close()
+            
+            return jsonify({
+                'status': 'healthy',
+                'database_connected': True,
+                'project_count': project_count,
+                'database_url_set': database_url is not None,
+                'available_db_vars': list(db_vars.keys()),
+                'message': f'API is running with database connection. {project_count} projects found.'
+            })
+        except Exception as e:
+            conn.close()
+            return jsonify({
+                'status': 'unhealthy',
+                'database_connected': False,
+                'database_url_set': database_url is not None,
+                'available_db_vars': list(db_vars.keys()),
+                'error': str(e),
+                'message': 'Database connection failed'
+            })
+    else:
+        return jsonify({
+            'status': 'unhealthy',
+            'database_connected': False,
+            'database_url_set': database_url is not None,
+            'available_db_vars': list(db_vars.keys()),
+            'message': 'Database connection failed'
+        })
 
 @app.route('/api/cycle-time-data')
 def cycle_time_data():
