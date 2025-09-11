@@ -156,7 +156,6 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
                 row.get('priority', ''),
                 safe_json_loads(row.get('labels', '[]')),
                 safe_json_loads(row.get('components', '[]')),
-                safe_json_loads(row.get('teams', '[]')),
                 row.get('discovery_effort', None),
                 row.get('build_effort', None),
                 row.get('discovery_cycle_time_weeks', None),
@@ -177,7 +176,7 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
                 cursor,
                 """INSERT INTO projects (
                     snapshot_date, project_key, project_name, assignee_email, 
-                    health_status, status, priority, labels, components, teams,
+                    health_status, status, priority, labels, components,
                     discovery_effort, build_effort, discovery_cycle_time_weeks, 
                     build_cycle_time_weeks, discovery_start_date, discovery_end_date,
                     build_start_date, build_complete_date
