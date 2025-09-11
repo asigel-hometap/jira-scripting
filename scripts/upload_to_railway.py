@@ -74,9 +74,18 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
         
         # Convert DataFrame to records and clean
         # Fill any remaining NaN values before converting to dict
+        print(f"🔍 About to call fillna on DataFrame with shape: {df_clean.shape}")
+        print(f"🔍 DataFrame columns: {list(df_clean.columns)}")
+        print(f"🔍 DataFrame dtypes: {df_clean.dtypes.to_dict()}")
+        
         df_clean = df_clean.fillna(value=None)
+        print(f"✅ fillna completed successfully")
+        
         records = df_clean.to_dict('records')
+        print(f"✅ to_dict completed successfully, got {len(records)} records")
+        
         cleaned_records = clean_for_json(records)
+        print(f"✅ clean_for_json completed successfully")
         
         snapshot_data = {
             'snapshot_date': snapshot_date,
@@ -150,7 +159,10 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
         return True
         
     except Exception as e:
+        import traceback
         print(f"❌ Error uploading to database: {e}")
+        print(f"🔍 Full traceback:")
+        traceback.print_exc()
         return False
 
 def upload_to_volume(snapshot_date: str, csv_file: str, json_file: str):
