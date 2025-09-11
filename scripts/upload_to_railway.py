@@ -36,26 +36,98 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
     """Upload snapshot to Railway PostgreSQL database."""
     print(f"Uploading snapshot {snapshot_date} to Railway database...")
     
-    # This would need to be implemented based on your database schema
-    # For now, we'll create a simple table structure
-    
-    # Read the CSV data
-    df = pd.read_csv(csv_file)
-    
-    # Convert to JSON for database storage
-    snapshot_data = {
-        'snapshot_date': snapshot_date,
-        'created_at': datetime.now().isoformat(),
-        'project_count': len(df),
-        'data': df.to_dict('records')
-    }
-    
-    # Here you would insert into your PostgreSQL database
-    # This is a placeholder - actual implementation depends on your setup
-    print(f"✅ Would upload {len(df)} projects to database")
-    print(f"📊 Snapshot data size: {len(json.dumps(snapshot_data))} bytes")
-    
-    return True
+    try:
+        import psycopg2
+        from psycopg2.extras import execute_values
+        
+        # Get database connection
+        database_url = os.environ.get('DATABASE_URL')
+        if not database_url:
+            print("❌ DATABASE_URL environment variable not set")
+            return False
+        
+        conn = psycopg2.connect(database_url)
+        cursor = conn.cursor()
+        
+        # Read the CSV data
+        df = pd.read_csv(csv_file)
+        print(f"📊 Read {len(df)} projects from CSV")
+        
+        # Convert to JSON for database storage
+        snapshot_data = {
+            'snapshot_date': snapshot_date,
+            'created_at': datetime.now().isoformat(),
+            'project_count': len(df),
+            'data': df.to_dict('records')
+        }
+        
+        # Insert into weekly_snapshots table
+        cursor.execute("""
+            INSERT INTO weekly_snapshots (snapshot_date, project_count, data, created_by)
+            VALUES (%s, %s, %s, %s)
+            ON CONFLICT (snapshot_date) 
+            DO UPDATE SET 
+                project_count = EXCLUDED.project_count,
+                data = EXCLUDED.data,
+                created_at = CURRENT_TIMESTAMP
+        """, (snapshot_date, len(df), json.dumps(snapshot_data), 'github_actions'))
+        
+        # Insert individual projects
+        project_records = []
+        for _, row in df.iterrows():
+            project_record = (
+                snapshot_date,
+                row.get('project_key', ''),
+                row.get('project_name', ''),
+                row.get('assignee_email', ''),
+                row.get('health_status', ''),
+                row.get('status', ''),
+                row.get('priority', ''),
+                row.get('labels', '').split(',') if row.get('labels') else [],
+                row.get('components', '').split(',') if row.get('components') else [],
+                row.get('teams', '').split(',') if row.get('teams') else [],
+                row.get('discovery_effort', None),
+                row.get('build_effort', None),
+                row.get('discovery_cycle_time_weeks', None),
+                row.get('build_cycle_time_weeks', None),
+                row.get('discovery_start_date', None),
+                row.get('discovery_end_date', None),
+                row.get('build_start_date', None),
+                row.get('build_complete_date', None)
+            )
+            project_records.append(project_record)
+        
+        # Delete existing projects for this snapshot date
+        cursor.execute("DELETE FROM projects WHERE snapshot_date = %s", (snapshot_date,))
+        
+        # Insert new projects
+        if project_records:
+            execute_values(
+                cursor,
+                """INSERT INTO projects (
+                    snapshot_date, project_key, project_name, assignee_email, 
+                    health_status, status, priority, labels, components, teams,
+                    discovery_effort, build_effort, discovery_cycle_time_weeks, 
+                    build_cycle_time_weeks, discovery_start_date, discovery_end_date,
+                    build_start_date, build_complete_date
+                ) VALUES %s""",
+                project_records
+            )
+        
+        # Commit the transaction
+        conn.commit()
+        
+        print(f"✅ Uploaded {len(df)} projects to database")
+        print(f"📊 Snapshot data size: {len(json.dumps(snapshot_data))} bytes")
+        
+        cursor.close()
+        conn.close()
+        
+        return True
+        
+    except Exception as e:
+        print(f"❌ Error uploading to database: {e}")
+        return False
 
 def upload_to_volume(snapshot_date: str, csv_file: str, json_file: str):
     """Upload snapshot to Railway mounted volume."""
@@ -156,7 +228,7 @@ def main():
     print(f"🚀 Uploading snapshot {snapshot_date} to Railway...")
     
     # Choose upload method based on environment
-    upload_method = os.environ.get('RAILWAY_UPLOAD_METHOD', 'volume')
+    upload_method = os.environ.get('RAILWAY_UPLOAD_METHOD', 'database')
     
     try:
         if upload_method == 'database':

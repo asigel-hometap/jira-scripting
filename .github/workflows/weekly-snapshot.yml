@@ -49,9 +49,10 @@ jobs:
       env:
         RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
-        RAILWAY_UPLOAD_METHOD: volume
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        RAILWAY_UPLOAD_METHOD: database
       run: |
-        echo "🚀 Uploading snapshot to Railway..."
+        echo "🚀 Uploading snapshot to Railway database..."
         python scripts/upload_to_railway.py
         echo "✅ Upload completed"
         
