@@ -11,7 +11,8 @@ Usage:
 
 import os
 import sys
-import psycopg
+import psycopg2
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import json
 from datetime import datetime
 
@@ -24,7 +25,8 @@ def get_database_connection():
         raise ValueError("DATABASE_URL environment variable not set")
     
     try:
-        conn = psycopg.connect(DATABASE_URL, autocommit=True)
+        conn = psycopg2.connect(DATABASE_URL)
+        conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         return conn
     except Exception as e:
         print(f"❌ Error connecting to database: {e}")
@@ -116,7 +118,7 @@ def create_views(cursor):
     # Active projects view
     cursor.execute("""
         CREATE OR REPLACE VIEW active_projects AS
-        SELECT p.*, ws.snapshot_date
+        SELECT p.*
         FROM projects p
         JOIN weekly_snapshots ws ON p.snapshot_date = ws.snapshot_date
         WHERE p.status IN ('Discovery', 'Build', 'Review', 'Deploy')
