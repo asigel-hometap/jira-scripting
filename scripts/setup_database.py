@@ -11,8 +11,7 @@ Usage:
 
 import os
 import sys
-import psycopg2
-from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+import psycopg
 import json
 from datetime import datetime
 
@@ -107,46 +106,56 @@ def create_views(cursor):
     """Create useful database views."""
     print("👁️ Creating database views...")
     
-    # Latest snapshot view
-    cursor.execute("""
-        CREATE OR REPLACE VIEW latest_snapshot AS
-        SELECT * FROM weekly_snapshots 
-        ORDER BY snapshot_date DESC 
-        LIMIT 1;
-    """)
-    
-    # Active projects view
-    cursor.execute("""
-        CREATE OR REPLACE VIEW active_projects AS
-        SELECT p.*
-        FROM projects p
-        JOIN weekly_snapshots ws ON p.snapshot_date = ws.snapshot_date
-        WHERE p.status IN ('Discovery', 'Build', 'Review', 'Deploy')
-        ORDER BY p.snapshot_date DESC, p.project_key;
-    """)
-    
-    # Cycle time analysis view
-    cursor.execute("""
-        CREATE OR REPLACE VIEW cycle_time_analysis AS
-        SELECT 
-            snapshot_date,
-            project_key,
-            project_name,
-            assignee_email,
-            health_status,
-            discovery_cycle_time_weeks,
-            build_cycle_time_weeks,
-            discovery_start_date,
-            discovery_end_date,
-            build_start_date,
-            build_complete_date
-        FROM projects
-        WHERE discovery_cycle_time_weeks IS NOT NULL 
-           OR build_cycle_time_weeks IS NOT NULL
-        ORDER BY snapshot_date DESC, project_key;
-    """)
-    
-    print("✅ Database views created successfully")
+    try:
+        # Drop existing views first to avoid conflicts
+        cursor.execute("DROP VIEW IF EXISTS latest_snapshot CASCADE;")
+        cursor.execute("DROP VIEW IF EXISTS active_projects CASCADE;")
+        cursor.execute("DROP VIEW IF EXISTS cycle_time_analysis CASCADE;")
+        
+        # Latest snapshot view
+        cursor.execute("""
+            CREATE VIEW latest_snapshot AS
+            SELECT * FROM weekly_snapshots 
+            ORDER BY snapshot_date DESC 
+            LIMIT 1;
+        """)
+        
+        # Active projects view
+        cursor.execute("""
+            CREATE VIEW active_projects AS
+            SELECT p.*
+            FROM projects p
+            JOIN weekly_snapshots ws ON p.snapshot_date = ws.snapshot_date
+            WHERE p.status IN ('Discovery', 'Build', 'Review', 'Deploy')
+            ORDER BY p.snapshot_date DESC, p.project_key;
+        """)
+        
+        # Cycle time analysis view
+        cursor.execute("""
+            CREATE VIEW cycle_time_analysis AS
+            SELECT 
+                snapshot_date,
+                project_key,
+                assignee_email,
+                health_status,
+                status,
+                discovery_cycle_time_weeks,
+                build_cycle_time_weeks,
+                discovery_start_date,
+                discovery_end_date,
+                build_start_date,
+                build_complete_date
+            FROM projects
+            WHERE discovery_cycle_time_weeks IS NOT NULL 
+               OR build_cycle_time_weeks IS NOT NULL
+            ORDER BY snapshot_date DESC, project_key;
+        """)
+        
+        print("✅ Database views created successfully")
+        
+    except Exception as e:
+        print(f"⚠️ Warning: Could not create all views: {e}")
+        print("Continuing without views...")
 
 def test_connection(cursor):
     """Test the database connection and basic functionality."""
