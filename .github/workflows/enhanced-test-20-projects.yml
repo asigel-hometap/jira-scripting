@@ -1,0 +1,46 @@
+name: Enhanced Jira Test - 20 Projects
+
+on:
+  workflow_dispatch:  # Manual trigger only
+  push:
+    paths:
+      - 'scripts/enhanced_test_20_projects.py'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests pandas
+        
+    - name: Run enhanced test with 20 projects
+      env:
+        JIRA_SERVER: ${{ secrets.JIRA_SERVER }}
+        JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      run: |
+        echo "🚀 Running enhanced Jira test with 20 projects..."
+        python scripts/enhanced_test_20_projects.py
+        echo "✅ Enhanced test completed"
+        
+    - name: Check results
+      run: |
+        echo "Checking for output files..."
+        ls -la data/snapshots/processed/ || echo "No output directory found"
+        find data/ -name "*enhanced_20_projects*" || echo "No enhanced 20 projects files found"
+        
+    - name: Show CSV summary
+      run: |
+        echo "📊 CSV file summary:"
+        find data/ -name "*enhanced_20_projects*" -exec head -5 {} \; || echo "No CSV files found"
