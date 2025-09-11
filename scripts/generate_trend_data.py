@@ -22,7 +22,7 @@ def generate_health_trends():
     print(f"📊 Loaded {len(df_health)} health records")
     
     # Pivot the data to get health status as columns
-    health_pivot = df_health.pivot(index='date', columns='health_status', values='count').fillna(0)
+    health_pivot = df_health.pivot(index='date', columns='health_status', values='count').fillna(value=0)
     
     # Ensure all health statuses are present
     health_statuses = ['On Track', 'Off Track', 'At Risk', 'Complete', 'On Hold', 'Mystery', 'Unknown']
@@ -61,7 +61,7 @@ def generate_status_trends():
     print(f"📊 Loaded {len(df_status)} status records")
     
     # Pivot the data to get project status as columns
-    status_pivot = df_status.pivot(index='date', columns='project_status', values='count').fillna(0)
+    status_pivot = df_status.pivot(index='date', columns='project_status', values='count').fillna(value=0)
     
     # Ensure all project statuses are present
     project_statuses = ['02 Generative Discovery', '04 Problem Discovery', '05 Solution Discovery', '06 Build', '07 Beta', 'Unknown']
