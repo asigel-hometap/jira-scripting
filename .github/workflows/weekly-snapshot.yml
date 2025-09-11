@@ -43,6 +43,15 @@ jobs:
         ls -la data/snapshots/processed/ || echo "No processed directory found"
         find data/ -name "*.csv" -o -name "*.json" || echo "No CSV/JSON files found"
         
+    - name: Setup database schema
+      if: success()
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      run: |
+        echo "🗄️ Setting up database schema..."
+        python scripts/setup_database.py
+        echo "✅ Database schema ready"
+        
     - name: Upload snapshot to Railway
       if: success()
       env:
