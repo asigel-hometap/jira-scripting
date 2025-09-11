@@ -50,8 +50,11 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
         conn = psycopg2.connect(database_url)
         cursor = conn.cursor()
         
-        # Read the CSV data
-        df = pd.read_csv(csv_file)
+        # Read the CSV data with explicit dtype for date columns
+        date_columns = ['discovery_first_generative_discovery_date', 'discovery_first_build_date', 
+                       'build_first_build_date', 'build_first_beta_or_live_date', 'build_complete_date']
+        dtype_dict = {col: 'object' for col in date_columns}
+        df = pd.read_csv(csv_file, dtype=dtype_dict)
         print(f"📊 Read {len(df)} projects from CSV")
         
         # Clean the data for JSON serialization
@@ -121,6 +124,20 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
         for col in df_clean.columns:
             if df_clean[col].dtype in ['float64', 'int64']:
                 df_clean[col] = df_clean[col].where(pd.notnull(df_clean[col]), None)
+            # Handle date fields - convert empty strings to None
+            elif col in ['discovery_first_generative_discovery_date', 'discovery_first_build_date', 
+                       'build_first_build_date', 'build_first_beta_or_live_date', 'build_complete_date']:
+                df_clean[col] = df_clean[col].where(df_clean[col] != '', None)
+        
+        # Convert effort fields to integers (database expects INTEGER)
+        for col in ['discovery_effort', 'build_effort']:
+            if col in df_clean.columns:
+                # Convert to int, but keep None for NaN values
+                df_clean[col] = df_clean[col].apply(lambda x: int(x) if pd.notnull(x) and not pd.isna(x) else None)
+        
+        # Ensure all NaN values are converted to None for database insertion
+        df_clean = df_clean.replace({pd.NA: None, pd.NaT: None, float('nan'): None, 'nan': None})
+        df_clean = df_clean.where(pd.notnull(df_clean), None)
         
         print(f"✅ NaN replacement completed successfully")
         
@@ -150,24 +167,51 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
         
         # Insert individual projects
         project_records = []
-        for _, row in df_clean.iterrows():
+        for i, (_, row) in enumerate(df_clean.iterrows()):
+            # Debug: Check for JSON data in date fields
+            date_fields = [
+                'discovery_first_generative_discovery_date',
+                'discovery_first_build_date', 
+                'build_first_build_date',
+                'build_complete_date'
+            ]
+            
+            for field in date_fields:
+                value = row.get(field, None)
+                if value and isinstance(value, str) and value.startswith('[') and value.endswith(']'):
+                    print(f"🔍 WARNING: Row {i} has JSON data in {field}: {value[:100]}...")
+                    # Convert JSON to None for date fields
+                    row[field] = None
+            
+            # Helper function to convert NaN to None
+            def safe_get(key, default=None):
+                value = row.get(key, default)
+                if pd.isna(value) or value == 'nan' or str(value) == 'nan':
+                    return None
+                return value
+            
             project_record = (
                 snapshot_date,
-                row.get('project_key', ''),
-                row.get('summary', ''),  # project_name
-                row.get('assignee', ''),  # assignee_email
-                row.get('health', ''),  # health_status
-                row.get('status', ''),
-                row.get('priority', ''),
-                row.get('discovery_effort', None),
-                row.get('build_effort', None),
-                row.get('discovery_calendar_cycle_weeks', None),  # discovery_cycle_time_weeks
-                row.get('build_calendar_cycle_weeks', None),  # build_cycle_time_weeks
-                row.get('discovery_first_generative_discovery_date', None),  # discovery_start_date
-                row.get('discovery_first_build_date', None),  # discovery_end_date
-                row.get('build_first_build_date', None),  # build_start_date
-                row.get('build_complete_date', None)
+                safe_get('project_key', ''),
+                safe_get('summary', ''),  # project_name
+                safe_get('assignee', ''),  # assignee_email
+                safe_get('health', ''),  # health_status
+                safe_get('status', ''),
+                safe_get('priority', ''),
+                safe_get('discovery_effort', None),
+                safe_get('build_effort', None),
+                safe_get('discovery_calendar_cycle_weeks', None),  # discovery_cycle_time_weeks
+                safe_get('build_calendar_cycle_weeks', None),  # build_cycle_time_weeks
+                safe_get('discovery_first_generative_discovery_date', None),  # discovery_start_date
+                safe_get('discovery_first_build_date', None),  # discovery_end_date
+                safe_get('build_first_build_date', None),  # build_start_date
+                safe_get('build_complete_date', None)
             )
+            
+            # Debug: Print first few records to see what's being inserted
+            if i < 3:
+                print(f"🔍 Row {i} project_record: {project_record}")
+            
             project_records.append(project_record)
         
         # Delete existing projects for this snapshot date

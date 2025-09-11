@@ -338,6 +338,12 @@ def get_build_complete_date_from_api_v3(fields: Dict[str, Any]) -> Optional[str]
     try:
         date_field = fields.get('customfield_10135')
         if date_field:
+            # Check if it's JSON data (list or dict)
+            if isinstance(date_field, (list, dict)):
+                return None  # Skip JSON data
+            # Check if it's a string that looks like JSON
+            if isinstance(date_field, str) and (date_field.startswith('[') or date_field.startswith('{')):
+                return None  # Skip JSON data
             return str(date_field)
     except:
         pass
