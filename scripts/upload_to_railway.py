@@ -56,10 +56,9 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
         
         # Clean the data for JSON serialization
         df_clean = df.copy()
-        # Replace all NaN values with None for proper JSON serialization
-        df_clean = df_clean.fillna(value=None)
-        # Also handle any remaining NaN values in the data
-        df_clean = df_clean.replace([float('nan'), 'NaN', 'nan'], None)
+        # Replace NaN values using a more compatible method
+        for col in df_clean.columns:
+            df_clean[col] = df_clean[col].where(pd.notnull(df_clean[col]), None)
         
         # Convert to JSON for database storage with proper NaN handling
         def clean_for_json(obj):
@@ -74,6 +73,8 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
                 return obj
         
         # Convert DataFrame to records and clean
+        # Fill any remaining NaN values before converting to dict
+        df_clean = df_clean.fillna(value=None)
         records = df_clean.to_dict('records')
         cleaned_records = clean_for_json(records)
         
