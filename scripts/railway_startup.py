@@ -19,9 +19,9 @@ def setup_database():
     print("🗄️ Setting up database schema...")
     
     try:
-        # Run the database setup script
+        # Run the database setup script (psycopg3 version)
         result = subprocess.run([
-            sys.executable, 'scripts/setup_database.py'
+            sys.executable, 'scripts/setup_database_psycopg3.py'
         ], capture_output=True, text=True)
         
         if result.returncode == 0:
