@@ -29,7 +29,7 @@ def setup_database():
         print("🔍 Running: scripts/setup_database_psycopg3.py")
         result = subprocess.run([
             sys.executable, 'scripts/setup_database_psycopg3.py'
-        ], capture_output=True, text=True)
+        ], capture_output=True, text=True, env=os.environ)
         
         if result.returncode == 0:
             print("✅ Database schema setup successful")
