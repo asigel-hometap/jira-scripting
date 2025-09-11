@@ -13,7 +13,7 @@ from flask import Flask, render_template, jsonify, redirect, url_for, request
 from flask_cors import CORS
 import os
 import json
-import psycopg
+import psycopg2
 import pandas as pd
 from datetime import datetime, timedelta
 from collections import defaultdict
@@ -32,7 +32,7 @@ def get_db_connection():
         
         print(f"🔌 DATABASE_URL: {database_url[:50]}...")  # Show first 50 chars
         print(f"🔌 Attempting database connection...")
-        conn = psycopg.connect(database_url)
+        conn = psycopg2.connect(database_url)
         print("✅ Database connection successful")
         return conn
     except Exception as e:
@@ -348,13 +348,16 @@ def current_data():
             return jsonify({'error': 'Database connection failed'}), 500
         
         # Get all projects
-        results = conn.execute("""
+        cursor = conn.cursor()
+        cursor.execute("""
             SELECT project_key, project_name, status, assignee_email, created, updated, 
                    discovery_cycle_time_weeks, build_cycle_time_weeks
             FROM projects 
             ORDER BY updated DESC
-        """).fetchall()
+        """)
+        results = cursor.fetchall()
         
+        cursor.close()
         conn.close()
         
         # Convert to list of dicts
