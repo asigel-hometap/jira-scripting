@@ -11,8 +11,7 @@ Usage:
 
 import os
 import sys
-import psycopg2
-from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+import psycopg
 import json
 from datetime import datetime
 
@@ -25,8 +24,7 @@ def get_database_connection():
         raise ValueError("DATABASE_URL environment variable not set")
     
     try:
-        conn = psycopg2.connect(DATABASE_URL)
-        conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+        conn = psycopg.connect(DATABASE_URL, autocommit=True)
         return conn
     except Exception as e:
         print(f"❌ Error connecting to database: {e}")

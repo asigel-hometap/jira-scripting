@@ -37,8 +37,8 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
     print(f"Uploading snapshot {snapshot_date} to Railway database...")
     
     try:
-        import psycopg2
-        from psycopg2.extras import execute_values
+        import psycopg
+        from psycopg.rows import dict_row
         
         # Get database connection
         database_url = os.environ.get('DATABASE_URL')
@@ -46,7 +46,7 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
             print("❌ DATABASE_URL environment variable not set")
             return False
         
-        conn = psycopg2.connect(database_url)
+        conn = psycopg.connect(database_url)
         cursor = conn.cursor()
         
         # Read the CSV data
@@ -102,15 +102,14 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
         
         # Insert new projects
         if project_records:
-            execute_values(
-                cursor,
+            cursor.executemany(
                 """INSERT INTO projects (
                     snapshot_date, project_key, project_name, assignee_email, 
                     health_status, status, priority, labels, components, teams,
                     discovery_effort, build_effort, discovery_cycle_time_weeks, 
                     build_cycle_time_weeks, discovery_start_date, discovery_end_date,
                     build_start_date, build_complete_date
-                ) VALUES %s""",
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
                 project_records
             )
         
