@@ -106,6 +106,11 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
                     print(f"⚠️ Warning: Could not parse JSON: {json_str[:100]}...")
                     return default or []
         
+        # Drop teams column if it exists (not needed for MVP)
+        if 'teams' in df_clean.columns:
+            df_clean = df_clean.drop('teams', axis=1)
+            print(f"🔍 Dropped teams column, new shape: {df_clean.shape}")
+        
         # Convert DataFrame to records and clean
         # Replace NaN values with None for JSON serialization
         print(f"🔍 About to process DataFrame with shape: {df_clean.shape}")
