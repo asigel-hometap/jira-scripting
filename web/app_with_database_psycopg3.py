@@ -156,9 +156,12 @@ def cycle_time_data():
             'data': {
                 'quarters': ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],  # Placeholder quarters
                 'discovery_cycle_times': discovery_cycles,
-                'build_cycle_times': build_cycles,
+                'build_cycle_times': build_cycles
+            },
+            'summary_stats': {
                 'avg_discovery_calendar_cycle': avg_discovery,
-                'avg_build_calendar_cycle': avg_build
+                'avg_build_calendar_cycle': avg_build,
+                'total_projects': len(discovery_cycles) + len(build_cycles)
             }
         })
         
@@ -374,7 +377,8 @@ def current_data():
         return jsonify({
             'success': True,
             'data': {
-                'projects': projects
+                'projects': projects,
+                'team_members': team_members
             },
             'config': {
                 'default_visible': team_members[:5],  # First 5 team members
@@ -530,6 +534,74 @@ def trend_data():
                 'updated': row[5].isoformat() if row[5] else None,
                 'discovery_cycle_weeks': float(row[6]) if row[6] else None,
                 'build_cycle_weeks': float(row[7]) if row[7] else None
+            })
+        
+        return jsonify(projects)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/projects-at-risk')
+def projects_at_risk():
+    """Get projects at risk from database."""
+    try:
+        conn = get_db_connection()
+        if not conn:
+            return jsonify({'error': 'Database connection failed'}), 500
+        
+        # Get projects with long discovery cycles (over 4 weeks)
+        results = conn.execute("""
+            SELECT project_key, summary, status, assignee, discovery_cycle_weeks
+            FROM projects 
+            WHERE discovery_cycle_weeks > 4
+            ORDER BY discovery_cycle_weeks DESC
+        """).fetchall()
+        
+        conn.close()
+        
+        # Convert to list of dicts
+        projects = []
+        for row in results:
+            projects.append({
+                'key': row[0],
+                'summary': row[1],
+                'status': row[2],
+                'assignee': row[3],
+                'discovery_cycle_weeks': float(row[4]) if row[4] else None
+            })
+        
+        return jsonify(projects)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/projects-on-hold')
+def projects_on_hold():
+    """Get projects on hold from database."""
+    try:
+        conn = get_db_connection()
+        if not conn:
+            return jsonify({'error': 'Database connection failed'}), 500
+        
+        # Get projects that haven't been updated in 2+ weeks
+        results = conn.execute("""
+            SELECT project_key, summary, status, assignee, updated
+            FROM projects 
+            WHERE updated < NOW() - INTERVAL '14 days'
+            ORDER BY updated ASC
+        """).fetchall()
+        
+        conn.close()
+        
+        # Convert to list of dicts
+        projects = []
+        for row in results:
+            projects.append({
+                'key': row[0],
+                'summary': row[1],
+                'status': row[2],
+                'assignee': row[3],
+                'updated': row[4].isoformat() if row[4] else None
             })
         
         return jsonify(projects)
