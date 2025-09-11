@@ -59,9 +59,17 @@ def api_health():
         'message': 'API is running but database not yet connected'
     })
 
+@app.route('/api/cycle-time-data')
+def cycle_time_data():
+    """Placeholder for cycle time data."""
+    return jsonify({
+        'quarters': [],
+        'message': 'Database not yet connected - run GitHub Actions to populate data'
+    })
+
 @app.route('/api/quarterly-cycle-time-data')
 def quarterly_cycle_time_data():
-    """Placeholder for cycle time data."""
+    """Placeholder for quarterly cycle time data."""
     return jsonify({
         'quarters': [],
         'message': 'Database not yet connected - run GitHub Actions to populate data'
@@ -88,6 +96,40 @@ def project_overview():
     return jsonify({
         'total_projects': 0,
         'active_projects': 0,
+        'message': 'Database not yet connected - run GitHub Actions to populate data'
+    })
+
+@app.route('/api/current-data')
+def current_data():
+    """Placeholder for current data."""
+    return jsonify({
+        'projects': [],
+        'message': 'Database not yet connected - run GitHub Actions to populate data'
+    })
+
+@app.route('/api/historical-data')
+def historical_data():
+    """Placeholder for historical data."""
+    return jsonify({
+        'data': [],
+        'message': 'Database not yet connected - run GitHub Actions to populate data'
+    })
+
+@app.route('/api/projects-at-risk')
+def projects_at_risk():
+    """Placeholder for projects at risk."""
+    return jsonify([])
+
+@app.route('/api/projects-on-hold')
+def projects_on_hold():
+    """Placeholder for projects on hold."""
+    return jsonify([])
+
+@app.route('/api/refresh-data', methods=['POST'])
+def refresh_data():
+    """Placeholder for refresh data."""
+    return jsonify({
+        'success': True,
         'message': 'Database not yet connected - run GitHub Actions to populate data'
     })
 

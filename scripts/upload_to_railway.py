@@ -14,6 +14,7 @@ import sys
 import json
 import requests
 import pandas as pd
+import numpy as np
 from datetime import datetime
 from typing import Optional
 
@@ -55,15 +56,32 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
         
         # Clean the data for JSON serialization
         df_clean = df.copy()
-        # Replace NaN values with None for proper JSON serialization
-        df_clean = df_clean.where(pd.notnull(df_clean), None)
+        # Replace all NaN values with None for proper JSON serialization
+        df_clean = df_clean.fillna(None)
+        # Also handle any remaining NaN values in the data
+        df_clean = df_clean.replace([float('nan'), 'NaN', 'nan'], None)
         
-        # Convert to JSON for database storage
+        # Convert to JSON for database storage with proper NaN handling
+        def clean_for_json(obj):
+            """Recursively clean data for JSON serialization."""
+            if isinstance(obj, dict):
+                return {k: clean_for_json(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [clean_for_json(item) for item in obj]
+            elif (isinstance(obj, float) and np.isnan(obj)) or obj is None or str(obj).lower() in ['nan', 'none']:
+                return None
+            else:
+                return obj
+        
+        # Convert DataFrame to records and clean
+        records = df_clean.to_dict('records')
+        cleaned_records = clean_for_json(records)
+        
         snapshot_data = {
             'snapshot_date': snapshot_date,
             'created_at': datetime.now().isoformat(),
             'project_count': len(df_clean),
-            'data': df_clean.to_dict('records')
+            'data': cleaned_records
         }
         
         # Insert into weekly_snapshots table
