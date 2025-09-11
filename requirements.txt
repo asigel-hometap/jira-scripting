@@ -1,9 +1,13 @@
-# Core dependencies with compatible versions
-numpy==1.24.4
-pandas==2.1.4
+# Core dependencies with Python 3.13 compatible versions
+numpy>=1.26.0
+pandas>=2.1.0
 jira==3.5.2
 requests==2.31.0
 python-dateutil==2.8.2
+
+# Web framework
+Flask>=2.3.0
+Werkzeug>=2.3.0
 
 # Database dependencies
 psycopg2-binary==2.9.9
