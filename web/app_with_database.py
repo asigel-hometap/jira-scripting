@@ -13,7 +13,7 @@ from flask import Flask, render_template, jsonify, redirect, url_for, request
 from flask_cors import CORS
 import os
 import json
-import psycopg2
+import psycopg
 import pandas as pd
 from datetime import datetime, timedelta
 from collections import defaultdict
@@ -25,7 +25,7 @@ CORS(app)
 def get_db_connection():
     """Get database connection."""
     try:
-        conn = psycopg2.connect(os.getenv('DATABASE_URL'))
+        conn = psycopg.connect(os.getenv('DATABASE_URL'))
         return conn
     except Exception as e:
         print(f"Database connection error: {e}")
@@ -91,18 +91,14 @@ def cycle_time_data():
         if not conn:
             return jsonify({'error': 'Database connection failed'}), 500
         
-        cursor = conn.cursor()
-        
         # Get projects with cycle times
-        cursor.execute("""
+        results = conn.execute("""
             SELECT discovery_cycle_weeks, build_cycle_weeks, created, updated
             FROM projects 
             WHERE discovery_cycle_weeks IS NOT NULL OR build_cycle_weeks IS NOT NULL
             ORDER BY created DESC
-        """)
+        """).fetchall()
         
-        results = cursor.fetchall()
-        cursor.close()
         conn.close()
         
         # Process data for frontend

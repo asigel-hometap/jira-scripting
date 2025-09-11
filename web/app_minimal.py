@@ -114,6 +114,11 @@ def current_data():
         'data': {
             'projects': []
         },
+        'config': {
+            'default_visible': [],
+            'team_members': [],
+            'alert_threshold': 10
+        },
         'message': 'Database not yet connected - run GitHub Actions to populate data'
     })
 
