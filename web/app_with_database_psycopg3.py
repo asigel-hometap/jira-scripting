@@ -374,11 +374,47 @@ def current_data():
         # Get team members
         team_members = list(set([p['assignee'] for p in projects if p['assignee']]))
         
+        # Transform data to match dashboard expectations
+        # Create team data structure
+        team_data = []
+        for member in team_members:
+            member_projects = [p for p in projects if p['assignee'] == member]
+            team_data.append({
+                'team_member': member,
+                'total_issues': len(member_projects),
+                'date': datetime.now().isoformat()
+            })
+        
+        # Create health data structure
+        health_data = []
+        status_counts = {}
+        for project in projects:
+            status = project['status']
+            if status not in status_counts:
+                status_counts[status] = 0
+            status_counts[status] += 1
+        
+        # Map statuses to health categories
+        for status, count in status_counts.items():
+            if 'Done' in status or 'Live' in status:
+                health_status = 'On Track'
+            elif 'Discovery' in status or 'Build' in status:
+                health_status = 'At Risk'
+            else:
+                health_status = 'On Track'
+            
+            health_data.append({
+                'health_status': health_status,
+                'count': count
+            })
+        
         return jsonify({
             'success': True,
             'data': {
                 'projects': projects,
-                'team_members': team_members
+                'team_members': team_members,
+                'team': team_data,
+                'health': health_data
             },
             'config': {
                 'default_visible': team_members[:5],  # First 5 team members
