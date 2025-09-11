@@ -71,6 +71,25 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
                 return None
             else:
                 return obj
+
+        def safe_json_loads(json_str, default=None):
+            """Safely parse JSON string, handling single-quoted JSON."""
+            if not json_str or json_str == '[]' or json_str == '{}':
+                return default or []
+            
+            try:
+                # First try normal JSON parsing
+                return json.loads(json_str)
+            except json.JSONDecodeError:
+                try:
+                    # Try to fix single-quoted JSON by replacing single quotes with double quotes
+                    # This is a simple approach - for more complex cases, we'd need a proper parser
+                    fixed_json = json_str.replace("'", '"')
+                    return json.loads(fixed_json)
+                except json.JSONDecodeError:
+                    # If all else fails, return the default
+                    print(f"⚠️ Warning: Could not parse JSON: {json_str[:100]}...")
+                    return default or []
         
         # Convert DataFrame to records and clean
         # Replace NaN values with None for JSON serialization
@@ -120,9 +139,9 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
                 row.get('health_status', ''),
                 row.get('status', ''),
                 row.get('priority', ''),
-                json.loads(row.get('labels', '[]')) if row.get('labels') and row.get('labels') != '[]' else [],
-                json.loads(row.get('components', '[]')) if row.get('components') and row.get('components') != '[]' else [],
-                json.loads(row.get('teams', '[]')) if row.get('teams') and row.get('teams') != '[]' else [],
+                safe_json_loads(row.get('labels', '[]')),
+                safe_json_loads(row.get('components', '[]')),
+                safe_json_loads(row.get('teams', '[]')),
                 row.get('discovery_effort', None),
                 row.get('build_effort', None),
                 row.get('discovery_cycle_time_weeks', None),
