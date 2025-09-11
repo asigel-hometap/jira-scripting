@@ -30,6 +30,7 @@ def get_db_connection():
             print("❌ DATABASE_URL environment variable not set")
             return None
         
+        print(f"🔌 DATABASE_URL: {database_url[:50]}...")  # Show first 50 chars
         print(f"🔌 Attempting database connection...")
         conn = psycopg.connect(database_url)
         print("✅ Database connection successful")
@@ -37,6 +38,9 @@ def get_db_connection():
     except Exception as e:
         print(f"❌ Database connection error: {e}")
         print(f"❌ Error type: {type(e).__name__}")
+        print(f"❌ Full traceback:")
+        import traceback
+        traceback.print_exc()
         return None
 
 # Add error handler for API routes
