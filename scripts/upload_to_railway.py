@@ -73,19 +73,34 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
                 return obj
 
         def safe_json_loads(json_str, default=None):
-            """Safely parse JSON string, handling single-quoted JSON."""
+            """Safely parse JSON string, handling single-quoted JSON and extracting values."""
             if not json_str or json_str == '[]' or json_str == '{}':
                 return default or []
             
             try:
                 # First try normal JSON parsing
-                return json.loads(json_str)
+                parsed = json.loads(json_str)
+                # If it's a list of dicts, extract the 'value' field from each dict
+                if isinstance(parsed, list) and parsed and isinstance(parsed[0], dict):
+                    return [item.get('value', str(item)) for item in parsed]
+                # If it's already a list of strings, return as-is
+                elif isinstance(parsed, list):
+                    return parsed
+                else:
+                    return [str(parsed)]
             except json.JSONDecodeError:
                 try:
                     # Try to fix single-quoted JSON by replacing single quotes with double quotes
-                    # This is a simple approach - for more complex cases, we'd need a proper parser
                     fixed_json = json_str.replace("'", '"')
-                    return json.loads(fixed_json)
+                    parsed = json.loads(fixed_json)
+                    # If it's a list of dicts, extract the 'value' field from each dict
+                    if isinstance(parsed, list) and parsed and isinstance(parsed[0], dict):
+                        return [item.get('value', str(item)) for item in parsed]
+                    # If it's already a list of strings, return as-is
+                    elif isinstance(parsed, list):
+                        return parsed
+                    else:
+                        return [str(parsed)]
                 except json.JSONDecodeError:
                     # If all else fails, return the default
                     print(f"⚠️ Warning: Could not parse JSON: {json_str[:100]}...")
