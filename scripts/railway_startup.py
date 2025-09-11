@@ -18,8 +18,15 @@ def setup_database():
     """Set up the database schema."""
     print("🗄️ Setting up database schema...")
     
+    # Debug: Check environment variables
+    database_url = os.getenv('DATABASE_URL')
+    print(f"🔍 DATABASE_URL available: {database_url is not None}")
+    if database_url:
+        print(f"🔍 DATABASE_URL preview: {database_url[:50]}...")
+    
     try:
         # Run the database setup script (psycopg3 version)
+        print("🔍 Running: scripts/setup_database_psycopg3.py")
         result = subprocess.run([
             sys.executable, 'scripts/setup_database_psycopg3.py'
         ], capture_output=True, text=True)
@@ -28,7 +35,10 @@ def setup_database():
             print("✅ Database schema setup successful")
             return True
         else:
-            print(f"❌ Database setup failed: {result.stderr}")
+            print(f"❌ Database setup failed:")
+            print(f"   Return code: {result.returncode}")
+            print(f"   stdout: {result.stdout}")
+            print(f"   stderr: {result.stderr}")
             return False
             
     except Exception as e:
