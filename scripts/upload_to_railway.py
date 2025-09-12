@@ -215,8 +215,10 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
             
             project_records.append(project_record)
         
-        # Delete existing projects for this snapshot date
+        # Delete existing data for this snapshot date to avoid duplicates
         cursor.execute("DELETE FROM projects WHERE snapshot_date = %s", (snapshot_date,))
+        deleted_count = cursor.rowcount
+        print(f"🗑️ Deleted {deleted_count} existing records for snapshot {snapshot_date}")
         
         # Insert new projects
         if project_records:
