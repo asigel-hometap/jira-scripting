@@ -164,11 +164,28 @@ def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
                 # API v3 response format is different
                 fields = issue.get('fields', {})
                 
+                # Get assignee data and normalize it
+                assignee_email = get_assignee_email_from_api_v3(fields)
+                assignee_display = get_assignee_display_name_from_api_v3(fields)
+                
+                # Normalize assignee - prefer display name over email
+                if assignee_display:
+                    normalized_assignee = assignee_display
+                elif assignee_email:
+                    # If we only have email, try to map it to a display name
+                    email_to_display = {
+                        'asigel@hometap.com': 'Adam Sigel',
+                        # Add other mappings as needed
+                    }
+                    normalized_assignee = email_to_display.get(assignee_email, assignee_email)
+                else:
+                    normalized_assignee = None
+                
                 project_data = {
                     'project_key': issue.get('key'),
                     'summary': fields.get('summary', ''),
-                    'assignee_email': get_assignee_email_from_api_v3(fields),
-                    'assignee': get_assignee_display_name_from_api_v3(fields),
+                    'assignee_email': assignee_email,
+                    'assignee': normalized_assignee,
                     'status': fields.get('status', {}).get('name', ''),
                     'priority': fields.get('priority', {}).get('name', ''),
                     'created': fields.get('created', ''),
