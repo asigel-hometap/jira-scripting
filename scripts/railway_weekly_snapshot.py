@@ -47,7 +47,7 @@ RAW_DIR = os.path.join(SNAPSHOTS_DIR, 'raw')
 PROCESSED_DIR = os.path.join(SNAPSHOTS_DIR, 'processed')
 
 # JQL Query for HT projects - capture all active projects
-JQL_QUERY = 'project = HT AND status IN ("02 Generative Discovery", "04 Problem Discovery", "05 Solution Discovery", "06 Build", "07 Beta") ORDER BY updated DESC'
+JQL_QUERY = 'project = HT AND status IN ("02 Generative Discovery", "04 Problem Discovery", "05 Solution Discovery", "06 Build", "07 Beta") AND archived = false ORDER BY updated DESC'
 
 # Status mappings for cycle time tracking
 DISCOVERY_STATUSES = ['02 Generative Discovery', '04 Problem Discovery', '05 Solution Discovery']
