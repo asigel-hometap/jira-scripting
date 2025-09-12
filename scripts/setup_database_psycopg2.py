@@ -56,6 +56,7 @@ def create_tables(cursor):
             project_key VARCHAR(50) NOT NULL,
             project_name TEXT,
             assignee_email VARCHAR(255),
+            assignee VARCHAR(255),
             health_status VARCHAR(50),
             status VARCHAR(50),
             priority VARCHAR(50),

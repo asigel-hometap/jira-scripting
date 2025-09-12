@@ -194,7 +194,8 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
                 snapshot_date,
                 safe_get('project_key', ''),
                 safe_get('summary', ''),  # project_name
-                safe_get('assignee', ''),  # assignee_email
+                safe_get('assignee_email', ''),  # assignee_email
+                safe_get('assignee', ''),  # assignee
                 safe_get('health', ''),  # health_status
                 safe_get('status', ''),
                 safe_get('priority', ''),
@@ -222,7 +223,7 @@ def upload_to_database(snapshot_date: str, csv_file: str, json_file: str):
             execute_values(
                 cursor,
                 """INSERT INTO projects (
-                    snapshot_date, project_key, project_name, assignee_email, 
+                    snapshot_date, project_key, project_name, assignee_email, assignee,
                     health_status, status, priority,
                     discovery_effort, build_effort, discovery_cycle_time_weeks, 
                     build_cycle_time_weeks, discovery_start_date, discovery_end_date,

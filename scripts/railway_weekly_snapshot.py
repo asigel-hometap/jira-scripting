@@ -47,7 +47,7 @@ RAW_DIR = os.path.join(SNAPSHOTS_DIR, 'raw')
 PROCESSED_DIR = os.path.join(SNAPSHOTS_DIR, 'processed')
 
 # JQL Query for HT projects - capture all active projects
-JQL_QUERY = 'project = HT AND status IN ("02 Generative Discovery", "04 Problem Discovery", "05 Solution Discovery", "06 Build", "07 Beta") AND status != "Won\'t Do" AND status != "Live" ORDER BY updated DESC'
+JQL_QUERY = 'project = HT AND status IN ("02 Generative Discovery", "04 Problem Discovery", "05 Solution Discovery", "06 Build", "07 Beta") ORDER BY updated DESC'
 
 # Status mappings for cycle time tracking
 DISCOVERY_STATUSES = ['02 Generative Discovery', '04 Problem Discovery', '05 Solution Discovery']
@@ -168,6 +168,7 @@ def fetch_projects_from_jira(jira: JIRA) -> List[Dict[str, Any]]:
                     'project_key': issue.get('key'),
                     'summary': fields.get('summary', ''),
                     'assignee_email': get_assignee_email_from_api_v3(fields),
+                    'assignee': get_assignee_display_name_from_api_v3(fields),
                     'status': fields.get('status', {}).get('name', ''),
                     'priority': fields.get('priority', {}).get('name', ''),
                     'created': fields.get('created', ''),
@@ -282,6 +283,16 @@ def get_assignee_email_from_api_v3(fields: Dict[str, Any]) -> Optional[str]:
         assignee = fields.get('assignee')
         if assignee:
             return assignee.get('emailAddress')
+    except:
+        pass
+    return None
+
+def get_assignee_display_name_from_api_v3(fields: Dict[str, Any]) -> Optional[str]:
+    """Get assignee display name from API v3 response."""
+    try:
+        assignee = fields.get('assignee')
+        if assignee:
+            return assignee.get('displayName')
     except:
         pass
     return None
